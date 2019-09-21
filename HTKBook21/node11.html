@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>2.1 HTK Software Architecture</TITLE>
+<META NAME="description" CONTENT="2.1 HTK Software Architecture">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1609" HREF="node12.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1607" HREF="node10.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1601" HREF="node10.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1611" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1612" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1610" HREF="node12.html">2.2 Generic Properties of a HTK Tool</A>
+<B>Up:</B> <A NAME="tex2html1608" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<B> Previous:</B> <A NAME="tex2html1602" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<BR> <P>
+<H1><A NAME="SECTION02210000000000000000">2.1 HTK Software Architecture</A></H1>
+<A NAME="ssoftarch">&#160;</A>
+<P>
+Much of the functionality of HTK is built into the library modules. 
+These modules ensure that every tool interfaces to the outside world 
+in exactly the same way.  They also provide a central resource of 
+commonly used functions.  Fig.&nbsp;<A HREF="node11.html#fsoftarch">2.1</A> illustrates 
+the software<A NAME=1382>&#160;</A>
+structure of a typical HTK tool and shows its input/output interfaces.
+<P>
+User input/output and interaction with the operating system is 
+controlled by the library 
+module HSHELL<A NAME=1630>&#160;</A> and all memory management
+is controlled by HMEM<A NAME=1631>&#160;</A>.  
+Math support is provided by HMATH<A NAME=1632>&#160;</A>
+and the signal processing operations needed for speech analysis are
+in HSIGP<A NAME=1633>&#160;</A>.<A NAME=1391>&#160;</A>
+Each of the file types required by HTK has a dedicated
+interface module.  
+HLABEL<A NAME=1634>&#160;</A> provides the interface for label files,
+HLM<A NAME=1635>&#160;</A> for language model files,
+HNET<A NAME=1636>&#160;</A> for networks and lattices,
+HDICT<A NAME=1637>&#160;</A> for dictionaries,
+HVQ<A NAME=1638>&#160;</A> for VQ codebooks and
+HMODEL<A NAME=1639>&#160;</A> for HMM definitions.
+<P>
+
+<A NAME="fsoftarch">&#160;</A> <IMG WIDTH=304 HEIGHT=200 ALIGN=BOTTOM ALT="tex2html_wrap19772" SRC="img106.gif"  > 
+<P>
+All speech input and output at the waveform level
+is via HWAVE 
+and at the parameterised level via HPARM.
+As well as providing a consistent interface, HWAVE and 
+HLABEL
+support multiple file formats allowing data to be imported
+from other systems.   Direct audio input is 
+supported by HAUDIO
+and simple interactive graphics is 
+provided by HGRAF.  
+HUTIL provides a 
+number of utility routines for manipulating
+HMMs and HTRAIN contains support for the 
+various HTK training tools.
+Finaly, HREC contains 
+the main recognition processing functions.
+<P>
+
+<A NAME=1641>&#160;</A>
+<A NAME=1642>&#160;</A>
+<A NAME=1643>&#160;</A>
+<A NAME=1644>&#160;</A>
+<A NAME=1645>&#160;</A>
+<A NAME=1646>&#160;</A>
+<A NAME=1647>&#160;</A>
+<P>
+As noted in the next section, fine control over 
+the behaviour of these library modules
+is provided by setting configuration variables<A NAME=1424>&#160;</A>.  Detailed descriptions
+of the functions provided by the libarary modules are given in the second
+part of this book and the relevant configuration variables are described
+as they arise.  For reference purposes, a complete list is given in
+chapter&nbsp;<A HREF="node251.html#cconfvars">14</A>.
+<P>
+<HR><A NAME="tex2html1609" HREF="node12.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1607" HREF="node10.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1601" HREF="node10.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1611" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1612" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1610" HREF="node12.html">2.2 Generic Properties of a HTK Tool</A>
+<B>Up:</B> <A NAME="tex2html1608" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<B> Previous:</B> <A NAME="tex2html1602" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

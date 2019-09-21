@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.3.1 Function</TITLE>
+<META NAME="description" CONTENT="13.3.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3748" HREF="node158.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3746" HREF="node156.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3740" HREF="node156.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3750" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3751" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3749" HREF="node158.html">13.3.2 Use</A>
+<B>Up:</B> <A NAME="tex2html3747" HREF="node156.html">13.3 HCopy</A>
+<B> Previous:</B> <A NAME="tex2html3741" HREF="node156.html">13.3 HCopy</A>
+<BR> <P>
+<H2><A NAME="SECTION04131000000000000000">13.3.1 Function</A></H2>
+<P>
+<A NAME=12035>&#160;</A>
+This program will copy one or more data files to a designated output
+file, optionally converting the data into a parameterised form.  While
+the source files can be in any supported format, the output format is
+always HTK .  By default, the whole of the source file is copied to
+the target but options exist to only copy a specified segment.  Hence,
+this program is used to convert data files in other formats to the HTK  
+format, to concatenate or segment data files, and to parameterise the
+result.  If any option is set which leads to the extraction of a segment
+of the source file rather than all of it, then segments will be
+extracted from all source files and concatenated to the target.
+<P>
+Labels will be copied/concatenated if any of the options indicating
+labels are specified (<tt>-i -l -x -G -I -L -P -X</tt>). In this case, each
+source data file must have an associated label file, and a target label
+file is created. The name of the target label file is the root name of
+the target data file with the extension <tt>.lab</tt>, unless the <tt>-X</tt>
+option is used.  This new label file will contain the appropriately
+copied/truncated/concatenated labels to correspond with the target data
+file; all start and end boundaries are recalculated if necessary.
+<P>
+When used in conjunction with HSLAB, HCOPY provides a facility for tasks
+such as cropping silence surrounding recorded utterances.  Since input
+files may be coerced, HCOPY can also be used to convert the parameter
+kind of a file, for example from WAVEFORM to MFCC, depending on the
+configuration options<A NAME="tex2html922" HREF="footnode.html#12036"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>. 
+Not all possible
+conversions can actually be performed; see Table&nbsp;<A HREF="node158.html#tvalidcons">13.1</A> for a
+list of valid conversions. Conversions must be specified via a
+configuration file as described in chapter&nbsp;<A HREF="node50.html#cspeechio">5</A>.
+<P>
+<HR><A NAME="tex2html3748" HREF="node158.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3746" HREF="node156.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3740" HREF="node156.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3750" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3751" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3749" HREF="node158.html">13.3.2 Use</A>
+<B>Up:</B> <A NAME="tex2html3747" HREF="node156.html">13.3 HCopy</A>
+<B> Previous:</B> <A NAME="tex2html3741" HREF="node156.html">13.3 HCopy</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

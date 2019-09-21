@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>TI macro itemList</TITLE>
+<META NAME="description" CONTENT="TI macro itemList">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4197" HREF="node195.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4195" HREF="node169.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4189" HREF="node193.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4199" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4200" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4198" HREF="node195.html">TR n</A>
+<B>Up:</B> <A NAME="tex2html4196" HREF="node169.html">13.6.1 Function</A>
+<B> Previous:</B> <A NAME="tex2html4190" HREF="node193.html">TC f macro itemList(s)</A>
+<BR> <P>
+<H3><A NAME="SECTION041612500000000000000"><TT>TI macro itemList</TT></A></H3>
+<P>
+Tie the items in <tt>itemList</tt> and assign them to the specified 
+<tt>macro</tt> name.  This command applies to any item type but 
+all of the items in <tt>itemList</tt> must be of the same type.
+The detailed method of tying depends on the item type as follows:
+<DL ><DT><STRONG>state(s)</STRONG>
+<DD> the state with the largest total value of <tt>gConst</tt>
+     in stream 1 (indicating broad variances) and the minimum number of
+     defunct mixture weights (see <tt>MU</tt> command) is selected from the
+   item list and all states are tied to this typical state.
+   <DT><STRONG>transitions(t)</STRONG>
+<DD> all transition matrices in the item list are
+     tied to the first in the list.
+   <DT><STRONG>mixture(m)</STRONG>
+<DD> all mixture components in the item list are tied
+   to the first in the list.
+   <DT><STRONG>mean(u)</STRONG>
+<DD> the average vector of all the mean vectors
+   in the item list is calculated and all the means are tied to this
+   average vector.
+   <DT><STRONG>variance(v)</STRONG>
+<DD> a vector is constructed for which each element
+   is the maximum of the corresponding elements from the set of 
+   variance vectors to be tied.  All of the variances are then tied
+   to this maximum vector.
+   <DT><STRONG>covariance(i)</STRONG>
+<DD> all covariance matrices in the item list are tied
+   to the first in the list.
+   <DT><STRONG>xform(x)</STRONG>
+<DD> all transform matrices in the item list are tied
+   to the first in the list.
+   <DT><STRONG>duration(d)</STRONG>
+<DD> all duration vectors in the item list are tied
+   to the first in the list.
+   <DT><STRONG>stream weights(w)</STRONG>
+<DD> all stream weight vectors in the item 
+   list are tied to the first in the list.
+   <DT><STRONG>pdf(p)</STRONG>
+<DD>  as noted earlier, pdf's are tied to create tied
+   mixture sets rather than to create a shared pdf.  The procedure
+   for tying pdf's is as follows
+   <OL><LI> All mixtures from all pdf's in the item list are collected 
+       together in order of mixture weight.<LI> If the number of mixtures exceeds the join size <I>J</I> [see the
+       Join (<tt>JO</tt>) command above], then all but the first <I>J</I> mixtures
+       are discarded.<LI> If the number of mixtures is less than <I>J</I>, then the
+       mixture with the largest weight is repeatedly split until
+       there are exactly <I>J</I> mixture components.  The split procedure
+       used is the same as for the MixUp (<tt>MU</tt>) command
+       described above.<LI> All pdf's in the item list are made to share all <I>J</I>
+       mixture components.  The weight for each mixture is set
+       proportional to the log likelihood of the mean vector of
+       that mixture with respect to the original pdf.<LI> Finally, all mixture weights below the floor set by the
+       Join command are raised to the floor value and all of the
+       mixture weights are renormalised.
+   </OL> 
+ </DL><HR><A NAME="tex2html4197" HREF="node195.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4195" HREF="node169.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4189" HREF="node193.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4199" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4200" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4198" HREF="node195.html">TR n</A>
+<B>Up:</B> <A NAME="tex2html4196" HREF="node169.html">13.6.1 Function</A>
+<B> Previous:</B> <A NAME="tex2html4190" HREF="node193.html">TC f macro itemList(s)</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

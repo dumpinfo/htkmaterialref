@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.7 Tee Models</TITLE>
+<META NAME="description" CONTENT="7.7 Tee Models">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2866" HREF="node101.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2864" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2858" HREF="node99.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2868" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2869" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2867" HREF="node101.html">7.8 Binary Storage Format</A>
+<B>Up:</B> <A NAME="tex2html2865" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2859" HREF="node99.html">7.6 Discrete Probability HMMs</A>
+<BR> <P>
+<H1><A NAME="SECTION03470000000000000000">7.7 Tee Models</A></H1>
+<A NAME="steemods">&#160;</A>
+<P>
+Normally, the transition probability from the non-emitting entry
+state to the non-emitting exit state of a HMM will be zero to ensure
+that the HMM aligns with at least one observation vector.  
+Models which have a non-zero entry to exit transition probability 
+are referred to as <I>tee-models</I>.
+<P>
+Tee-models<A NAME=6413>&#160;</A> are useful for modelling optional transient effects
+such as short pauses and noise bursts, particularly between words.
+<P>
+Although most HTK tools support tee-models, they are incompatible with
+those that work with isolated models such as HINIT and
+HREST. When a tee-model is loaded into one of these tools, its
+entry to exit transition probability is reset to zero and the first row of
+its transition matrix is renormalised.
+<P>
+<HR><A NAME="tex2html2866" HREF="node101.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2864" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2858" HREF="node99.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2868" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2869" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2867" HREF="node101.html">7.8 Binary Storage Format</A>
+<B>Up:</B> <A NAME="tex2html2865" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2859" HREF="node99.html">7.6 Discrete Probability HMMs</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

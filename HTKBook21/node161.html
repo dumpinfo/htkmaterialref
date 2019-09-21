@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.4.1 Function</TITLE>
+<META NAME="description" CONTENT="13.4.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3797" HREF="node162.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3795" HREF="node160.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3789" HREF="node160.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3799" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3800" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3798" HREF="node162.html">13.4.2 Use</A>
+<B>Up:</B> <A NAME="tex2html3796" HREF="node160.html">13.4 HDMan</A>
+<B> Previous:</B> <A NAME="tex2html3790" HREF="node160.html">13.4 HDMan</A>
+<BR> <P>
+<H2><A NAME="SECTION04141000000000000000">13.4.1 Function</A></H2>
+<P>
+<A NAME=12292>&#160;</A>
+The HTK tool HDMAN is used to prepare a pronunciation dictionary 
+from one or more sources.  It
+reads in a list of <i>editing</i> commands from a
+script file and then outputs an edited and merged copy of 
+one or more dictionaries.
+<P>
+Each source pronunciation dictionary consists of comment lines and 
+definition lines.
+Comment lines start with the <tt>#</tt> character
+(or optionally any one of a set of specified comment chars)
+and are ignored by HDMAN.
+Each definition line starts with a word and is followed by
+a sequence of symbols (phones) that define the pronunciation.
+The words and the phones are delimited by spaces
+or tabs, and the end of line delimits each definition.
+<P>
+Each edit command in the script file must be on a separate line.
+Lines in the script file starting with a <tt>#</tt> are comment lines
+and are ignored.  The commands supported are listed below.  They
+can be displayed by HDMAN using the
+<tt>-Q</tt> option.
+<P>
+When no edit files are specified, HDMAN simply merges all of
+the input dictionaries and outputs them in sorted order.  All input
+dictionaries must be sorted.  Each input dictionary <tt>xxx</tt> may be
+processed by its own private set of edit commands stored in <tt>xxx.ded</tt>.
+Subsequent to the processing of the input dictionaries by their own
+unique edit scripts, the merged dictionary can be processed by
+commands in <tt>global.ded</tt> (or some other specified 
+global edit file name).
+<P>
+Dictionaries are processed on a word by word basis in the order that
+they appear on the command line.  Thus, all of 
+the pronunciations for a given word are loaded into a buffer, then
+all edit commands are applied to these pronunciations.  The result
+is then output and the next word loaded.
+<P>
+Where two or more dictionaries give pronunciations for the same word,
+the default behaviour is that only the first set of pronunciations
+encountered are retained and all others are ignored.  An option exists
+to override this so that all pronunciations are concatenated.
+<P>
+Dictionary entries can be filtered by a word list such that all
+entries not in the list are ignored.
+<P>
+The edit commands provided by HDMAN are as follows
+<P>
+<UL><DT><TT>AS A B ...</TT>
+<DD>  Append silence models A, B, etc to 
+      each pronunciation.
+   <DT><TT>CR X A Y B  </TT>
+<DD> Replace phone <tt>Y</tt> in the context of <tt>A_B</tt> 
+             by <tt>X</tt>.  Contexts may include an asterix <tt>*</tt> to denote any 
+             phone or a defined context set 
+            defined using the <tt>DC</tt> command.
+   <DT><TT>DC X A B ...</TT>
+<DD> Define the set <tt>A</tt>, <tt>B</tt>, ...as 
+             the context <tt>X</tt>.
+   <DT><TT>DD X A B ...</TT>
+<DD> Delete the definition for word <tt>X</tt> starting 
+                              with phones <tt>A</tt>, <tt>B</tt>, ....
+   <DT><TT>DP A B C ...</TT>
+<DD> Delete any occurrences of phones <tt>A</tt> or 
+               <tt>B</tt> or <tt>C</tt> ....
+   <DT><TT>DS src</TT>
+<DD>         Delete each pronunciation from source <tt>src</tt> 
+           unless it is the only one for the current word.
+   <DT><TT>DW X Y Z ...</TT>
+<DD> Delete words (&amp; definitions) <tt>X</tt>,
+           <tt>Y</tt>, <tt>Z</tt>, ....
+   <DT><TT>FW X Y Z ...</TT>
+<DD> Define  <tt>X</tt>,
+           <tt>Y</tt>, <tt>Z</tt>, ... as function words and 
+            change each phone 
+           in the definition to a function word specific phone. For example,
+           in word <tt>W</tt> phone <tt>A</tt> would become <tt>W.A</tt>.
+   <DT><TT>IR</TT>
+<DD>  Set the input mode to raw.
+          In raw mode, words are regarded as arbitrary sequences of printing
+          chars.  In the default mode, words are strings as defined 
+          in section&nbsp;<A HREF="node45.html#shtkstrings">4.6</A>.
+   <DT><TT>LC [X]</TT>
+<DD> Convert all phones to be left-context dependent. If <tt>X</tt> is given
+          then the 1st phone <tt>a</tt> in each word is changed to <tt>X-a</tt> 
+          otherwise it is unchanged.
+   <DT><TT>LP</TT>
+<DD> Convert all phones to lowercase.
+   <DT><TT>LW</TT>
+<DD> Convert all words to lowercase.
+   <DT><TT>MP X A B ...</TT>
+<DD> Merge any sequence of phones <tt>A</tt> <tt>B</tt> 
+          ... and rename as  <tt>X</tt>.
+   <DT><TT>RC [X]</TT>
+<DD> Convert all phones to be right-context dependent. If 
+          <tt>X</tt> is given  then the last phone <tt>z</tt> in each word is
+          changed to <tt>z+X</tt> otherwise it is unchanged.
+   <DT><TT>RP X A B ...</TT>
+<DD> Replace all occurrences of phones <tt>A</tt> 
+       or <tt>B</tt> ...by <tt>X</tt>.
+   <DT><TT>RS system</TT>
+<DD>  Remove stress marking.  Currently the only 
+         stress marking system 
+       supported is that used in the dictionaries produced by 
+       Carnegie Melon University (system = cmu).
+   <DT><TT>RW X A B ...</TT>
+<DD> Replace all occurrences of word <tt>A</tt> 
+       or <tt>B</tt> ...by <tt>X</tt>.
+   <DT><TT>SP X A B ...</TT>
+<DD> Split phone <tt>X</tt> into the sequence 
+      <tt>A</tt> <tt>B</tt> <tt>C</tt> ....
+   <DT><TT>TC [X [Y]]  </TT>
+<DD> Convert phones to triphones. If 
+        <tt>X</tt> is given then the first phone <tt>a</tt> is converted to 
+        <tt>X-a+b</tt> otherwise it is unchanged. If <tt>Y</tt> is given
+          then the last phone <tt>z</tt> is converted to <tt>y-z+Y</tt>
+           otherwise if <tt>X</tt> is given
+            then it is changed to  <tt>y-z+X</tt> otherwise it is unchanged..
+   <DT><TT>UP</TT>
+<DD> Convert all phones to uppercase.
+   <DT><TT>UW</TT>
+<DD> Convert all words to uppercase.
+<P>
+</UL><HR><A NAME="tex2html3797" HREF="node162.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3795" HREF="node160.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3789" HREF="node160.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3799" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3800" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3798" HREF="node162.html">13.4.2 Use</A>
+<B>Up:</B> <A NAME="tex2html3796" HREF="node160.html">13.4 HDMan</A>
+<B> Previous:</B> <A NAME="tex2html3790" HREF="node160.html">13.4 HDMan</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

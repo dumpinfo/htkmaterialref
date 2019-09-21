@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>11.5 Building a Word Network with HBUILD</TITLE>
+<META NAME="description" CONTENT="11.5 Building a Word Network with HBUILD">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3287" HREF="node134.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3285" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3279" HREF="node132.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3289" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3290" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3288" HREF="node134.html">11.6 Testing a Word Network using HSGEN</A>
+<B>Up:</B> <A NAME="tex2html3286" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3280" HREF="node132.html">11.4 Bigram Language Models</A>
+<BR> <P>
+<H1><A NAME="SECTION03850000000000000000">11.5 Building a Word Network with HBUILD</A></H1>
+<A NAME="susehbuild">&#160;</A>
+<P>
+
+<A NAME="fdecinet">&#160;</A> <IMG WIDTH=256 HEIGHT=119 ALIGN=BOTTOM ALT="tex2html_wrap22056" SRC="img458.gif"  > 
+<P>
+As mentioned in the introduction, the main function of HBUILD
+is allow a word-level network to be constructed from
+a main lattice and a set of sub-lattices<A NAME=10957>&#160;</A>.  Any lattice
+can contain node definitions which refer to other lattices.
+This allows a word-level recognition network to be decomposed
+into a number of sub-networks which can be reused at different
+points in the network.
+<P>
+
+<A NAME=10747>&#160;</A>
+<P>
+For example, suppose that decimal number
+input was required.  A suitable network structure would be
+as shown in Fig.&nbsp;<A HREF="node133.html#fdecinet">11.5</A>.  However, to write this directly
+in an SLF file would require the digit loop to be written twice.
+This can be avoided by defining the digit loop as a sub-network
+and referencing it within the main <i>decimal</i> network as
+follows
+<P>
+<PRE>    # Digit network
+    SUBLAT=digits
+    N=14 L=21
+    # define digits
+    I=0  W=zero
+    I=1  W=one
+    I=2  W=two
+    ...
+    I=9  W=nine
+    #  enter/exit &amp; loop-back null nodes
+    I=10 W=!NULL
+    I=11 W=!NULL
+    I=12 W=!NULL
+    I=13 W=!NULL
+    # null-&gt;null-&gt;digits
+    J=0 S=10 E=11
+    J=1 S=11 E=0
+    J=2 S=11 E=1
+    ...
+    J=10 S=11 E=9
+    # digits-&gt;null-&gt;null
+    J=11 S=0 E=12
+    ...
+    J=19 S=9 E=12
+    J=20 S=12 E=13
+    # finally add loop back
+    J=21 S=12 E=11
+    .
+
+    # Decimal netork
+    N=5 L=4
+    # digits -&gt; point -&gt; digits
+    I=0 W=start
+    I=1 L=digits
+    I=2 W=pause
+    I=3 L=digits
+    I=4 W=end
+    # digits -&gt; point -&gt; digits
+    J=0 S=0 E=1
+    J=1 S=1 E=2
+    J=2 S=2 E=3
+    J=3 S=3 E=4</PRE>
+The sub-network is identified by the field 
+<tt>SUBLAT</tt><A NAME=10748>&#160;</A> in the header
+and it is terminated by a single period on a line by itself.  The
+main body of the sub-network is written as normal.
+Once defined, a sub-network can be substituted into a higher level
+network using an <tt>L</tt> field in a node definition, as in nodes
+1 and 3 of the decimal network above.
+<P>
+Of course, this process can be continued and a higher level network
+could reference the decimal network wherever it needed decimal
+number entry.
+<P>
+<A NAME="fbobig">&#160;</A> <IMG WIDTH=411 HEIGHT=308 ALIGN=BOTTOM ALT="tex2html_wrap22058" SRC="img459.gif"  > 
+<P>
+One of the commonest form of recognition network is the 
+word-loop<A NAME=10557>&#160;</A>
+where all vocabulary items are placed in parallel with a loop-back
+to allow any word sequence to be recognised.  This is the basic
+arrangement used in most dictation or transcription applications.
+HBUILD can build such a loop automatically from a list
+of words.  It can also read in a bigram in either ARPA MIT-LL 
+format or HTK matrix format and attach a bigram probability to
+each word transition.  Note, however, that using a full bigram
+language model means that every distinct pair of words must
+have its own unique loop-back transition.  This increases the size of
+the network considerably and slows down the recogniser.
+When a back-off bigram is used, however, backed-off transitions
+can share a common loop-back transition.  Fig.&nbsp;<A HREF="node133.html#fbobig">11.6</A>
+illustrates this.  When backed-off bigrams are input via an ARPA MIT-LL 
+format file, HBUILD will exploit this where possible.
+<P>
+Finally, HBUILD can automatically construct a 
+word-pair grammar<A NAME=10562>&#160;</A> as 
+used in the ARPA Naval Resource Management task.
+<P>
+<HR><A NAME="tex2html3287" HREF="node134.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3285" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3279" HREF="node132.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3289" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3290" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3288" HREF="node134.html">11.6 Testing a Word Network using HSGEN</A>
+<B>Up:</B> <A NAME="tex2html3286" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3280" HREF="node132.html">11.4 Bigram Language Models</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

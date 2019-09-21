@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.8.7 AIFF File Format</TITLE>
+<META NAME="description" CONTENT="5.8.7 AIFF File Format">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2450" HREF="node68.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2448" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2442" HREF="node66.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2452" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2453" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2451" HREF="node68.html">5.8.8 SUNAU8 File Format</A>
+<B>Up:</B> <A NAME="tex2html2449" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2443" HREF="node66.html">5.8.6 SDES1 File Format</A>
+<BR> <P>
+<H2><A NAME="SECTION03287000000000000000">5.8.7 AIFF File Format</A></H2>
+<P>
+<A NAME=3967>&#160;</A>
+The AIFF format was defined by Apple Computer for storing monoaural and
+multichannel sampled sounds.  An AIFF file consists of a number of <I>
+chunks</I>.  A <I>Common</I> chunk contains the fundamental parameters of the sound
+(sample rate, number of channels, etc) and a <I>Sound Data</I> chunk contains
+sampled audio data.  HTK only partially supports AIFF since some of the
+information in it is stored as floating point numbers.  In particular, the
+sample rate is stored in this form and to avoid portability problems, 
+HTK ignores the given sample rate and assumes that it is 16kHz.  If this 
+default rate is incorrect, then the true sample period should be
+specified by setting the <tt>SOURCERATE</tt> configuration parameter.
+Full details of the AIFF format is available from Apple Developer
+Technical Support.
+<P>
+<HR><A NAME="tex2html2450" HREF="node68.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2448" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2442" HREF="node66.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2452" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2453" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2451" HREF="node68.html">5.8.8 SUNAU8 File Format</A>
+<B>Up:</B> <A NAME="tex2html2449" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2443" HREF="node66.html">5.8.6 SDES1 File Format</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

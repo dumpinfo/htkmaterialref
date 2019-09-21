@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>12.4 Evaluating Recognition Results</TITLE>
+<META NAME="description" CONTENT="12.4 Evaluating Recognition Results">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3398" HREF="node143.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3396" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3390" HREF="node141.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3400" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3401" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3399" HREF="node143.html">12.5 Generating Forced Alignments</A>
+<B>Up:</B> <A NAME="tex2html3397" HREF="node138.html">12 Decoding</A>
+<B> Previous:</B> <A NAME="tex2html3391" HREF="node141.html">12.3 Recognition using Test Databases</A>
+<BR> <P>
+<H1><A NAME="SECTION03940000000000000000">12.4 Evaluating Recognition Results</A></H1>
+<A NAME="sreceval">&#160;</A>
+<P>
+<A NAME=11229>&#160;</A>
+Once the test data has been processed by the recogniser, the next step is to
+analyse the results. The tool <A NAME=11409>&#160;</A>
+HRESULTS is provided for this purpose. HRESULTS compares 
+the transcriptions output by HVITE with the original reference
+transcriptions and then outputs various statistics. HRESULTS matches
+each of the recognised and reference label sequences by performing an optimal
+string match<A NAME=11235>&#160;</A> using dynamic programming. Except when
+scoring word-spotter output as described later, it does not take any notice of
+any boundary timing information stored in the files being compared.  The
+optimal string match works by calculating a score for the match with respect to
+the reference such that identical labels match with score 0, a label insertion
+carries a score of 7, a deletion carries a score of 7 and a substitution
+carries a score of 10<A NAME="tex2html884" HREF="footnode.html#11410"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>. The optimal
+string match is the label alignment which has the lowest possible score.
+<P>
+Once the optimal alignment has been found, the number of substitution
+errors (<I>S</I>), deletion errors (<I>D</I>) and insertion errors (<I>I</I>) can be
+calculated.  The percentage correct is then
+<P> <IMG WIDTH=500 HEIGHT=29 ALIGN=BOTTOM ALT="equation11237" SRC="img467.gif"  > <P>
+where <I>N</I> is the total number of labels in the reference transcriptions.
+Notice that this measure ignores insertion errors.  For many purposes,
+the percentage accuracy defined as
+<P> <IMG WIDTH=500 HEIGHT=29 ALIGN=BOTTOM ALT="equation11242" SRC="img468.gif"  > <P>
+is a more representative figure of 
+recogniser performance<A NAME=11247>&#160;</A>.
+<P>
+HRESULTS outputs both of the above measures. As with all 
+HTK tools it can process individual label files and files stored in MLFs.
+Here the examples will assume that both reference and test transcriptions
+are stored in MLFs.
+<P>
+As an example of use, suppose that the MLF <tt>results</tt> contains
+recogniser output transcriptions, <tt>refs</tt> contains
+the corresponding reference transcriptions and <tt>wlist</tt>
+contains a list of all labels appearing in these files.  Then typing the command
+<PRE>    HResults -I refs wlist results</PRE>
+would generate something like the following
+<PRE>  ====================== HTK Results Analysis =======================
+    Date: Sat Sep  2 14:14:22 1995
+    Ref : refs
+    Rec : results
+  ------------------------ Overall Results --------------------------
+  SENT: %Correct=98.50 [H=197, S=3, N=200]
+  WORD: %Corr=99.77, Acc=99.65 [H=853, D=1, S=1, I=1, N=855]
+  ===================================================================</PRE>
+The first part shows the date and the names of the files being used.
+The line labelled <tt>SENT</tt> shows the total number of 
+complete sentences which were recognised correctly.  The second line 
+labelled <tt>WORD</tt> 
+gives the
+recognition statistics<A NAME=11254>&#160;</A> for the individual words<A NAME="tex2html887" HREF="footnode.html#11411"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+<P>
+It is often useful to visually inspect the 
+recognition errors<A NAME=11260>&#160;</A>.  Setting the
+<tt>-t</tt> option causes aligned test and reference transcriptions to
+be output for all sentences containing errors.  For example, a typical
+output might be
+<PRE>  Aligned transcription: testf9.lab vs testf9.rec
+   LAB: FOUR    SEVEN NINE THREE
+   REC: FOUR OH SEVEN FIVE THREE</PRE>
+here an ``oh'' has been inserted by the recogniser and ``nine''
+has been recognised as ``five''
+<P>
+If preferred, results output can be formatted in an identical
+manner to NIST scoring software<A NAME=11262>&#160;</A> by setting the  <TT>-h</TT> option.
+For example, the results given above would appear as follows in
+NIST format<A NAME=11264>&#160;</A>
+<PRE>  ,-------------------------------------------------------------.
+  | HTK Results Analysis at Sat Sep  2 14:42:06 1995            |
+  | Ref: refs                                                   |
+  | Rec: results                                                |
+  |=============================================================|
+  |           # Snt |  Corr    Sub    Del    Ins    Err  S. Err |
+  |-------------------------------------------------------------|
+  | Sum/Avg |  200  |  99.77   0.12   0.12   0.12   0.35   1.50 |
+  `-------------------------------------------------------------'</PRE>
+<P>
+When computing recognition results it is sometimes
+inappropriate to distinguish certain labels.  For example, to assess
+a digit recogniser used for voice dialling it might be required to
+treat the alternative vocabulary items ``oh'' and ``zero'' as being
+equivalent.  This can be done by making them equivalent using the
+<tt>-e</tt> option, that is
+<PRE>    HResults -e ZERO OH  .....</PRE>
+If a label is equated to the special label <code>???</code>, then it 
+is ignored.  Hence, for example, if the recognition output had
+silence marked by <tt>SIL</tt>, the setting the option
+<code>-e ??? SIL</code> would cause all the <tt>SIL</tt> labels to be
+ignored.<A NAME=11268>&#160;</A>
+<P>
+HRESULTS contains a number of other options.
+Recognition statistics can be generated for each file
+individually by setting the <TT>-f</TT> option and a 
+confusion matrix<A NAME=11271>&#160;</A>
+can be generated by setting the  <TT>-p</TT> option.
+When comparing phone recognition results, HRESULTS will
+strip any triphone contexts by setting the  <TT>-s</TT> option.
+HRESULTS can also process N-best recognition output.
+Setting the option <tt>-d N</tt> causes HRESULTS to
+search the first <tt>N</tt> alternatives of each test output
+file to find the most accurate match with the reference labels.
+<P>
+When analysing the performance of a speaker independent recogniser
+it is often useful to obtain accuracy figures on a per speaker basis.
+This can be done using the option <tt>-k mask</tt> where <tt>mask</tt>
+is a pattern used to extract 
+the speaker identifier<A NAME=11281>&#160;</A> from the test label file name.  
+The pattern consists of a string of characters which can include
+the pattern matching metacharacters 
+<tt>*</tt> and <tt>?</tt> to match zero or more characters and a single character,
+respectively.
+The pattern
+should also contain a string of one or more <tt>%</tt> characters which
+are used as a mask to identify the speaker identifier.
+<P>
+For example,
+suppose that the test filenames had the following structure
+<PRE>    DIGITS_spkr_nnnn.rec</PRE>
+where <tt>spkr</tt> is a 4 character speaker id and <tt>nnnn</tt>
+is a 4 digit utterance id.  Then executing HRESULTS by
+<PRE>    HResults -h -k '*_%%%%_????.*' ....</PRE>
+would give output of the form
+<PRE>    ,-------------------------------------------------------------.
+    | HTK Results Analysis at Sat Sep  2 15:05:37 1995            |
+    | Ref: refs                                                   |
+    | Rec: results                                                |
+    |-------------------------------------------------------------|
+    |    SPKR | # Snt |  Corr    Sub    Del    Ins    Err  S. Err |
+    |-------------------------------------------------------------|
+    |    dgo1 |   20  | 100.00   0.00   0.00   0.00   0.00   0.00 |
+    |-------------------------------------------------------------|
+    |    pcw1 |   20  |  97.22   1.39   1.39   0.00   2.78  10.00 |
+    |-------------------------------------------------------------|
+    ......
+    |=============================================================|
+    | Sum/Avg |  200  |  99.77   0.12   0.12   0.12   0.35   1.50 |
+    `-------------------------------------------------------------'</PRE>
+<P>
+In addition to string matching, HRESULTS can also 
+analyse the results of a recogniser configured for word-spotting.
+In this case, there is no DP alignment.  Instead, each recogniser
+label <I>w</I> is compared with the reference transcriptions.
+If the start and end times of <I>w</I> lie either side of the mid-point
+of an identical label in the reference, then that recogniser label
+represents a <i>hit</i>, otherwise it is a <i>false-alarm</i> (FA).
+<P>
+The recogniser output must include the log likelihood scores as
+well as the word boundary information.  <A NAME=11291>&#160;</A>
+These scores are used to compute the <i>Figure of Merit</i> (FOM)
+defined by NIST which is an upper-bound estimate on word spotting
+accuracy averaged over 1 to 10 false alarms per hour.
+The FOM<A NAME=11293>&#160;</A> is calculated  as follows where it is assumed that the
+total duration of the test speech is <I>T</I> hours.  For each word, all of
+the spots are ranked in score order.  The percentage of true hits
+ <IMG WIDTH=10 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline22108" SRC="img469.gif"  >  found before the <I>i</I>'th false alarm is then calculated for 
+ <IMG WIDTH=89 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline22112" SRC="img470.gif"  >  where <I>N</I> is the first integer  <IMG WIDTH=73 HEIGHT=24 ALIGN=MIDDLE ALT="tex2html_wrap_inline22116" SRC="img471.gif"  > .
+The figure of merit is then defined as
+<P><A NAME="enistfom">&#160;</A> <IMG WIDTH=500 HEIGHT=29 ALIGN=BOTTOM ALT="equation11564" SRC="img472.gif"  > <P>
+where <I>a</I> = 10<I>T</I> - <I>N</I> is a factor that interpolates to 10 false
+alarms per hour.
+<P>
+Word spotting analysis is enabled by setting the <tt>-w</tt> option
+and the resulting output has the form
+<PRE>  ------------------- Figures of Merit --------------------
+      KeyWord:    #Hits     #FAs  #Actual      FOM
+        BADGE:       92       83      102    73.56
+       CAMERA:       20        2       22    89.86
+       WINDOW:       84        8       92    86.98
+        VIDEO:       72        6       72    99.81
+      Overall:      268       99      188    87.55
+  ---------------------------------------------------------</PRE>
+If required the standard time unit of 1 hour as used in the above
+definition of FOM can be changed using the <tt>-u option</tt>.
+<P>
+<HR><A NAME="tex2html3398" HREF="node143.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3396" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3390" HREF="node141.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3400" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3401" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3399" HREF="node143.html">12.5 Generating Forced Alignments</A>
+<B>Up:</B> <A NAME="tex2html3397" HREF="node138.html">12 Decoding</A>
+<B> Previous:</B> <A NAME="tex2html3391" HREF="node141.html">12.3 Recognition using Test Databases</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

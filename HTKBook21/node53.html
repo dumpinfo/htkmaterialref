@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.3 Linear Prediction Analysis</TITLE>
+<META NAME="description" CONTENT="5.3 Linear Prediction Analysis">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2271" HREF="node54.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2269" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2263" HREF="node52.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2273" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2274" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2272" HREF="node54.html">5.4 Filterbank Analysis</A>
+<B>Up:</B> <A NAME="tex2html2270" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2264" HREF="node52.html">5.2 Speech Signal Processing</A>
+<BR> <P>
+<H1><A NAME="SECTION03230000000000000000">5.3 Linear Prediction Analysis</A></H1>
+<A NAME="slpcanal">&#160;</A>
+<P>
+In linear prediction (LP) <A NAME=3601>&#160;</A> analysis, the 
+vocal tract transfer function
+is modelled by an all-pole filter<A NAME=3602>&#160;</A> with transfer function<A NAME="tex2html347" HREF="footnode.html#4516"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>
+<P><A NAME="eallpole">&#160;</A> <IMG WIDTH=500 HEIGHT=33 ALIGN=BOTTOM ALT="equation4765" SRC="img146.gif"  > <P>
+where <I>p</I> is the number of poles and  <IMG WIDTH=38 HEIGHT=18 ALIGN=MIDDLE ALT="tex2html_wrap_inline19864" SRC="img147.gif"  > .
+The filter coefficients  <IMG WIDTH=24 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19866" SRC="img148.gif"  >  are chosen to minimise
+the mean square filter prediction error summed over the analysis
+window.  The HTK module HSIGP uses the <i>autocorrelation
+method</i> to perform this optimisation as follows.
+<P>
+Given a window of speech samples  <IMG WIDTH=88 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19868" SRC="img149.gif"  > ,
+the first <I>p</I>+1 terms of the autocorrelation sequence are
+calculated from
+<P><A NAME="eautoco">&#160;</A> <IMG WIDTH=500 HEIGHT=45 ALIGN=BOTTOM ALT="equation4774" SRC="img150.gif"  > <P>
+where <I>i</I> = 0,<I>p</I>.
+The filter coefficients are then computed recursively
+using a set of auxiliary coefficients  <IMG WIDTH=24 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19874" SRC="img151.gif"  >  which can be
+interpreted as the reflection coefficients of an equivalent
+acoustic tube and the prediction error <I>E</I> which is initially
+equal to  <IMG WIDTH=11 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19878" SRC="img171.gif"  > .  Let  <IMG WIDTH=48 HEIGHT=32 ALIGN=MIDDLE ALT="tex2html_wrap_inline19880" SRC="img153.gif"  >  and  <IMG WIDTH=48 HEIGHT=32 ALIGN=MIDDLE ALT="tex2html_wrap_inline19882" SRC="img154.gif"  > 
+be the reflection and filter coefficients for a filter of order
+<I>i</I>-1, then a filter of order <I>i</I> can be calculated in three steps.
+Firstly, a new set of reflection coefficients<A NAME=3618>&#160;</A> are calculated.
+<P><A NAME="ekupdate1">&#160;</A> <IMG WIDTH=500 HEIGHT=22 ALIGN=BOTTOM ALT="equation4780" SRC="img155.gif"  > <P>
+for <I>j</I> = 1,<I>i</I>-1 and
+<P><A NAME="ekupdate2">&#160;</A> <IMG WIDTH=500 HEIGHT=50 ALIGN=BOTTOM ALT="equation4785" SRC="img156.gif"  > <P>
+Secondly, the prediction energy is updated.
+<P><A NAME="eEupdate">&#160;</A> <IMG WIDTH=500 HEIGHT=20 ALIGN=BOTTOM ALT="equation4794" SRC="img157.gif"  > <P>
+Finally, new filter coefficients are computed
+<P><A NAME="eaupdate1">&#160;</A> <IMG WIDTH=500 HEIGHT=22 ALIGN=BOTTOM ALT="equation4801" SRC="img158.gif"  > <P>
+for <I>j</I> = 1,<I>i</I>-1 and
+<P><A NAME="eaupdate2">&#160;</A> <IMG WIDTH=500 HEIGHT=20 ALIGN=BOTTOM ALT="equation4809" SRC="img159.gif"  > <P>
+This process is repeated from <I>i</I>=1 through to the required filter order
+<I>i</I>=<I>p</I>.
+<P>
+To effect the above transformation, the target parameter kind must
+be set to either <tt>LPC</tt><A NAME=4524>&#160;</A> to obtain the LP filter parameters  <IMG WIDTH=24 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19896" SRC="img148.gif"  >  or
+<tt>LPREFC</tt><A NAME=4525>&#160;</A> to obtain the reflection coefficients   <IMG WIDTH=24 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19898" SRC="img151.gif"  > .  The
+required filter order must also be set using the configuration
+parameter <tt>LPCORDER</tt><A NAME=4526>&#160;</A>.
+Thus, for example, the following configuration
+settings would produce a target parameterisation
+consisting of 12 reflection coefficients per vector.
+<PRE>    TARGETKIND = LPREFC
+    LPCORDER = 12</PRE>
+<P>
+An alternative LPC-based parameterisation is obtained by setting the
+target kind to  <tt>LPCEPSTRA</tt><A NAME=4527>&#160;</A> to generate linear prediction cepstra.  
+The cepstrum of a signal is computed by taking a Fourier (or similar)
+transform of the log spectrum.  In the case of linear 
+prediction cepstra<A NAME=3651>&#160;</A>, the
+required spectrum is the linear prediction spectrum which can be obtained
+from the Fourier transform of the filter coefficients. However, it can be shown
+that the required cepstra can be more efficiently computed using 
+a simple recursion
+<P><A NAME="elpcepstra">&#160;</A> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation4814" SRC="img162.gif"  > <P>
+The number of cepstra generated need not be the same as the number of
+filter coefficients, hence it is set by a separate configuration 
+parameter called <tt>NUMCEPS</tt><A NAME=4529>&#160;</A>.
+<P>
+The principal advantage of cepstral coefficients is that they are 
+generally decorrelated and this allows diagonal covariances
+to be used in the HMMs.  However, one minor problem with 
+them is that the higher order cepstra are numerically quite small and 
+this results in
+a very wide range of variances when going from the low to high cepstral 
+coefficients<A NAME=3660>&#160;</A>.
+HTK does not have a problem with this but for pragmatic reasons such as
+displaying model parameters, flooring variances, etc., it is convenient to re-scale
+the cepstral coefficients to have similar magnitudes.  This is done by
+setting the configuration parameter <tt>CEPLIFTER</tt><A NAME=4530>&#160;</A> to some value <I>L</I> to
+<i>lifter</i> the cepstra according to the following formula
+<P><A NAME="eceplifter">&#160;</A> <IMG WIDTH=500 HEIGHT=34 ALIGN=BOTTOM ALT="equation4823" SRC="img163.gif"  > <P>
+<P>
+As an example, the following configuration parameters would
+use a 14'th order linear prediction analysis to
+generate 12 liftered LP cepstra per target vector
+<PRE>    TARGETKIND = LPCEPSTRA
+    LPCORDER = 14
+    NUMCEPS = 12
+    CEPLIFTER = 22</PRE>
+These are typical of the values needed to generate a good front-end
+parameterisation for a speech recogniser based on linear prediction.
+<A NAME=3670>&#160;</A><A NAME=3671>&#160;</A>
+<P>
+Finally, note that the conversions supported by HTK are not limited to
+the case where the source is a waveform.  HTK can convert any
+LP-based parameter into any other LP-based parameter.
+<P>
+<HR><A NAME="tex2html2271" HREF="node54.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2269" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2263" HREF="node52.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2273" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2274" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2272" HREF="node54.html">5.4 Filterbank Analysis</A>
+<B>Up:</B> <A NAME="tex2html2270" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2264" HREF="node52.html">5.2 Speech Signal Processing</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

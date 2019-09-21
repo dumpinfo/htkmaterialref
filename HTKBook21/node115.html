@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>9 HMM System Refinement</TITLE>
+<META NAME="description" CONTENT="9 HMM System Refinement">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3055" HREF="node116.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3053" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3047" HREF="node114.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3057" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3058" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3056" HREF="node116.html">9.1 Using HHED</A>
+<B>Up:</B> <A NAME="tex2html3054" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html3048" HREF="node114.html">8.7.4 Embedded Model Reestimation(HEREST)</A>
+<BR> <P>
+<H1><A NAME="SECTION03600000000000000000">9 HMM System Refinement</A></H1>
+<A NAME="cRefine">&#160;</A>
+<P>
+In chapter&nbsp;<A HREF="node103.html#cTraining">8</A>, the basic processes involved in training
+a continuous density HMM system were explained and examples were given
+of building a set of HMM phone models.  In the practical application
+of these techniques to building real systems, there are often a number of  
+problems to overcome.  Most of these arise from the conflicting desire
+to have a large number of model parameters in order to
+achieve high accuracy, whilst at the same time having limited and uneven
+training data. <A NAME=9954>&#160;</A>
+<P>
+As mentioned previously,
+the HTK philosophy is to build systems incrementally.  Starting 
+with a set of context-independent 
+monophone HMMs, a system can be refined in a sequence of stages.  Each refinement
+step typically uses the HTK HMM definition editor HHED followed
+by re-estimation using HEREST.  These incremental manipulations of
+the HMM set often involve parameter tying, thus many of HHED's
+operations involve generating new macro definitions.
+<P>
+  <IMG WIDTH=229 HEIGHT=341 ALIGN=BOTTOM ALT="tex2html_wrap21964" SRC="img431.gif"  > 
+<P>
+The principle types of manipulation that can be performed 
+by HHED<A NAME=9916>&#160;</A>
+are 
+<UL><LI> HMM cloning to form context-dependent model sets<LI> Generalised parameter tying<LI> Data driven and decision tree based clustering.<LI> Mixture component splitting<LI> Adding/removing state transitions<LI> Stream splitting, resizing and recasting
+</UL>
+This chapter describes how the HTK tool HHED is used,  its
+editing language and the main operations that can be
+performed.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html3059" HREF="node116.html#SECTION03610000000000000000">9.1 Using HHED</A>
+<LI> <A NAME="tex2html3060" HREF="node117.html#SECTION03620000000000000000">9.2 Constructing Context-Dependent Models</A>
+<LI> <A NAME="tex2html3061" HREF="node118.html#SECTION03630000000000000000">9.3 Parameter Tying and Item Lists</A>
+<LI> <A NAME="tex2html3062" HREF="node119.html#SECTION03640000000000000000">9.4 Data-Driven Clustering</A>
+<LI> <A NAME="tex2html3063" HREF="node120.html#SECTION03650000000000000000">9.5 Tree-Based Clustering</A>
+<LI> <A NAME="tex2html3064" HREF="node121.html#SECTION03660000000000000000">9.6 Mixture Incrementing</A>
+<LI> <A NAME="tex2html3065" HREF="node122.html#SECTION03670000000000000000">9.7 Miscellaneous Operations</A>
+</UL>
+<HR><A NAME="tex2html3055" HREF="node116.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3053" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3047" HREF="node114.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3057" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3058" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3056" HREF="node116.html">9.1 Using HHED</A>
+<B>Up:</B> <A NAME="tex2html3054" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html3048" HREF="node114.html">8.7.4 Embedded Model Reestimation(HEREST)</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

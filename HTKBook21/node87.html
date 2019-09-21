@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.3.1 General Principles of MLFs</TITLE>
+<META NAME="description" CONTENT="6.3.1 General Principles of MLFs">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2705" HREF="node88.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2703" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2697" HREF="node86.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2707" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2708" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2706" HREF="node88.html">6.3.2 Syntax and Semantics</A>
+<B>Up:</B> <A NAME="tex2html2704" HREF="node86.html">6.3 Master Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2698" HREF="node86.html">6.3 Master Label Files</A>
+<BR> <P>
+<H2><A NAME="SECTION03331000000000000000">6.3.1 General Principles of MLFs</A></H2>
+<P>
+<A NAME=5324>&#160;</A>
+Logically, the organisation of data and label files is very simple.
+Every data file has a label file of the same name (but
+different extension) which is either stored in the same directory as
+the data file or in some other specified directory.
+<P>
+This scheme is sufficient for most needs and commendably simple.
+However, there are many cases where either it makes unnecessarily
+inefficient use of the operating system or it seriously inconveniences
+the user.  For example, to use a training tool with
+isolated word data may require the generation of hundreds or thousands of
+label files each having just one label entry.  Even where individual
+label files are appropriate (as in the phonetically transcribed TIMIT
+database), each label file must be
+stored in the same directory as the data file it transcribes, or all label files
+must be stored in the same directory.  One cannot, for example, have a
+different directory of label files for each TIMIT dialect region and
+then run the HTK training tool HEREST on the whole database.
+<P>
+All of these problems can be solved by the use of Master Label Files
+(MLFs).  Every HTK tool which uses label files has a 
+<tt>-I</tt><A NAME=5559>&#160;</A> option
+which can be used to specify the name of an MLF file.  When an MLF has been
+loaded, the normal rules for locating a label file apply except that
+the MLF is searched first.  If the required label file <tt>f</tt> is found via
+the MLF then that is loaded, otherwise the file <tt>f</tt> is opened as normal.
+If <tt>f</tt> does not exist, then an error is reported.
+The <tt>-I</tt> option may be repeated on the command line to open
+several MLF files simultaneously.  In this case, each is searched in turn
+before trying to open the required file.
+<P>
+MLFs can do two things.  Firstly, they can contain 
+embedded label definitions<A NAME=5332>&#160;</A> 
+so that many or all of the needed label definitions can be
+stored in the same file.  Secondly, they can contain the names of
+sub-directories to search for label files.  In effect, they allow
+multiple search paths<A NAME=5333>&#160;</A> 
+to be defined.  Both of these two types of
+definition can be mixed in a single MLF.
+<P>
+MLFs are quite complex to understand and use.  However, they add
+considerable power and flexibility to HTK which combined with the
+<tt>-S</tt><A NAME=5560>&#160;</A> and 
+<tt>-L</tt><A NAME=5561>&#160;</A> 
+options mean that virtually any organisation of
+data and label files can be accommodated.
+<P>
+<HR><A NAME="tex2html2705" HREF="node88.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2703" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2697" HREF="node86.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2707" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2708" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2706" HREF="node88.html">6.3.2 Syntax and Semantics</A>
+<B>Up:</B> <A NAME="tex2html2704" HREF="node86.html">6.3 Master Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2698" HREF="node86.html">6.3 Master Label Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

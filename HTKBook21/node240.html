@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.16.1 Function</TITLE>
+<META NAME="description" CONTENT="13.16.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4761" HREF="node241.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4759" HREF="node239.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4753" HREF="node239.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4763" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4764" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4762" HREF="node241.html">13.16.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4760" HREF="node239.html">13.16 HSLab</A>
+<B> Previous:</B> <A NAME="tex2html4754" HREF="node239.html">13.16 HSLab</A>
+<BR> <P>
+<H2><A NAME="SECTION041161000000000000000">13.16.1 Function</A></H2>
+<P>
+<A NAME=14690>&#160;</A>
+HSLAB is an interactive label editor for manipulating speech label files. 
+An example of using HSLAB would be to load a sampled waveform file, 
+determine the boundaries of the speech units of interest and assign labels 
+to them. Alternatively, an existing label file can be loaded and edited by
+changing current label boundaries, deleting and creating new labels.
+HSLAB is the only tool in the HTK package which makes use of the 
+graphics library HGRAF.
+<P>
+When started HSLAB displays a window which is split into two parts: a
+display section and a control section (see Fig&nbsp;<A HREF="node240.html#fhslab">13.1</A>). 
+The display section contains the plotted speech waveform with the 
+associated labels. The control section consists of a palette of buttons 
+which are used to invoke the various facilities available in the tool. 
+The buttons are laid out into three different groups depending on the 
+function they perform. Group one (top row) contains buttons related to 
+basic input/output commands. 
+Group two (middle row) implements the viewing and record/playback functions. 
+The buttons in group three (bottom row) are used for labelling. To invoke a 
+particular function, place the mouse pointer onto the corresponding button 
+and click once. All commands which require further interaction with the user 
+after invocation will display guiding text in the message area telling the 
+user what he or she is expected to do next. For example, to delete a label, 
+the user will click on <tt>Delete</tt>, the message ``Please select label to delete'' 
+will appear in the message area and the user will be expected to click in that 
+part of the display section corresponding to the label to be deleted (not on 
+the label itself).
+<P>
+A <EM>marked region</EM> is a slice of the waveform currently visible in the 
+window. A region is marked by clicking on <tt>Mark</tt> and specifying two 
+boundaries by clicking in the display section. 
+When marked, a region will be displayed in inverse colours. In the presence 
+of a marked region the commands <tt>Play</tt>, <tt>Label</tt> and <tt>Label as</tt> 
+will be applied to the specified region rather than to the whole of the 
+waveform visible on the screen. 
+Part of the waveform can also be made into a marked region with the commands 
+<tt>Zoom Out</tt> and <tt>Select</tt>. <tt>Zoom Out</tt> will take the user back 
+to the previous level of magnification and the waveform being displayed before 
+the execution of the command will become a marked region. 
+<tt>Select</tt> will make the part of the waveform corresponding to a particular 
+label into a marked region. This can be useful for playing back existing labels.
+<P>
+Labelling is carried out with <tt>Label </tt> and <tt>Label as</tt>. <tt>Label</tt>
+will assign <EM>The Current Label</EM> to a specified slice of the waveform,
+whilst <tt>Label as</tt> will prompt the user to type-in the labelling string. 
+<EM>The Current Label</EM> is shown in the button in the bottom right corner of 
+the control section.  It defaults to ``Speech'' and it can be changed by clicking 
+on the button it resides in. 
+Multiple alternative transcriptions are manipulated using the <tt>Set [?]</tt> and 
+<tt>New</tt> buttons. The former is used to select the desired transcription, the 
+latter is used to create a new alternative transcription.
+<P>
+<A NAME="fhslab">&#160;</A> <IMG WIDTH=496 HEIGHT=382 ALIGN=BOTTOM ALT="tex2html_wrap22442" SRC="img567.gif"  > <HR><A NAME="tex2html4761" HREF="node241.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4759" HREF="node239.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4753" HREF="node239.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4763" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4764" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4762" HREF="node241.html">13.16.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4760" HREF="node239.html">13.16 HSLab</A>
+<B> Previous:</B> <A NAME="tex2html4754" HREF="node239.html">13.16 HSLab</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

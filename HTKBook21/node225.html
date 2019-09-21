@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.12.3 Use</TITLE>
+<META NAME="description" CONTENT="13.12.3 Use">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4577" HREF="node226.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4575" HREF="node222.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4569" HREF="node224.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4579" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4580" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4578" HREF="node226.html">13.12.4 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4576" HREF="node222.html">13.12 HQuant</A>
+<B> Previous:</B> <A NAME="tex2html4570" HREF="node224.html">13.12.2 VQ Codebook Format</A>
+<BR> <P>
+<H2><A NAME="SECTION041123000000000000000">13.12.3 Use</A></H2>
+<P>
+HQUANT is invoked via the command line
+<P>
+<PRE>   HQuant [options] vqFile trainFiles ...</PRE>
+where <tt>vqFile</tt> is the name of the output VQ table file.
+The effect of this command
+is to read in training data from each <tt>trainFile</tt>, cluster the
+data and write the final cluster centres into the VQ table file.
+<P>
+The list of training files can be stored in a script file if required.
+Furthermore, the data used for training the codebook
+can be limited to that corresponding to a specified label.  This can be
+used, for example, to train phone specific codebooks.  When constructing
+a linear codebook, the maximum number of iterations per cluster can be
+limited by setting the configuration variable <tt>MAXCLUSTITER</tt>.
+The minimum number of samples in any one cluster can be set using the
+ configuration variable <tt>MINCLUSTSIZE</tt>.
+<P>
+The detailed operation of HQUANT is controlled by the following
+command line options
+<UL><DT><TT>-d</TT>
+<DD> Use a diagonal-covariance Mahalonobis distance metric for
+ clustering (default is to use a Euclidean distance metric).
+<P>
+   <DT><TT>-f</TT>
+<DD> Use a full-covariance Mahalonobis distance metric for
+ clustering (default is to use a Euclidean distance metric).
+<P>
+   <DT><TT>-g</TT>
+<DD> Output the global covariance to a codebook.  Normally,
+     covariances are computed individually for each cluster using
+     the data in that cluster.  This option computes a global covariance
+     across all the clusters.
+<P>
+  <DT><TT>-l s</TT>
+<DD> The string <TT>s</TT> must be the name of a
+      segment label.  When this option is used, HQUANT searches
+      through all of the training files and uses only the speech
+      frames from segments with the given label.  When this option is not 
+      used, HQUANT uses all of the data in each training file.
+<P>
+  <DT><TT>-n S N</TT>
+<DD> Set size of codebook for stream <tt>S</tt> 
+       to <tt>N</tt> (default 256).
+   If tree-structured codebooks are required then <tt>N</tt> 
+   must be a power of 2.
+<P>
+  <DT><TT>-s N</TT>
+<DD> Set number of streams to <tt>N</tt> (default 1).
+    Unless the <tt>-w</tt> option is used, the width of each stream
+    is set automatically depending on the size and parameter kind of the 
+    training data.
+<P>
+  <DT><TT>-t</TT>
+<DD>  Create tree-structured codebooks (default linear).
+<P>
+  <DT><TT>-w S N</TT>
+<DD> Set width of stream <tt>S</tt> to <tt>N</tt>.
+  This option overrides the default decomposition that HTK normally
+  uses to divide a parameter file into streams.  If this option is used,
+  it must be repeated for each individual stream.
+<P>
+<DT><TT>-F fmt</TT>
+<DD> Set the source data format to <TT>fmt</TT>.
+<DT><TT>-G fmt</TT>
+<DD> Set the label file format to <TT>fmt</TT>.
+<DT><TT>-I mlf</TT>
+<DD> This loads the master label file <TT>mlf</TT>.  This option
+may be repeated to load several MLFs.
+<DT><TT>-L dir</TT>
+<DD> Search directory <tt>dir</tt> for label files (default
+is to search current directory).
+<DT><TT>-X ext</TT>
+<DD> Set label file extension to <TT>ext</TT> 
+(default is <tt>lab</tt>).
+</UL>
+HQUANT also supports the standard options <tt>-A</tt>,
+<tt>-C</tt>,  <tt>-D</tt>, <tt>-S</tt>, <tt>-T</tt>, and <tt>-V</tt> as described
+in section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>.
+<HR><A NAME="tex2html4577" HREF="node226.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4575" HREF="node222.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4569" HREF="node224.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4579" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4580" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4578" HREF="node226.html">13.12.4 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4576" HREF="node222.html">13.12 HQuant</A>
+<B> Previous:</B> <A NAME="tex2html4570" HREF="node224.html">13.12.2 VQ Codebook Format</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

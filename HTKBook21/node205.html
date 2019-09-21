@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.8.2 Use</TITLE>
+<META NAME="description" CONTENT="13.8.2 Use">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4329" HREF="node206.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4327" HREF="node203.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4321" HREF="node204.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4331" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4332" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4330" HREF="node206.html">13.8.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4328" HREF="node203.html">13.8 HLEd</A>
+<B> Previous:</B> <A NAME="tex2html4322" HREF="node204.html">13.8.1 Function</A>
+<BR> <P>
+<H2><A NAME="SECTION04182000000000000000">13.8.2 Use</A></H2>
+<P>
+HLED is invoked by typing the command line
+<PRE>   HLEd [options] edCmdFile labFiles ..</PRE>
+This causes HLED to be applied to each <tt>labFile</tt> in turn
+using the edit commands listed in <tt>edCmdFile</tt>.  The 
+<tt>labFiles</tt> may be master label files.
+The available options are
+<P>
+<UL><DT><TT>-b</TT>
+<DD> Suppress label boundary times in output files.
+<P>
+  <DT><TT>-d s</TT>
+<DD> Read a dictionary from file <TT>s</TT> and use this
+  for expanding labels when the <TT>EX</TT> command is used.
+<P>
+  <DT><TT>-i mlf</TT>
+<DD> This specifies that the output transcriptions
+  are written to the master label file <tt>mlf</tt>.
+<P>
+  <DT><TT>-g t</TT>
+<DD> Set the minimum gap detected by the <tt>FG</tt> to be <tt>t</tt>
+      (default 50000.0 = 5msecs).
+     All gaps of shorter duration than <tt>t</tt> are ignored and not labelled.
+<P>
+  <DT><TT>-l s</TT>
+<DD> Directory to store output label files (default is current directory).
+      When output is directed to an MLF,  this option can be used to
+      add a path to each output file name.  In particular, setting the option
+      <code>-l '*'</code> will cause a label file named <tt>xxx</tt> to be prefixed
+      by the pattern <code>&quot;*/xxx&quot;</code> in the output MLF file.  This is useful
+      for generating MLFs which are independent of the location of the 
+      corresponding data files.
+<P>
+  <DT><TT>-m</TT>
+<DD> Strip all labels to monophones on loading.
+<P>
+  <DT><TT>-n fn</TT>
+<DD> This option causes a list of all new label names
+      created to be output to the file <tt>fn</tt>.
+<P>
+<DT><TT>-G fmt</TT>
+<DD> Set the label file format to <TT>fmt</TT>.
+<DT><TT>-I mlf</TT>
+<DD> This loads the master label file <TT>mlf</TT>.  This option
+may be repeated to load several MLFs.
+<DT><TT>-P fmt</TT>
+<DD> Set the target label format to <TT>fmt</TT>.
+<DT><TT>-X ext</TT>
+<DD> Set label file extension to <TT>ext</TT> 
+(default is <tt>lab</tt>).
+<P>
+</UL>
+HLED also supports the standard options <tt>-A</tt>,
+<tt>-C</tt>,  <tt>-D</tt>, <tt>-S</tt>, <tt>-T</tt>, and <tt>-V</tt> as described
+in section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>.
+<P>
+<HR><A NAME="tex2html4329" HREF="node206.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4327" HREF="node203.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4321" HREF="node204.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4331" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4332" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4330" HREF="node206.html">13.8.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4328" HREF="node203.html">13.8 HLEd</A>
+<B> Previous:</B> <A NAME="tex2html4322" HREF="node204.html">13.8.1 Function</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

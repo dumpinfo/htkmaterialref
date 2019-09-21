@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.9 Direct Audio Input/Output</TITLE>
+<META NAME="description" CONTENT="5.9 Direct Audio Input/Output">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2508" HREF="node73.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2506" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2500" HREF="node71.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2510" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2511" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2509" HREF="node73.html">5.10 Multiple Input Streams</A>
+<B>Up:</B> <A NAME="tex2html2507" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2501" HREF="node71.html">5.8.11 ALIEN and NOHEAD File Formats</A>
+<BR> <P>
+<H1><A NAME="SECTION03290000000000000000">5.9 Direct Audio Input/Output</A></H1>
+<A NAME="saudioio">&#160;</A>
+<P>
+<A NAME=4029>&#160;</A>
+Many HTK tools, particularly recognition tools, can input speech waveform
+data directly from an audio device.  The basic mechanism for doing this is to
+simply specify the source format as being
+<tt>HAUDIO</tt><A NAME=4573>&#160;</A> following which speech samples
+will be read directly from the host computer's audio input device.
+<P>
+When using direct audio input<A NAME=4032>&#160;</A>, the input sampling
+rate may be set explicitly using the configuration parameter
+<tt>SOURCERATE</tt>, <A NAME=4574>&#160;</A> otherwise 
+HTK will assume that it has been set by some external means such as an
+audio control panel.  In the latter case, it must be possible for
+HAUDIO to obtain the sample rate from the audio driver
+otherwise an error message will be generated.
+<P>
+Although the detailed control of audio hardware is typically machine dependent,
+HTK provides a number of Boolean configuration variables to request specific
+input and output sources.  These are indicated by the following table
+<DIV ALIGN=CENTER><P ALIGN=CENTER><A NAME=4037>&#160;</A><A NAME=4038>&#160;</A>
+<TABLE COLS=2 BORDER FRAME=BOX RULES=GROUPS>
+<COLGROUP><COL ALIGN=CENTER><COLGROUP><COL ALIGN=LEFT>
+<TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=CENTER NOWRAP>
+Variable   </TD><TD VALIGN=BASELINE ALIGN=LEFT NOWRAP> Source/Sink </TD></TR>
+</TBODY><TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=CENTER NOWRAP><tt>LINEIN</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT NOWRAP> line input </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=CENTER NOWRAP>  
+<tt>MICIN</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT NOWRAP> microphone input </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=CENTER NOWRAP>  
+<tt>LINEOUT</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT NOWRAP> line output </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=CENTER NOWRAP> 
+<tt>PHONESOUT</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT NOWRAP> headphones output </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=CENTER NOWRAP>  
+<tt>SPEAKEROUT</tt> </TD><TD VALIGN=BASELINE ALIGN=LEFT NOWRAP> speaker output </TD></TR>
+</TBODY>
+</TABLE>
+</P></DIV>
+<A NAME=4575>&#160;</A>
+<A NAME=4576>&#160;</A>
+<A NAME=4577>&#160;</A>
+<A NAME=4578>&#160;</A>
+<A NAME=4579>&#160;</A>
+<P>
+The major complication in using direct audio is in starting and stopping the
+input device.  The simplest approach to this is for HTK tools to take direct
+control and, for example, enable the audio input for a fixed period determined
+via a command line option.  However, the HAUDIO/HPARM modules
+provides two more powerful built-in facilities for audio input control.
+<P>
+<A NAME=4055>&#160;</A> 
+The first method of audio input control involves the use of an automatic
+energy-based speech/silence detector which is enabled by setting the
+configuration parameter
+<tt>USESILDET</tt><A NAME=4580>&#160;</A> to true. Note that
+the speech/silence detector can also operate on waveform input files.
+<P>
+The automatic speech/silence detector uses a two level algorithm which first
+classifies each frame of data as either speech or silence and then applies a
+heuristic to determine the start and end of each utterance.
+<A NAME=4058>&#160;</A> <A NAME=4059>&#160;</A> The detector classifies each
+frame as speech or silence based solely on the log energy of the signal. When
+the energy value exceeds a threshold the frame is marked as speech otherwise as
+silence. The threshold is made up of two components both of which can be set by
+configuration variables. The first component represents the mean energy level
+of silence and can be set explicitly via the configuration
+parameter <tt>SILENERGY</tt>. However, it is more usual to take a measurement
+from the environment directly. Setting the configuration parameter
+<tt>MEASURESIL</tt> to true will cause the detector to calibrate its parameters
+from the current acoustic environment just prior to sampling. The second
+threshold component is the level above which frames are classified as speech 
+(<tt>SPEECHTHRESH</tt>) .
+<A NAME=4063>&#160;</A> <A NAME=4064>&#160;</A> <A NAME=4065>&#160;</A>
+Once each frame has been classified as speech or silence they are grouped into
+windows consisting of <tt>SPCSEQCOUNT</tt> consecutive frames.  When the number
+of frames marked as silence within each window falls below a glitch count the
+whole window is classed as speech.  Two separate glitch counts are used, <TT>
+SPCGLCHCOUNT</TT> before speech onset is detected and <TT>SILGLCHCOUNT</TT> whilst
+searching for the end of the utterance.  This allows the algorithm to take
+account of the tendancy for the end of an utterance to be somewhat quieter than
+the beginning.
+<A NAME=4069>&#160;</A> <A NAME=4070>&#160;</A> 
+Finally, a top level heuristic is used to determine the start and end of the
+utterance. The heuristic defines the start of speech as the beginning of the
+first window classified as speech.  The actual start of the processed utterance
+is <tt>SILMARGIN</tt> frames before the detected start of speech to ensure that
+when the speech detector triggers slightly late the recognition accuracy is not
+affected.  Once the start of the utterance has been found the detector searches
+for <tt>SILSEQCOUNT</tt> windows all classified as silence and sets the end of
+speech to be the end of the last window classified as speech.  Once again the
+processed utterance is extended <tt>SILMARGIN</tt> frames to ensure that if the
+silence detector has triggered slightly early the whole of the speech is still
+available for further processing.
+<P>
+<A NAME="fendpointer">&#160;</A> <IMG WIDTH=494 HEIGHT=279 ALIGN=BOTTOM ALT="tex2html_wrap19976" SRC="img193.gif"  > 
+<P>
+Fig&nbsp;<A HREF="node72.html#fendpointer">5.5</A> shows an example of the speech/silence detection
+process. The waveform data is first classified as speech or silence at frame
+and then at window level before finally the start and end of the utterance are
+marked. In the example, audio input starts at point <TT>A</TT> and is stopped
+automatically at point <TT>H</TT>. The start of speech, <TT>C</TT>, occurs when a
+window of <tt>SPCSEQCOUNT</tt> frames are classified as speech and the start of
+the utterance occurs <tt>SILMARGIN</tt> frames earlier at <TT>B</TT>. The period
+of silence from <TT>D</TT> to <TT>E</TT> is not marked as the end of the utterance
+because it is shorter than <tt>SILSEQCOUNT</tt>. However after point <TT>F</TT>
+no more windows are classified as speech (although a few frames are) and so
+this is marked as the end of speech with the end of the utterance extended to
+<TT>G</TT>.
+<P>
+<A NAME=4089>&#160;</A>
+The second built-in mechanism for controlling audio input is by arranging for 
+a signal to be sent from some other process. Sending the signal for the first
+time starts the audio device. If the speech detector is not enabled then
+sampling starts immediately and is stopped by sending the signal a second
+time. If automatic speech/silence detection is enabled, then the first signal 
+starts the detector. Sampling stops immediately when a second signal is
+received or when silenece is detected. The signal number is set using the 
+configuration parameter <tt>AUDIOSIG</tt><A NAME=4581>&#160;</A>. 
+Keypress control operates in a similar fashion and is enabled by setting the 
+configuration parameter <tt>AUDIOSIG</tt> to a negative number. In this mode
+an initial keypress will be required  to start sampling/speech detection and
+a second keypress will stop sampling immediately.
+<P>
+Audio output<A NAME=4093>&#160;</A> is also supported by HTK. There are no
+generic facilities for output and the precise behaviour will depend on the tool
+used. It should be noted, however, that the audio input facilities provided by
+HAUDIO include provision for attaching a <i>replay buffer</i> to an
+audio input channel.  This is typically used to store the last few seconds of
+each input to a recognition tool in a circular buffer so that the last
+utterance input can be replayed on demand.
+<P>
+<HR><A NAME="tex2html2508" HREF="node73.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2506" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2500" HREF="node71.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2510" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2511" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2509" HREF="node73.html">5.10 Multiple Input Streams</A>
+<B>Up:</B> <A NAME="tex2html2507" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2501" HREF="node71.html">5.8.11 ALIEN and NOHEAD File Formats</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

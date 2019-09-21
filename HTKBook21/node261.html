@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>16.4 Field Types</TITLE>
+<META NAME="description" CONTENT="16.4 Field Types">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html5014" HREF="node262.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html5012" HREF="node257.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html5006" HREF="node260.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html5016" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html5017" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html5015" HREF="node262.html">16.5 Example SLF file</A>
+<B>Up:</B> <A NAME="tex2html5013" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<B> Previous:</B> <A NAME="tex2html5007" HREF="node260.html">16.3 Syntax</A>
+<BR> <P>
+<H1><A NAME="SECTION04440000000000000000">16.4 Field Types</A></H1>
+<A NAME="sslffields">&#160;</A>
+<P>
+The currently defined fields are as follows:-
+<P>
+<PRE>  Field        abbr o|c Description
+
+Header fields
+  VERSION=%s     V  o  Lattice specification adhered to
+  UTTERANCE=%s   U  o  Utterance identifier
+  SUBLAT=%s      S  o  Sub-lattice name
+  base=%f           o  LogBase for Likelihoods (0.0 not logs,default base e)
+  lmname=%s         o  Name of Language model
+  lmscale=%f        o  Scaling factor for language model
+  wdpenalty=%f      o  Word insertion penalty
+
+Lattice Size fields
+  NODES=%d       N  c  Number of nodes in lattice
+  LINKS=%d       L  c  Number of links in lattice
+
+Node Fields
+  I=%d                 Node identifier.  Starts node information
+  time=%f        t  o  Time from start of utterance (in seconds)
+  WORD=%s        W wc  Word (If lattice labels nodes rather that links)
+  L=%s             wc  Substitute named sub-lattice for this node
+  var=%d         v wo  Pronunciation variant number
+
+Link Fields
+  J=%d                 Link identifier.  Starts link information
+  START=%d       S  c  Start node number (of the link)
+  END=%d         E  c  End node number (of the link)
+  WORD=%s        W wc  Word (If lattice labels links rather that nodes)
+  var=%d         v wo  Pronunciation variant number
+  div=%s         d wo  Segmentation [ d=:(label[,duration,like]:)+ ]
+  acoustic=%f    a wo  Acoustic likelihood of link
+  ngram=%f       n  o  NGram likelihood of link
+  language=%f    l  o  General language model likelihood of link
+
+Note. The word identity (and associated `w' fields var,div and acoustic) must
+      appear on either the link or the end node (forwards lattices) or the 
+      start node (backwards lattices) of the link.
+      abbr is a possible single character abbreviation for the field name
+      o|c indicates whether field is optional or compulsory.</PRE>
+<P>
+<HR><A NAME="tex2html5014" HREF="node262.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html5012" HREF="node257.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html5006" HREF="node260.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html5016" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html5017" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html5015" HREF="node262.html">16.5 Example SLF file</A>
+<B>Up:</B> <A NAME="tex2html5013" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<B> Previous:</B> <A NAME="tex2html5007" HREF="node260.html">16.3 Syntax</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

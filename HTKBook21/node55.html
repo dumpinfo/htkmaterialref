@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.5 Energy Measures</TITLE>
+<META NAME="description" CONTENT="5.5 Energy Measures">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2295" HREF="node56.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2293" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2287" HREF="node54.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2297" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2298" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2296" HREF="node56.html">5.6 Delta and Acceleration Coefficients</A>
+<B>Up:</B> <A NAME="tex2html2294" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2288" HREF="node54.html">5.4 Filterbank Analysis</A>
+<BR> <P>
+<H1><A NAME="SECTION03250000000000000000">5.5 Energy Measures</A></H1>
+<A NAME="senergy">&#160;</A>
+<P>
+<A NAME=3721>&#160;</A> 
+To augment the spectral parameters derived from linear prediction or
+mel-filterbank analysis, an energy term can be appended by including the
+qualifier <tt>_E</tt><A NAME=4542>&#160;</A> in the target kind.
+The energy is computed as the log of the signal energy, that is, for speech
+samples  <IMG WIDTH=88 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19908" SRC="img168.gif"  > 
+<P><A NAME="elogenergy">&#160;</A> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation4875" SRC="img169.gif"  > <P>
+<P>
+This log energy measure can be normalised to the range  <IMG WIDTH=69 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19910" SRC="img170.gif"  >  by
+setting the Boolean configuration parameter
+<tt>ENORMALISE</tt><A NAME=4544>&#160;</A> to true (default
+setting).  This
+normalisation is implemented by subtracting the maximum value of <I>E</I> in the
+utterance and adding 1.0. 
+Note that energy normalisation is incompatible with live audio 
+input and in such circumstances the configuration variable <tt>ENORMALISE</tt> 
+should be explicitly set false.
+The lowest energy in the utterance can be clamped using the configuration
+parameter
+<tt>SILFLOOR</tt><A NAME=4545>&#160;</A> which gives the ratio
+between the maximum and minimum energies in the utterance in dB. Its default
+value is 50dB. 
+Finally, the overall log energy can be arbitrarily scaled by the value of the 
+configuration parameter <tt>ESCALE</tt><A NAME=4546>&#160;</A> whose 
+default is 0.1. <A NAME=3734>&#160;</A>
+<P>
+When calculating energy for LPC-derived parameterisations, the default is to
+use the zero-th delay autocorrelation coefficient ( <IMG WIDTH=11 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19918" SRC="img171.gif"  > ).  However, this means
+that the energy is calculated after windowing and pre-emphasis.  If the
+configuration parameter <tt>RAWENERGY</tt><A NAME=4547>&#160;</A>
+is set true, however, then energy is calculated separately before any windowing
+or pre-emphasis regardless of the requested parameterisation<A NAME="tex2html381" HREF="footnode.html#4548"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+<P>
+In addition to, or in place of, the log energy, the qualifier
+<tt>_O</tt><A NAME=4549>&#160;</A> can be added to a target kind
+to indicate that the 0'th cepstral parameter  <IMG WIDTH=14 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19920" SRC="img172.gif"  >  is to be appended.  This
+qualifier is only valid if the target kind is <tt>MFCC</tt>.  Unlike earlier
+versions of HTK scaling factors set by the configuration variable
+<tt>ESCALE</tt> are not applied to  <IMG WIDTH=14 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19922" SRC="img172.gif"  > <A NAME="tex2html383" HREF="footnode.html#4550"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+<P>
+<HR><A NAME="tex2html2295" HREF="node56.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2293" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2287" HREF="node54.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2297" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2298" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2296" HREF="node56.html">5.6 Delta and Acceleration Coefficients</A>
+<B>Up:</B> <A NAME="tex2html2294" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2288" HREF="node54.html">5.4 Filterbank Analysis</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

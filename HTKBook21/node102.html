@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.9 The HMM Definition Language</TITLE>
+<META NAME="description" CONTENT="7.9 The HMM Definition Language">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2888" HREF="node103.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2886" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2882" HREF="node101.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2890" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2891" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2889" HREF="node103.html">8 HMM Parameter Estimation</A>
+<B>Up:</B> <A NAME="tex2html2887" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2883" HREF="node101.html">7.8 Binary Storage Format</A>
+<BR> <P>
+<H1><A NAME="SECTION03490000000000000000">7.9 The HMM Definition Language</A></H1>
+<A NAME="shmmdef">&#160;</A>
+<P>
+To conclude this chapter,
+this section presents a formal<A NAME=6426>&#160;</A> description
+of the HMM definition language used by HTK.
+Syntax is described using an extended BNF notation in which
+alternatives are separated by a vertical bar |, parentheses () denote
+factoring, brackets [ ] denote options, and braces {} denote zero or more
+repetitions.
+<P>
+All keywords are enclosed in angle brackets<A NAME="tex2html620" HREF="footnode.html#6427"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A> and
+the case of the
+keyword name is not significant.
+White space is not significant except within double-quoted strings.
+<P>
+The top level structure of a HMM definition is shown by the following
+rule. 
+<I>
+<PRE><TT> 
+		  hmmdef = 		 [  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21228" SRC="img433.gif"  > h macro ]
+<P>
+				         &lt;BeginHMM&gt;
+<P>
+						          [ globalOpts ]
+<P>
+						          &lt;NumStates&gt; short
+<P>
+						          state { state }
+<P>
+						          transP
+<P>
+						          [ duration ]
+<P>
+				         &lt;EndHMM&gt; 
+</TT></PRE>
+</I>
+A HMM definition consists of an optional set of global options<A NAME=6430>&#160;</A> followed by
+the &lt;<i>NumStates</i>&gt;<A NAME=6432>&#160;</A> keyword whose following argument specifies the number of states in 
+the model inclusive of the non-emitting entry and exit states<A NAME="tex2html623" HREF="footnode.html#6568"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+The information for each state is then given in turn, followed by the 
+parameters of the transition matrix and the model duration parameters, if any.
+The name of the HMM is given by the  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21250" SRC="img433.gif"  > <i>h</i> macro.  If the HMM is the
+only definition within a file, the  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21252" SRC="img433.gif"  > <i>h</i> macro name can be omitted
+and the HMM name is assumed to be the same as the file name.
+<P>
+The global options<A NAME=6437>&#160;</A> are common to all HMMs.  They can be given 
+separately using a  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21254" SRC="img433.gif"  > <i>o</i> option macro 
+<I>
+<PRE><TT> 
+		 optmacro = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21256" SRC="img433.gif"  > o globalOpts
+<P>
+</TT></PRE>
+</I>
+<P>
+or they can be included in one or more HMM definitions.  Global
+options may be repeated but no definition can change a previous
+definition.  All global options must be defined before any other
+macro definition is processed.  In practice this means that any
+HMM system which uses parameter tying must have a  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21258" SRC="img433.gif"  > <i>o</i> option macro 
+at the head of the first macro file processed.
+<P>
+The full set of global options is given below.  Every HMM set must
+define the vector size (via &lt;<i>VecSize</i>&gt;<A NAME=6443>&#160;</A>), the stream widths  
+(via &lt;<i>StreamInfo</i>&gt;<A NAME=6445>&#160;</A>)
+and the observation parameter kind.  However, if only the stream
+widths are given then the vector size will be inferred.  If
+only the vector size is given, then a single stream of identical
+width will be assumed.  All other options default to null.
+<I>
+<PRE><TT> 
+		 globalOpts = 		 option { option }
+<P>
+		  option =		  &lt;StreamInfo&gt; short { short } |
+<P>
+				   &lt;VecSize&gt;    short |
+<P>
+				   covkind |
+<P>
+				   durkind |
+<P>
+				   parmkind
+<P>
+</TT></PRE>
+</I>
+<P>
+The arguments to the
+<I>&lt;StreamInfo&gt;</I> option are the number of streams (default 1) and then
+for each stream, the width of that stream.  The <I>&lt;VecSize&gt;</I> option 
+gives the total number of elements in each input vector.  
+If both &lt;<i>VecSize</i>&gt; and &lt;<i>StreamInfo</i>&gt; are included then the
+sum of all the stream widths must equal the input vector size.
+<P>
+The <I>covkind </I> defines the kind of the covariance matrix
+<I>
+<PRE><TT> 
+		  covkind =		 &lt;DiagC&gt; | &lt;InvDiagC&gt; | &lt;FullC&gt; |
+<P>
+				            &lt;LLTC&gt; | &lt;XformC&gt; 
+</TT></PRE>
+</I>
+<P>
+where <I>&lt;InvDiagC&gt;</I> is used internally.  <I>&lt;LLTC&gt;</I>
+and <I>&lt;XformC&gt;</I> are not used in HTK Version 2.0.
+Setting the covariance kind as a global option forces all components to
+have this kind.  In particular, it prevents mixing full and diagonal covariances
+within a HMM set.
+<P>
+The <I>durkind</I> denotes the type of duration
+model used according to the following rules
+<I>
+<PRE><TT> 
+		  durkind =		 &lt;nullD&gt; | &lt;poissonD&gt; | &lt;gammaD&gt; | &lt;genD&gt; 
+</TT></PRE>
+</I>
+<P>
+For anything other than <I>&lt;nullD&gt;</I>, a duration vector<A NAME=6462>&#160;</A> must
+be supplied for the model or each state as described below.
+<P>
+The parameter kind is any legal parameter kind including qualified forms
+(see section&nbsp;<A HREF="node51.html#sgenio">5.1</A>)
+<I>
+<PRE><TT> 
+		  parmkind =		 &lt;basekind{_D|_A|_E|_N|_Z|_O}&gt;
+<P>
+		  basekind =		 &lt;discrete&gt;|&lt;lpc&gt;|&lt;lpcepstra&gt;|&lt;mfcc&gt; | &lt;fbank&gt; |
+<P>
+ 		 		          &lt;melspec&gt;| &lt;lprefc&gt;|&lt;lpdelcep&gt; | &lt;user&gt; 
+</TT></PRE>
+</I>
+<P>
+where the syntax rule for <I>parmkind</I> is non-standard in that no spaces
+are allowed between the base kind and any subsequent qualifiers.
+As noted in chapter&nbsp;<A HREF="node50.html#cspeechio">5</A>, <I>&lt;lpdelcep&gt;</I> is 
+provided only for compatibility
+with earlier versions of HTK and its further use should be avoided.
+<P>
+Each state of each HMM must have its own section defining the parameters
+associated with that state
+<I>
+<PRE><TT> 
+		 state =		  &lt;State&gt; short stateinfo
+<P>
+</TT></PRE>
+</I>
+<P>
+where the  short following <I>&lt;State&gt;</I> is the state number.  State
+information can be defined in any order.  The syntax is as follows
+<I>
+<PRE><TT> 
+		   stateinfo = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21452" SRC="img433.gif"  > s macro |
+<P>
+  				              [ mixes ] [ weights ] stream { stream } [ duration ]
+<P>
+		   macro     = 		 string
+<P>
+</TT></PRE>
+</I>
+<P>
+A <I>stateinfo</I> definition consists of an 
+optional specification of the number of mixtures, an optional set of stream weights,
+followed by a block of information for each stream, optionally terminated with
+a duration vector.  Alternatively, <I> <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21456" SRC="img433.gif"  > s macro</I> can be
+written where <I>macro</I> is the name of a previously defined macro.
+<P>
+The optional <I>mixes</I> in a <I>stateinfo</I> definition specify
+the number of mixture components (or discrete codebook size) for 
+each stream of that state
+<I>
+<PRE><TT> 
+		   mixes = 		  &lt;NumMixes&gt; short {short}
+<P>
+</TT></PRE>
+</I>
+<P>
+where there should be one <I>short</I> for each stream.  If this
+specification is omitted, it is assumed that all streams
+have just one mixture component.
+<P>
+The optional <I>weights</I> in a <I>stateinfo</I> definition define
+a set of exponent weights for each independent data stream.  The
+syntax is
+<I>
+<PRE><TT> 
+		   weights = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21462" SRC="img433.gif"  > w macro | &lt;SWeights&gt; short vector
+<P>
+		   vector  = 		 float { float }
+<P>
+</TT></PRE>
+</I>
+<P>
+where the <I>short</I> gives the number <I>S</I> of weights (which should match the
+value given in the &lt;<i>StreamInfo</i>&gt; option) and the <I>vector</I>
+contains the <I>S</I> stream weights  <IMG WIDTH=11 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline21478" SRC="img46.gif"  >  (see section&nbsp;<A HREF="node94.html#sHMMparm">7.1</A>).
+<P>
+The definition of each  <I>stream</I> 
+depends on the kind of HMM set.  In the normal case, it
+consists of a sequence of mixture
+component
+definitions optionally preceded by the stream number.  If the stream
+number is omitted then it is assumed to be 1.  For tied-mixture
+and discrete HMM sets, special forms are used.
+<I>
+<PRE><TT> 
+		   stream = 		 [ &lt;Stream&gt; short ]
+<P>
+		            		 (mixture { mixture } | tmixpdf | discpdf)
+<P>
+</TT></PRE>
+</I>
+<P>
+The definition of each mixture component consists of a Gaussian
+pdf optionally preceded by the mixture number and its weight
+<I>
+<PRE><TT> 
+		   mixture = 		 [ &lt;Mixture&gt; short float ] mixpdf
+<P>
+</TT></PRE>
+</I>
+<P>
+If the &lt;<i>Mixture</i>&gt;<A NAME=6496>&#160;</A> part is missing then mixture 1 is assumed and the
+weight defaults to 1.0.
+<P>
+The <I>tmixpdf</I> option is used only for fully 
+tied mixture sets.  Since the <I>mixpdf</I> parts are all macros in
+a tied mixture system and since they are identical for every stream
+and state, it is only necessary to know the mixture weights.  The
+<I>tmixpdf</I> syntax allows these to be specified in the following
+compact form
+<I>
+<PRE><TT> 
+		   tmixpdf = 		 &lt;TMix&gt; macro weightList
+<P>
+		   weightList = 		 repShort { repShort }
+<P>
+		   repShort = 		 short [  <IMG WIDTH=4 HEIGHT=6 ALIGN=BOTTOM ALT="tex2html_wrap_inline21504" SRC="img321.gif"  >  char ]
+<P>
+</TT></PRE>
+</I>
+<P>
+where each <I>short</I> is a mixture component weight scaled so that
+a weight of 1.0 is represented by the integer 32767.  
+The optional asterix 
+followed by a <I>char</I> is used to indicate
+a repeat count.  For example, <TT>0*5</TT> is equivalent to 5 zeroes.
+The Gaussians which make-up the pool of tied-mixtures are defined 
+using   <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21506" SRC="img433.gif"  > <i>m</i> macros called
+<I>macro1</I>, <I>macro2</I>, <I>macro3</I>, etc.
+<P>
+Discrete probability HMMs are defined in a similar way
+<I>
+<PRE><TT> 
+		   discpdf = 		 &lt;DProb&gt; weightList
+<P>
+</TT></PRE>
+</I>
+<P>
+The only difference is that the weights in the <i>weightList</i>
+are scaled log probabilities as defined in section&nbsp;<A HREF="node99.html#sdischmm">7.6</A>.
+<P>
+The definition of a Gaussian pdf requires the mean vector to 
+be given and one of the possible forms of covariance 
+<I>
+<PRE><TT> 
+		   mixpdf = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21512" SRC="img433.gif"  > m macro | mean cov [ &lt;GConst&gt; float ]
+<P>
+		   mean = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21520" SRC="img433.gif"  > u macro | &lt;Mean&gt; short vector
+<P>
+		   cov =  		 var | inv | xform
+<P>
+		   var = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21532" SRC="img433.gif"  > v macro | &lt;Variance&gt; short vector
+<P>
+		   inv = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21540" SRC="img433.gif"  > i macro |
+<P>
+		        		 (&lt;InvCovar&gt; | &lt;LLTCovar&gt;) short tmatrix
+<P>
+		   xform = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21554" SRC="img433.gif"  > x macro | &lt;Xform&gt; short short matrix
+<P>
+		   matrix = 		 float {float}
+<P>
+		   tmatrix = 		 matrix
+<P>
+</TT></PRE>
+</I>
+<P>
+In <I>mean</I> and <I>var</I>, the <I>short</I> preceding the <I>vector</I>
+defines the length of the vector, in <I>inv</I> the <I>short</I> preceding the <I>
+tmatrix</I> gives the size of this square upper triangular matrix, and in <I>xform</I> the
+two <I>short</I>'s preceding the <I>matrix</I> give the number of rows and
+columns. 
+The optional <I>&lt;GConst&gt;</I> gives that part of the log
+probability of a Gaussian that can be precomputed.  If it is omitted, then
+it will be computed during load-in, including it simply saves some time.
+HTK tools which output HMM definitions always include this field.
+<P>
+In addition to defining the output distributions, a state can have a
+duration probability distribution defined for it.
+<I>
+<PRE><TT> 
+		   duration = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21566" SRC="img433.gif"  > d macro | &lt;Duration&gt; short vector
+<P>
+</TT></PRE>
+</I>
+<P>
+Alternatively, as shown by the top level syntax for a <I>hmmdef</I>,
+duration parameters can be specified for a whole model.
+<P>
+Finally, the transition matrix is defined by
+<I>
+<PRE><TT> 
+		   transP = 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21574" SRC="img433.gif"  > t macro | &lt;TransP&gt; short matrix
+<P>
+</TT></PRE>
+</I>
+<P>
+where the <I>short</I> in this case should be equal to the number of
+states in the model.
+<P>
+<HR><A NAME="tex2html2888" HREF="node103.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2886" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2882" HREF="node101.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2890" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2891" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2889" HREF="node103.html">8 HMM Parameter Estimation</A>
+<B>Up:</B> <A NAME="tex2html2887" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2883" HREF="node101.html">7.8 Binary Storage Format</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

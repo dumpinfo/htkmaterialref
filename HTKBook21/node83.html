@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.2 ESPS Label Files</TITLE>
+<META NAME="description" CONTENT="6.2.2 ESPS Label Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2655" HREF="node84.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2653" HREF="node81.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2647" HREF="node82.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2657" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2658" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2656" HREF="node84.html">6.2.3 TIMIT Label Files</A>
+<B>Up:</B> <A NAME="tex2html2654" HREF="node81.html">6.2 Label File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2648" HREF="node82.html">6.2.1 HTK Label Files</A>
+<BR> <P>
+<H2><A NAME="SECTION03322000000000000000">6.2.2 ESPS Label Files</A></H2>
+<P>
+An <i>ESPS/waves+</i>  label file is a text file with one label stored per
+line. Each label indicates a segment boundary. <A NAME=5300>&#160;</A>
+A complete description
+of the <i>ESPS/waves+</i>  label format is given in the <i>ESPS/waves+</i> 
+manual pages <B>xwaves (1-ESPS)</B> and <B>xlabel (1-ESPS)</B>.
+Only details required for use with HTK are given here.
+<P>
+The label data follows
+a header which ends with a line containing only
+a <tt>#</tt>.  The header contents are generally ignored by HLABEL.
+The labels follow the header in the form
+<PRE>   time  ccode  name</PRE>
+where <tt>time</tt> is a floating point number which denotes the boundary
+location  in seconds,
+<tt>ccode</tt> is an integer color map entry used by <i>ESPS/waves+</i>  in drawing
+segment boundaries and <tt>name</tt> is the name of the segment boundary. A
+typical value for <tt>ccode</tt> is <tt>121</tt>.
+<P>
+While each HTK label can contain both a start and an end time which
+indicate
+the boundaries of a labeled segment, <i>ESPS/waves+</i> labels
+contain a single time in seconds which (by convention) refers 
+to the end of the labeled segment.  The starting time
+of the segment is taken to be the end of the previous
+segment and <tt>0</tt> initially.
+<P>
+<i>ESPS/waves+</i>  label files may have several boundary names per line.
+However, HLABEL only reads <i>ESPS/waves+</i> label files with a single name
+per boundary.  Multiple-alternative and/or multiple-level HTK label
+data structures cannot be saved using  <i>ESPS/waves+</i> format label files.
+<P>
+<HR><A NAME="tex2html2655" HREF="node84.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2653" HREF="node81.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2647" HREF="node82.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2657" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2658" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2656" HREF="node84.html">6.2.3 TIMIT Label Files</A>
+<B>Up:</B> <A NAME="tex2html2654" HREF="node81.html">6.2 Label File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2648" HREF="node82.html">6.2.1 HTK Label Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

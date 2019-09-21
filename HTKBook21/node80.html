@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.1 Label File Structure</TITLE>
+<META NAME="description" CONTENT="6.1 Label File Structure">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2615" HREF="node81.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2613" HREF="node79.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2607" HREF="node79.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2617" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2618" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2616" HREF="node81.html">6.2 Label File Formats</A>
+<B>Up:</B> <A NAME="tex2html2614" HREF="node79.html">6 Transcriptions and Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2608" HREF="node79.html">6 Transcriptions and Label Files</A>
+<BR> <P>
+<H1><A NAME="SECTION03310000000000000000">6.1 Label File Structure</A></H1>
+<A NAME="slabstruct">&#160;</A>
+<P>
+Most transcriptions are single-alternative and single-level, that is
+to say, the associated speech file is described by a single sequence
+of labelled segments.  Most standard label formats are of this kind.
+Sometimes, however, it is useful to have several levels of labels associated
+with the same basic segment sequence.   For example, in training a HMM
+system it is useful to have both the word level transcriptions and the
+phone level transcriptions <i>side-by-side</i>.  <A NAME=5256>&#160;</A>
+<P>
+
+<A NAME="flabegs">&#160;</A> <IMG WIDTH=251 HEIGHT=516 ALIGN=BOTTOM ALT="tex2html_wrap19998" SRC="img209.gif"  > 
+<P>
+Orthogonal to the requirement for multiple levels of description,
+a transcription may also need to include multiple alternative
+descriptions of the same speech file.  For example, the output
+of a speech recogniser may be in the form of an <i>N-best</i> list
+where each word sequence in the list represents one possible interpretation
+of the input.<A NAME=5627>&#160;</A>
+<P>
+As an example, Fig.&nbsp;<A HREF="node80.html#flabegs">6.1</A> shows a speech file and three
+different ways in which it might be labelled.  In part (a), just a simple
+orthography is given and this single-level single-alternative type of
+transcription is the  commonest case. Part (b) shows a 2-level
+transcription  where the basic level consists of a sequence of phones but
+a higher level of word labels are also provided.  Notice that there is a
+distinction between the basic level and the higher levels, since only the
+basic level has explicit boundary locations marked for every segment. 
+The higher levels do not have explicit boundary information since this
+can always be inferred from the basic level boundaries. Finally, part (c)
+shows the case where knowledge of the contents of the speech file is
+uncertain and three possible word sequences are given.
+<P>
+
+<P>
+HTK label files support multiple-alternative and multiple-level
+transcriptions.  In addition to start and end times on the basic level, a
+label at  any level may also have a score associated with it.  When a
+transcription is loaded, all but one specific alternative can be discarded by
+setting the configuration variable <tt>TRANSALT</tt><A NAME=5553>&#160;</A> to the required
+alternative <tt>N</tt>, where the first (i.e. normal) alternative is numbered
+1.  Similarly, all but a specified level can be discarded by setting the
+configuration variable 
+<tt>TRANSLEV</tt><A NAME=5554>&#160;</A> to 
+the required level number where again the first (i.e.
+normal) level is numbered 1.
+<P>
+All non-HTK formats are limited to
+single-level single-alternative transcriptions.
+<P>
+<HR><A NAME="tex2html2615" HREF="node81.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2613" HREF="node79.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2607" HREF="node79.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2617" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2618" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2616" HREF="node81.html">6.2 Label File Formats</A>
+<B>Up:</B> <A NAME="tex2html2614" HREF="node79.html">6 Transcriptions and Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2608" HREF="node79.html">6 Transcriptions and Label Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

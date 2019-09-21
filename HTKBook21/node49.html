@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4.10 Summary</TITLE>
+<META NAME="description" CONTENT="4.10 Summary">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2195" HREF="node50.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2193" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2189" HREF="node48.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2197" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2198" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2196" HREF="node50.html">5 Speech Input/Output</A>
+<B>Up:</B> <A NAME="tex2html2194" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2190" HREF="node48.html">4.9 Byte-swapping of HTK data files</A>
+<BR> <P>
+<H1><A NAME="SECTION031100000000000000000">4.10 Summary</A></H1>
+<A NAME="sopenvsum">&#160;</A>
+<P>
+This section summarises the environment variables<A NAME=3162>&#160;</A>
+and configuration parameters<A NAME=3163>&#160;</A> recognised by HSHELL, HMEM and HMATH. It
+also provides a list of all the standard command line options used with HTK.
+<P>
+Table&nbsp;<A HREF="node49.html#topenvcparms">4.1</A> lists all of the configuration parameters along with
+a brief description.  A missing module name means that it is recognised by more
+than one module. Table&nbsp;<A HREF="node49.html#topenvars">4.2</A> lists all of the environment
+parameters used by these modules.  Finally, table&nbsp;<A HREF="node49.html#tstdopts">4.3</A> lists all of
+the standard options.
+<P>
+<DIV ALIGN=CENTER><P ALIGN=CENTER><TABLE COLS=3 BORDER FRAME=BOX RULES=GROUPS>
+<COLGROUP><COL ALIGN=JUSTIFY WIDTH="1.4cm"><COLGROUP><COL ALIGN=JUSTIFY WIDTH="3.0cm"><COLGROUP><COL ALIGN=JUSTIFY WIDTH="6.4cm">
+<TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56">
+Module </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> Name  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Description  </TD></TR>
+</TBODY><TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56">HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>ABORTONERR</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> core dump on error (for debugging) </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HWAVEFILTER</tt>    </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for waveform file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HPARMFILTER</tt>    </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254">  Filter for parameter file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HLANGMODFILTER</tt> </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for language model file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HMMLISTFILTER</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for HMM list file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HMMDEFFILTER</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for HMM definition file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HLABELFILTER</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for Label file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HNETFILTER</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for Network file input</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HDICTFILTER</tt>    </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for Dictionary file input </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56">  
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HWAVEOFILTER</tt>    </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for waveform file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HPARMOFILTER</tt>    </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for parameter file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HLANGMODOFILTER</tt> </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for language model file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HMMLISTOFILTER</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for HMM list file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HMMDEFOFILTER</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for HMM definition file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HLABELOFILTER</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for Label file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HNETOFILTER</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for Network file output</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>HDICTOFILTER</tt>    </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Filter for Dictionary file output </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56">  
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>MAXTRYOPEN</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> number of file open retries </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HSHELL </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>NONUMESCAPES</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> prevent string output using <code>\012</code> format </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+ </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>NATURALREADORDER</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Enable natural read order for HTK binary files </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+ </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>NATURALWRITEORDER</tt> </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> Enable natural write order for HTK binary files </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+HMEM </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>PROTECTSTAKS</tt>   </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> warn if stack is cut-back (debugging) </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="56"> 
+ </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="119"> <tt>TRACE</tt>             </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="254"> trace control (default=0) </TD></TR>
+</TBODY>
+</TABLE>
+<P>
+<A NAME="topenvcparms">&#160;</A>
+ <b> </b>
+Table.  <IMG WIDTH=6 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap19833" SRC="img133.gif"  > . <IMG WIDTH=4 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap19830" SRC="img212.gif"  > </P></DIV>
+<P>
+<DIV ALIGN=CENTER><P ALIGN=CENTER><TABLE COLS=2 BORDER FRAME=BOX RULES=GROUPS>
+<COLGROUP><COL ALIGN=JUSTIFY WIDTH="2.6cm"><COLGROUP><COL ALIGN=JUSTIFY WIDTH="8.2cm">
+<TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103">
+Env Variable </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Meaning  </TD></TR>
+</TBODY><TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"><tt>HCONFIG</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Name of default configuration file</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>HxxxFILTER</tt> </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325"> Input/Output filters as above </TD></TR>
+</TBODY>
+</TABLE>
+<P>
+<A NAME="topenvars">&#160;</A>
+ <b> </b>
+Table.  <IMG WIDTH=6 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap19834" SRC="img133.gif"  > . <IMG WIDTH=4 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap19831" SRC="img131.gif"  > </P></DIV>
+<P>
+<DIV ALIGN=CENTER><P ALIGN=CENTER><TABLE COLS=2 BORDER FRAME=BOX RULES=GROUPS>
+<COLGROUP><COL ALIGN=JUSTIFY WIDTH="2.6cm"><COLGROUP><COL ALIGN=JUSTIFY WIDTH="8.2cm">
+<TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103">
+Standard Option </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Meaning  </TD></TR>
+</TBODY><TBODY>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"><tt>-A</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Print command line arguments</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-B</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Store output HMM macro files in binary </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-C cf</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Configuration file is cf </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-D</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Display configuration variables</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-F fmt</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Set source data file format to fmt </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-G fmt</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Set source label file format to fmt </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-H mmf</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Load HMM macro file mmf </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-I mlf</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Load master label file mlf </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-L dir</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Look for label files in directory dir </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-M dir</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Store output HMM macro files in directory dir </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-O fmt</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Set output data file format to fmt </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-P fmt</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">  Set output label file format to fmt </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-Q</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Print command summary info</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-S scp</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Use command line script file scp </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-T N</tt>  </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Set trace level to N </TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-V</tt>     </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Print version information</TD></TR>
+<TR><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="103"> 
+<tt>-X ext</tt> </TD><TD VALIGN=BASELINE ALIGN=LEFT WIDTH="325">   Set label file extension to ext </TD></TR>
+</TBODY>
+</TABLE>
+<P>
+<A NAME="tstdopts">&#160;</A>
+ <b> </b>
+Table.  <IMG WIDTH=6 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap19835" SRC="img133.gif"  > . <IMG WIDTH=5 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap19832" SRC="img132.gif"  > </P></DIV><A NAME=3259>&#160;</A>
+<P>
+<HR><A NAME="tex2html2195" HREF="node50.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2193" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2189" HREF="node48.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2197" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2198" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2196" HREF="node50.html">5 Speech Input/Output</A>
+<B>Up:</B> <A NAME="tex2html2194" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2190" HREF="node48.html">4.9 Byte-swapping of HTK data files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>12 Decoding</TITLE>
+<META NAME="description" CONTENT="12 Decoding">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3343" HREF="node139.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3341" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3337" HREF="node137.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3345" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3346" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3344" HREF="node139.html">12.1 Decoder Operation</A>
+<B>Up:</B> <A NAME="tex2html3342" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html3338" HREF="node137.html">11.9 Other Kinds of Recognition System</A>
+<BR> <P>
+<H1><A NAME="SECTION03900000000000000000">12 Decoding</A></H1>
+<A NAME="cdecode">&#160;</A>
+<P>
+The previous chapter has described how to construct a recognition
+network specifying what is allowed to be spoken and how
+each word is pronounced.  Given such a network, its associated
+set of HMMs, and an unknown utterance,  the probability of
+any path through the network can be computed.   The task of a 
+decoder is to find those paths which are the most likely.<A NAME=11428>&#160;</A>
+<P>
+As mentioned previously, decoding in HTK is performed by a library
+module called HREC.  HREC uses the token passing
+paradigm to find the best path and, optionally, multiple alternative
+paths.  In the latter case, it generates a lattice containing the
+multiple hypotheses which can if required be converted to an N-best
+list.  To drive HREC from the command line, HTK provides a
+tool called HVITE.  As well as providing basic recognition,
+HVITE can perform forced alignments, lattice rescoring and
+recognise direct audio input.
+<P>
+  <IMG WIDTH=323 HEIGHT=225 ALIGN=BOTTOM ALT="tex2html_wrap22072" SRC="img464.gif"  > 
+<P>
+To assist in evaluating the performance
+of a recogniser using a test database and a set of reference transcriptions, 
+HTK also provides a tool called HRESULTS to compute word 
+accuracy and various related statistics.  
+The principles and use of these recognition facilities are described
+in this chapter.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html3347" HREF="node139.html#SECTION03910000000000000000">12.1 Decoder Operation</A>
+<LI> <A NAME="tex2html3348" HREF="node140.html#SECTION03920000000000000000">12.2 Decoder Organisation</A>
+<LI> <A NAME="tex2html3349" HREF="node141.html#SECTION03930000000000000000">12.3 Recognition using Test Databases</A>
+<LI> <A NAME="tex2html3350" HREF="node142.html#SECTION03940000000000000000">12.4 Evaluating Recognition Results</A>
+<LI> <A NAME="tex2html3351" HREF="node143.html#SECTION03950000000000000000">12.5 Generating Forced Alignments</A>
+<LI> <A NAME="tex2html3352" HREF="node144.html#SECTION03960000000000000000">12.6 Recognition using Direct Audio Input</A>
+<LI> <A NAME="tex2html3353" HREF="node145.html#SECTION03970000000000000000">12.7 N-Best Lists and Lattices</A>
+</UL>
+<HR><A NAME="tex2html3343" HREF="node139.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3341" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3337" HREF="node137.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3345" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3346" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3344" HREF="node139.html">12.1 Decoder Operation</A>
+<B>Up:</B> <A NAME="tex2html3342" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html3338" HREF="node137.html">11.9 Other Kinds of Recognition System</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

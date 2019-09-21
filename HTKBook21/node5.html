@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>1.2 Isolated Word Recognition</TITLE>
+<META NAME="description" CONTENT="1.2 Isolated Word Recognition">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1530" HREF="node6.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1528" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1522" HREF="node4.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1532" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1533" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1531" HREF="node6.html">1.3 Output Probability Specification</A>
+<B>Up:</B> <A NAME="tex2html1529" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1523" HREF="node4.html">1.1 General Principles of HMMs</A>
+<BR> <P>
+<H1><A NAME="SECTION02120000000000000000">1.2 Isolated Word Recognition</A></H1>
+<A NAME="sisowrdrec">&#160;</A>
+<P>
+Let each spoken word be represented by a sequence of speech vectors or <I>
+observations</I>  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline19388" SRC="img12.gif"  > ,  defined as
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation446" SRC="img5.gif"  > <P>
+where  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19398" SRC="img16.gif"  >  is the speech vector observed at time <I>t</I>.  The
+isolated word recognition problem can then be regarded as that of
+computing
+<P><A NAME="e2">&#160;</A> <IMG WIDTH=500 HEIGHT=20 ALIGN=BOTTOM ALT="equation453" SRC="img7.gif"  > <P>
+where  <IMG WIDTH=12 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19404" SRC="img8.gif"  >  is the <I>i</I>'th vocabulary word.  This probability
+is not computable directly but using Bayes' Rule<A NAME=457>&#160;</A> gives
+<P><A NAME="e3">&#160;</A> <IMG WIDTH=500 HEIGHT=34 ALIGN=BOTTOM ALT="equation458" SRC="img9.gif"  > <P>
+Thus, for a given set of prior probabilities  <IMG WIDTH=36 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19414" SRC="img10.gif"  > , the most
+probable spoken word depends only on the likelihood  <IMG WIDTH=52 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19416" SRC="img11.gif"  > .
+Given the dimensionality of the observation sequence  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline19418" SRC="img12.gif"  > , the
+direct estimation of the joint conditional probability 
+ <IMG WIDTH=102 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19420" SRC="img13.gif"  >  from examples of spoken words
+is not practicable. However, if a parametric model of word production
+such as a Markov model
+is assumed, then estimation from data is possible since the problem
+of estimating the class conditional observation densities  <IMG WIDTH=52 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19422" SRC="img11.gif"  > 
+is replaced by the much simpler problem of estimating the Markov
+model parameters.
+<P>
+
+<A NAME="fisoprob">&#160;</A> <IMG WIDTH=328 HEIGHT=248 ALIGN=BOTTOM ALT="tex2html_wrap19494" SRC="img15.gif"  > 
+<P>
+In HMM based speech recognition, it is assumed that the sequence of
+observed speech vectors corresponding to each word is generated
+by a Markov model<A NAME=1006>&#160;</A> as shown in Fig.&nbsp;<A HREF="node5.html#fmarkovgen">1.3</A>.
+A Markov model is a finite state machine which changes state
+once every time unit and each time <I>t</I> that a state <I>j</I> is entered, a
+speech vector  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19428" SRC="img16.gif"  >  is generated from the probability density
+ <IMG WIDTH=36 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19430" SRC="img37.gif"  > .  Furthermore, the transition from state <I>i</I> to state <I>j</I>
+is also probabilistic and is governed by the discrete probability  <IMG WIDTH=14 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19436" SRC="img18.gif"  > .
+Fig.&nbsp;<A HREF="node5.html#fmarkovgen">1.3</A> shows an example of this process where the six state
+model moves through the state sequence <I>X</I>=1,2,2,3,4,4,5,6 in
+order to generate the sequence  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19440" SRC="img19.gif"  >  to  <IMG WIDTH=14 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19442" SRC="img20.gif"  > . Notice that
+in HTK, the entry and exit states of a HMM are non-emitting.  This
+is to facilitate the construction of composite models as explained in
+more detail later.
+<P>
+
+<P>
+The joint probability that  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline19444" SRC="img12.gif"  >  is generated by the model <I>M</I> moving
+through the state sequence
+<I>X</I> is calculated simply as the product of the transition
+probabilities and the output probabilities.  So for the state sequence <I>X</I> in
+Fig.&nbsp;<A HREF="node5.html#fmarkovgen">1.3</A>
+<P><A NAME="e4">&#160;</A> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation483" SRC="img22.gif"  > <P>
+However, in practice, only the observation sequence 
+ <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline19460" SRC="img12.gif"  >  is known and the
+underlying state sequence <I>X</I> is hidden.  This is why it is
+called a <I>Hidden Markov Model</I>.
+<P>
+<A NAME="fmarkovgen">&#160;</A> <IMG WIDTH=350 HEIGHT=260 ALIGN=BOTTOM ALT="tex2html_wrap19496" SRC="img24.gif"  > 
+<P>
+Given that <I>X</I> is unknown, the
+required likelihood<A NAME=498>&#160;</A> is computed 
+by summing over all possible state
+sequences  <IMG WIDTH=186 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19466" SRC="img25.gif"  > , that is
+<P><A NAME="e5">&#160;</A> <IMG WIDTH=500 HEIGHT=43 ALIGN=BOTTOM ALT="equation499" SRC="img26.gif"  > <P>
+where <I>x</I>(0) is constrained to be the model entry state and <I>x</I>(<I>T</I>+1)
+is constrained to be the model exit state.
+<P>
+As an alternative to equation&nbsp;<A HREF="node5.html#e5">1.5</A>, the likelihood can be
+approximated by only considering the most likely state
+sequence, that is
+<P><A NAME="e6">&#160;</A> <IMG WIDTH=500 HEIGHT=43 ALIGN=BOTTOM ALT="equation509" SRC="img27.gif"  > <P>
+<P>
+Although the direct computation of equations <A HREF="node5.html#e5">1.5</A> and <A HREF="node5.html#e6">1.6</A>
+is not tractable, simple recursive procedures exist which allow
+both quantities to be calculated very efficiently.
+Before going any further, however, notice that if equation&nbsp;<A HREF="node5.html#e2">1.2</A> is
+computable then the recognition problem is solved.  Given a set of models
+ <IMG WIDTH=16 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19480" SRC="img28.gif"  >  corresponding to words  <IMG WIDTH=12 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19482" SRC="img8.gif"  > , equation&nbsp;<A HREF="node5.html#e2">1.2</A> is
+solved by using <A HREF="node5.html#e3">1.3</A> and assuming that
+<P><A NAME="e7">&#160;</A> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation524" SRC="img30.gif"  > <P>
+<P>
+All this, of course, assumes that the parameters  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19488" SRC="img31.gif"  >  and
+ <IMG WIDTH=49 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19490" SRC="img35.gif"  >  are known for each model  <IMG WIDTH=16 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19492" SRC="img28.gif"  > .  Herein lies the
+elegance and power of the HMM framework.  Given a set of training examples
+corresponding to a particular model, the parameters of that model can be
+determined automatically by a robust and efficient re-estimation 
+procedure.  Thus, provided that a sufficient number of representative
+examples of each word can be collected then a HMM can be constructed
+which implicitly models all of the many sources of variability inherent
+in real speech.  Fig.&nbsp;<A HREF="node5.html#fuseforiso">1.4</A> summarises the use of HMMs
+for isolated word recognition.  Firstly, a
+HMM is trained for each vocabulary word using a number of examples
+of that word.  In this case, the vocabulary consists of
+just three words: ``one'', ``two'' and ``three''.
+Secondly, to recognise some unknown word, the likelihood of 
+each model generating that word is calculated and the most likely
+model identifies the word.
+<P>
+<A NAME="fuseforiso">&#160;</A> <IMG WIDTH=396 HEIGHT=454 ALIGN=BOTTOM ALT="tex2html_wrap19498" SRC="img34.gif"  > <HR><A NAME="tex2html1530" HREF="node6.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1528" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1522" HREF="node4.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1532" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1533" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1531" HREF="node6.html">1.3 Output Probability Specification</A>
+<B>Up:</B> <A NAME="tex2html1529" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1523" HREF="node4.html">1.1 General Principles of HMMs</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

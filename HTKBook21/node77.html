@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.14 Version 1.5 Compatibility</TITLE>
+<META NAME="description" CONTENT="5.14 Version 1.5 Compatibility">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2568" HREF="node78.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2566" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2560" HREF="node76.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2570" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2571" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2569" HREF="node78.html">5.15 Summary</A>
+<B>Up:</B> <A NAME="tex2html2567" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2561" HREF="node76.html">5.13 Copying and Coding using HCOPY</A>
+<BR> <P>
+<H1><A NAME="SECTION032140000000000000000">5.14 Version 1.5 Compatibility</A></H1>
+<A NAME="sv1spcompat">&#160;</A>
+<P>
+The redesign of the HTK front-end in version 2.0 has introduced
+a number of differences in parameter encoding.  The main
+changes are
+<OL><LI>  Source waveform zero mean processing is now performed on a frame-by-frame
+   basis.<LI> Delta coefficients use a modified form of regression rather than
+   simple differences at the start and end of the utterance.<LI> Energy scaling is no longer applied to the zero'th MFCC coefficient.
+</OL>
+If a parameter encoding is required which is as close as possible
+to the version 1.5 encoding, then the compatibility configuration
+variable <tt>V1COMPAT</tt> should be set to true.
+<P>
+Note also in this context that the default values for the various
+configuration values have been chosen to be consistent with the
+defaults or recommended practice for version 1.5.
+<P>
+<HR><A NAME="tex2html2568" HREF="node78.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2566" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2560" HREF="node76.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2570" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2571" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2569" HREF="node78.html">5.15 Summary</A>
+<B>Up:</B> <A NAME="tex2html2567" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2561" HREF="node76.html">5.13 Copying and Coding using HCOPY</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

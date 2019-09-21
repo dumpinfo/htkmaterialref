@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.2 Basic HMM Definitions</TITLE>
+<META NAME="description" CONTENT="7.2 Basic HMM Definitions">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2806" HREF="node96.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2804" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2798" HREF="node94.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2808" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2809" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2807" HREF="node96.html">7.3 Macro Definitions</A>
+<B>Up:</B> <A NAME="tex2html2805" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2799" HREF="node94.html">7.1 The HMM Parameters</A>
+<BR> <P>
+<H1><A NAME="SECTION03420000000000000000">7.2 Basic HMM Definitions</A></H1>
+<A NAME="sOneHMM">&#160;</A>
+<P>
+Some HTK tools require a single HMM to be defined.  For example, the
+isolated-unit re-estimation tool HREST would be invoked as
+<PRE>    HRest hmmdef s1 s2 s3 ....</PRE>
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=464 ALIGN=BOTTOM ALT="tex2html_wrap20582" SRC="img235.gif"  > 
+<P>
+<A NAME="fhmm1def">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=309 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap20584" SRC="img236.gif"  > </P></DIV>
+<P>
+This would cause the model defined in the file <tt>hmmdef</tt>
+to be input and its parameters re-estimated using the speech data
+files <tt>s1</tt>, <tt>s2</tt>, etc.<A NAME=6794>&#160;</A>
+<P>
+HMM definition files consist of a sequence of symbols representing
+the elements of a simple language.  These symbols are mainly
+keywords written within angle brackets and integer and
+floating point numbers. 
+The full HTK definition language is presented
+more formally later in section&nbsp;<A HREF="node102.html#shmmdef">7.9</A>.  For now, the
+main features of the language will be described by some
+examples.<A NAME=6796>&#160;</A>
+<P>
+Fig&nbsp;<A HREF="node95.html#fhmm1def">7.2</A> shows a HMM definition corresponding to the simple
+left-right HMM illustrated in Fig&nbsp;<A HREF="node94.html#fhmm1">7.1</A>.  It is a continuous density
+HMM with 5 states in total, 3 of which are emitting.  The first symbol in the
+file  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20176" SRC="img433.gif"  > <i>h</i> indicates that the following string is the name of a macro of
+type <i>h</i> which means that it is a HMM definition (macros are explained
+in detail later).  Thus, this definition describes a HMM called ``hmm1''.  
+Note that HMM names should be composed of alphanumeric characters only and must
+not consist solely of numbers. The HMM definition itself is bracketed by the
+symbols &lt;<i>BeginHMM</i>&gt;<A NAME=6802>&#160;</A> and
+&lt;<i>EndHMM</i>&gt;<A NAME=6804>&#160;</A>.<A NAME=6805>&#160;</A>
+<P>
+
+<P>
+The first 
+line of the definition proper specifies<A NAME=5872>&#160;</A>
+the <i>global</i> features of the HMM.  In any system
+consisting of many HMMs, these
+features will be the same for all of them.
+In this case, the global definitions indicate that
+the observation vectors have 4 components
+(&lt;<i>VecSize</i>&gt;<A NAME=5875>&#160;</A> 4) and that they denote
+MFCC coefficients<A NAME=5876>&#160;</A> (&lt;<i>MFCC</i>&gt;).
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=569 ALIGN=BOTTOM ALT="tex2html_wrap20586" SRC="img238.gif"  > 
+<P>
+<A NAME="fhmm2def">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=308 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap20588" SRC="img239.gif"  > </P></DIV>
+<P>
+The next line specifies the number of states in the HMM. There
+then follows a definition for each emitting state <I>j</I>, each of which
+has a single mean 
+vector  <IMG WIDTH=13 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20298" SRC="img49.gif"  >  introduced by the keyword &lt;<i>Mean</i>&gt;
+<A NAME=6903>&#160;</A> 
+and a diagonal variance vector  <IMG WIDTH=14 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline20308" SRC="img241.gif"  > 
+introduced by the keyword &lt;<i>Variance</i>&gt;.
+<A NAME=6906>&#160;</A>
+The definition ends with the transition matrix  <IMG WIDTH=29 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline20318" SRC="img242.gif"  > 
+introduced by the keyword 
+&lt;<i>TransP</i>&gt;<A NAME=6909>&#160;</A>.  
+<A NAME=6910>&#160;</A>
+<A NAME=6911>&#160;</A>
+<A NAME=6912>&#160;</A>
+<P>
+Notice that
+the dimension of each vector or matrix is specified
+explicitly before listing the component values.  These
+dimensions must be consistent with the corresponding observation 
+width (in the case of output distribution parameters) or
+number of states (in the case of transition matrices).
+Although in this example they could be inferred, 
+HTK requires that 
+they are included explicitly since, as will
+be described shortly, they can be detached from the HMM definition
+and stored elsewhere as a macro.<A NAME=6913>&#160;</A><A NAME=6914>&#160;</A>
+<P>
+The definition for <i>hmm1</i> makes use of many defaults.
+In particular, there is no definition for the number of
+input data streams or for the number of 
+mixture components per output distribution.  Hence, in both
+cases, a default of 1 is assumed.
+<P>
+Fig&nbsp;<A HREF="node95.html#fhmm2def">7.3</A> shows a HMM definition in which
+the emitting states are 2 component mixture Gaussians.
+The number of mixture components in each state <I>j</I> is indicated by the keyword
+&lt;<i>NumMixes</i>&gt;<A NAME=6918>&#160;</A> and each mixture component 
+is prefixed by the keyword &lt;<i>Mixture</i>&gt;<A NAME=6920>&#160;</A>  followed by the 
+component index <I>m</I> and component weight  <IMG WIDTH=21 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20348" SRC="img243.gif"  > .  Note
+that there is no requirement for the number of mixture components
+to be the same in each distribution.<A NAME=6922>&#160;</A>
+<P>
+
+<P>
+State definitions and the mixture components within them may be
+listed in any order.  When a HMM definition is loaded, a check is made
+that all the required components have been defined.  In addition,
+checks are made that the mixture component weights and each row
+of the transition matrix sum to one.
+If very rapid loading is required, this consistency checking can be inhibited
+by setting the Boolean configuration variable 
+<tt>CHKHMMDEFS</tt><A NAME=6541>&#160;</A> to
+false.
+<P>
+As an alternative to diagonal variance vectors, a Gaussian distribution
+can have a full rank covariance<A NAME=5929>&#160;</A> matrix.   An example of
+this is shown in the definition for <i>hmm3</i> shown in 
+Fig&nbsp;<A HREF="node95.html#fhmm3def">7.4</A>.  Since covariance matrices are symmetric,
+they are stored in upper triangular form<A NAME=5932>&#160;</A>  
+i.e. each row of the matrix
+starts at the diagonal element<A NAME="tex2html575" HREF="footnode.html#5933"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  Also, covariance matrices are stored
+in their inverse form i.e. HMM definitions contain  <IMG WIDTH=24 HEIGHT=13 ALIGN=BOTTOM ALT="tex2html_wrap_inline20350" SRC="img244.gif"  > 
+rather than   <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline20352" SRC="img43.gif"  > .  To reflect this, the keyword chosen to
+introduce a full covariance matrix is &lt;<i>InvCovar</i>&gt;<A NAME=5938>&#160;</A>.
+<P>
+Notice that only the second
+state has a full covariance Gaussian component.  The first state
+has a mixture of two diagonal variance Gaussian components.  Again, this
+illustrates the flexibility of HMM definition in HTK.  If required
+the structure of every
+Gaussian can be individually configured.
+<P>
+Another possible way to store covariance information is in the form
+of the Choleski decomposition<A NAME=5939>&#160;</A> <I>L</I> of the 
+inverse covariance matrix
+i.e.  <IMG WIDTH=68 HEIGHT=13 ALIGN=BOTTOM ALT="tex2html_wrap_inline20364" SRC="img246.gif"  > .
+Again this is stored externally in upper triangular form so <I>L</I>' is
+actually stored.  It is distinguished from the normal inverse covariance
+matrix by using the keyword &lt;<i>LLTCovar</i>&gt;<A NAME=5943>&#160;</A> 
+in place of &lt;<i>InvCovar</i>&gt;<A NAME="tex2html579" HREF="footnode.html#5945"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=516 ALIGN=BOTTOM ALT="tex2html_wrap20590" SRC="img247.gif"  > 
+<P>
+<A NAME="fhmm3def">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=273 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap20592" SRC="img248.gif"  > </P></DIV>
+<P>
+The definition for <i>hmm3</i> also illustrates another
+macro type, that is,  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20456" SRC="img433.gif"  > <i>o</i>.  This macro is used as an alternative
+way of specifying global options and, in fact, it is the format used
+by HTK tools when they write out a HMM definition.  It is provided so that global
+options can be specifed ahead of any other HMM parameters.  As will
+be seen later, this is useful when using many types of macro.
+<A NAME=7049>&#160;</A>
+<P>
+As noted earlier, the observation vectors used to represent
+the speech signal can be divided into two or more statistically
+independent data streams.  This corresponds to the splitting-up
+of the input speech vectors as described in section&nbsp;<A HREF="node73.html#sstreams">5.10</A>.
+In HMM definitions, the use of multiple data
+streams must be indicated by specifying the number of streams and
+the width (i.e dimension) of each stream as a global
+option.  This is done using the keyword &lt;<i>StreamInfo</i>&gt;
+<A NAME=7052>&#160;</A> followed
+by the number of streams, and then a sequence of numbers indicating
+the width of each stream.  The sum of these
+stream widths must equal the original vector size as indicated
+by the  &lt;<i>VecSize</i>&gt; keyword.
+<P>
+An example of a HMM definition for multiple data 
+streams<A NAME=7054>&#160;</A>
+is <i>hmm4</i> shown in 
+Fig&nbsp;<A HREF="node95.html#fhmm4def">7.5</A>.  This HMM is intended to model 2 distinct
+streams, the first has 3 components and the second has 1.
+This is indicated by the global option &lt;<i>StreamInfo</i>&gt; 2 3 1.
+The definition of each state output distribution now
+includes means and variances for each individual stream.
+<P>
+
+<P>
+Thus, in Fig&nbsp;<A HREF="node95.html#fhmm4def">7.5</A>, each state is subdivided into
+2 streams using the &lt;<i>Stream</i>&gt;<A NAME=5983>&#160;</A> keyword followed by the stream
+number.  Note also, that each individual stream can be weighted.
+In state 2 of <i>hmm4</i>, the vector following the
+&lt;<i>SWeights</i>&gt;<A NAME=5986>&#160;</A> keyword indicates that
+stream 1 has a weight of 0.9 whereas
+stream 2 has a weight of 1.1.  There is no stream weight
+<A NAME=5987>&#160;</A> vector
+in state 3 and hence the default weight of 1.0 will be
+assigned to each stream.
+<P>
+No HTK tools are supplied for estimating optimal stream 
+weight<A NAME=5989>&#160;</A> 
+values.  Hence, they must either be set manually or derived
+from some outside source.  However, once set, they are used in
+the calculation of output probabilities as specified in 
+equations&nbsp;<A HREF="node94.html#ecdpdf">7.1</A> and <A HREF="node94.html#eddpdf">7.3</A>, and hence they will
+affect the operation of both the training and recognition tools.
+<P>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=414 HEIGHT=534 ALIGN=BOTTOM ALT="tex2html_wrap20594" SRC="img250.gif"  > 
+<P>
+<A NAME="fhmm4def">&#160;</A>
+<b> </b>
+Fig.  <IMG WIDTH=5 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap20597" SRC="img283.gif"  > . <IMG WIDTH=4 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap20596" SRC="img202.gif"  > </P></DIV><HR><A NAME="tex2html2806" HREF="node96.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2804" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2798" HREF="node94.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2808" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2809" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2807" HREF="node96.html">7.3 Macro Definitions</A>
+<B>Up:</B> <A NAME="tex2html2805" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2799" HREF="node94.html">7.1 The HMM Parameters</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

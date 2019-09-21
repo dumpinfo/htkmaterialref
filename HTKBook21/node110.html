@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.7 Parameter Re-Estimation Formulae</TITLE>
+<META NAME="description" CONTENT="8.7 Parameter Re-Estimation Formulae">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2993" HREF="node111.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2991" HREF="node103.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2987" HREF="node109.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2995" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2996" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2994" HREF="node111.html">8.7.1 Viterbi Training (HINIT)</A>
+<B>Up:</B> <A NAME="tex2html2992" HREF="node103.html">8 HMM Parameter Estimation</A>
+<B> Previous:</B> <A NAME="tex2html2988" HREF="node109.html">8.6 Single-Pass Retraining</A>
+<BR> <P>
+<H1><A NAME="SECTION03570000000000000000">8.7 Parameter Re-Estimation Formulae</A></H1>
+<A NAME="sbwformulae">&#160;</A>
+<P>
+<A NAME=8527>&#160;</A>
+For reference purposes, this section lists the various formulae 
+employed within the HTK parameter estimation tools. 
+All are standard, however, the use of non-emitting
+states and multiple data streams leads to various special cases which are
+usually not covered fully in the literature.
+<P>
+The following notation is used in this section
+<PRE><TT> 
+		 <I>N</I> 		 number of states
+<P>
+		 <I>S</I> 		 number of streams
+<P>
+		  <IMG WIDTH=17 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline21622" SRC="img416.gif"  >  		 number of mixture components in stream <I>s</I>
+<P>
+		 <I>T</I> 		 number of observations
+<P>
+		 <I>Q</I> 		 number of models in an embedded training sequence
+<P>
+		  <IMG WIDTH=16 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline21630" SRC="img347.gif"  >  		 number of states in the <I>q</I>'th model in a training sequence
+<P>
+		  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline21634" SRC="img12.gif"  >       		 a sequence of observations
+<P>
+		  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline21636" SRC="img16.gif"  >     		 the observation at time <I>t</I>,  <IMG WIDTH=60 HEIGHT=24 ALIGN=MIDDLE ALT="tex2html_wrap_inline21640" SRC="img350.gif"  > 
+<P>
+		  <IMG WIDTH=18 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline21642" SRC="img232.gif"  >  		 the observation vector for stream <I>s</I> at time <I>t</I>
+<P>
+		  <IMG WIDTH=14 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline21648" SRC="img18.gif"  >        		 the probability of a transition from state <I>i</I> to <I>j</I>
+<P>
+		  <IMG WIDTH=26 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline21654" SRC="img40.gif"  >     		 weight of mixture component <I>m</I> in state <I>j</I> stream <I>s</I>
+<P>
+		  <IMG WIDTH=30 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline21662" SRC="img354.gif"  >   		 vector of means for the mixture component <I>m</I> of state <I>j</I>
+                        stream <I>s</I>
+<P>
+		  <IMG WIDTH=31 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline21670" SRC="img355.gif"  >   		 covariance matrix for the mixture component <I>m</I> 
+                         of state <I>j</I>  stream <I>s</I>
+<P>
+		  <IMG WIDTH=6 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline21678" SRC="img356.gif"  >  		 the set of all parameters defining a HMM
+<P>
+</TT></PRE><BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html2997" HREF="node111.html#SECTION03571000000000000000">8.7.1 Viterbi Training (HINIT)</A>
+<LI> <A NAME="tex2html2998" HREF="node112.html#SECTION03572000000000000000">8.7.2 Forward/Backward Probabilities</A>
+<LI> <A NAME="tex2html2999" HREF="node113.html#SECTION03573000000000000000">8.7.3 Single Model Reestimation(HREST)</A>
+<LI> <A NAME="tex2html3000" HREF="node114.html#SECTION03574000000000000000">8.7.4 Embedded Model Reestimation(HEREST)</A>
+</UL>
+<HR><A NAME="tex2html2993" HREF="node111.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2991" HREF="node103.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2987" HREF="node109.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2995" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2996" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2994" HREF="node111.html">8.7.1 Viterbi Training (HINIT)</A>
+<B>Up:</B> <A NAME="tex2html2992" HREF="node103.html">8 HMM Parameter Estimation</A>
+<B> Previous:</B> <A NAME="tex2html2988" HREF="node109.html">8.6 Single-Pass Retraining</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

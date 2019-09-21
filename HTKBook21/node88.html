@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.3.2 Syntax and Semantics</TITLE>
+<META NAME="description" CONTENT="6.3.2 Syntax and Semantics">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2717" HREF="node89.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2715" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2709" HREF="node87.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2719" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2720" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2718" HREF="node89.html">6.3.3 MLF Search</A>
+<B>Up:</B> <A NAME="tex2html2716" HREF="node86.html">6.3 Master Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2710" HREF="node87.html">6.3.1 General Principles of MLFs</A>
+<BR> <P>
+<H2><A NAME="SECTION03332000000000000000">6.3.2 Syntax and Semantics</A></H2>
+<P>
+An MLF consists of one or more individual definitions.  Blank lines in
+an MLF are ignored but otherwise the line structure is significant.
+The first line must contain just <tt>#!MLF!#</tt> to identify it as an MLF file.
+This is not necessary for use with the <tt>-I</tt> option but some 
+HTK tools need to be able to distinguish an MLF from a normal label file.
+The following syntax<A NAME=5341>&#160;</A> of MLF files is described using an 
+extended BNF notation in which
+alternatives are separated by a vertical bar |, parentheses ( ) denote
+factoring, brackets [ ] denote options, and braces { } denote zero or more
+repetitions.
+<P>
+<I>
+<PRE><TT> 
+		    MLF  =  		 ``#!MLF!#''
+<P>
+				  MLFDef { MLFDef }
+<P>
+</TT></PRE>
+</I>
+<P>
+Each definition is either a transcription for immediate loading or a
+subdirectory to search.
+<P>
+<I>
+<PRE><TT> 
+		    MLFDef  = 		 ImmediateTranscription | SubDirDef
+<P>
+</TT></PRE>
+</I>
+<P>
+An immediate transcription consists of a pattern on a line
+by itself immediately followed
+by a transcription which as far as the MLF is concerned is arbitrary
+text.  It is read using whatever label file ``driver'' routines are
+installed in HLABEL.  It is terminated by a period written on a line
+of its own.
+<P>
+<I>
+<PRE><TT> 
+		   ImmediateTranscription =
+<P>
+				                    Pattern
+<P>
+				                    Transcription
+<P>
+				``.''
+<P>
+</TT></PRE>
+</I>
+A subdirectory definition  simply gives the name of a subdirectory
+to search.  If the required label file is found in that subdirectory
+then the label file is loaded, otherwise the next matching subdirectory
+definition is checked.
+<P>
+<I>
+<PRE><TT> 
+		   SubDirDef = 		 Pattern SearchMode String
+<P>
+		   SearchMode = 		 ``<code>-&gt;</code>'' | ``<code>=&gt;</code>''
+<P>
+</TT></PRE>
+</I>
+<P>
+The two types of search mode are described below. A pattern is just a 
+string
+<I>
+<PRE><TT> 
+		    Pattern = 		 String
+<P>
+</TT></PRE>
+</I>
+<P>
+except that the characters `<tt>?</tt>' and `<tt>*</tt>' embedded in the string act
+as wildcards<A NAME=5355>&#160;</A> such that `<tt>?</tt>' matches any single character and
+`<tt>*</tt>' matches 0 or more characters.
+A string is any sequence of characters enclosed in double quotes.
+<P>
+<HR><A NAME="tex2html2717" HREF="node89.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2715" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2709" HREF="node87.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2719" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2720" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2718" HREF="node89.html">6.3.3 MLF Search</A>
+<B>Up:</B> <A NAME="tex2html2716" HREF="node86.html">6.3 Master Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2710" HREF="node87.html">6.3.1 General Principles of MLFs</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

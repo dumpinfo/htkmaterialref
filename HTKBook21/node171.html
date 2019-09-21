@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>AU hmmList</TITLE>
+<META NAME="description" CONTENT="AU hmmList">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3921" HREF="node172.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3919" HREF="node169.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3913" HREF="node170.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3923" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3924" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3922" HREF="node172.html">CL hmmList</A>
+<B>Up:</B> <A NAME="tex2html3920" HREF="node169.html">13.6.1 Function</A>
+<B> Previous:</B> <A NAME="tex2html3914" HREF="node170.html">*AT i j prob itemList(t)</A>
+<BR> <P>
+<H3><A NAME="SECTION04161200000000000000"><TT>AU hmmList</TT></A></H3>
+<P>
+Use a set of decision trees to create a new set of models specified
+by the <tt>hmmList</tt>.  The decision trees may be made as a result
+of either the <tt>TB</tt> or <tt>LT</tt> command.
+<P>
+Each model in <tt>hmmList</tt> is constructed in the following manner.
+If a model with the same logical name already exists in the
+current  HMM set this is used unchanged, otherwise the model is
+synthesised from the decision trees.  If the trees cluster at the 
+model level the synthesis results in a logical model sharing the
+physical model from the tree that matches the new context.  If
+the clustering was performed at the state level a prototype model
+(an example of the same phone model occurring in a different context)
+is found and a new HMM is constructed  that shares the transition
+matrix with the prototype model but consists of tied states selected
+using the decision tree.
+<P>
+<HR><A NAME="tex2html3921" HREF="node172.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3919" HREF="node169.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3913" HREF="node170.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3923" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3924" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3922" HREF="node172.html">CL hmmList</A>
+<B>Up:</B> <A NAME="tex2html3920" HREF="node169.html">13.6.1 Function</A>
+<B> Previous:</B> <A NAME="tex2html3914" HREF="node170.html">*AT i j prob itemList(t)</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.16.2 Use</TITLE>
+<META NAME="description" CONTENT="13.16.2 Use">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4773" HREF="node242.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4771" HREF="node239.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4765" HREF="node240.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4775" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4776" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4774" HREF="node242.html">13.16.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4772" HREF="node239.html">13.16 HSLab</A>
+<B> Previous:</B> <A NAME="tex2html4766" HREF="node240.html">13.16.1 Function</A>
+<BR> <P>
+<H2><A NAME="SECTION041162000000000000000">13.16.2 Use</A></H2>
+<P>
+HSLAB is invoked by typing the command line
+<PRE>   HSLab [options] dataFile</PRE>
+where <tt>dataFile</tt> is a data file in any of the supported formats with a 
+<tt>WAVEFORM</tt> sample kind.   If the given data file does not exist, then
+HSLAB will assume that a new file is to be recorded with this name.
+<P>
+The available options for HSLAB are
+<P>
+<UL><DT><TT>-a</TT>
+<DD> With this switch present, the numeric part of the global labelling
+  string is automatically incremented after every <tt>Label</tt> operation.
+<P>
+  <DT><TT>-i file</TT>
+<DD> This option allows transcription files to be output to the
+  named master label file (MLF).
+<P>
+  <DT><TT>-n</TT>
+<DD> Normally HSLAB expects to load an existing label file
+  whose name is derived from the speech data file. This option tells 
+  HSLAB that a new empty transcription is to be created for the loaded 
+  data-file.
+<P>
+  <DT><TT>-s string</TT>
+<DD> This option allows the user to set the string displayed
+  in the ``command'' button used to trigger external commands.
+<P>
+<DT><TT>-F fmt</TT>
+<DD> Set the source data format to <TT>fmt</TT>.
+<DT><TT>-G fmt</TT>
+<DD> Set the label file format to <TT>fmt</TT>.
+<DT><TT>-I mlf</TT>
+<DD> This loads the master label file <TT>mlf</TT>.  This option
+may be repeated to load several MLFs.
+<DT><TT>-L dir</TT>
+<DD> Search directory <tt>dir</tt> for label files (default
+is to search current directory).
+<DT><TT>-X ext</TT>
+<DD> Set label file extension to <TT>ext</TT> 
+(default is <tt>lab</tt>).
+</UL>
+HSLAB also supports the standard options <tt>-A</tt>,
+<tt>-C</tt>,  <tt>-D</tt>, <tt>-S</tt>, <tt>-T</tt>, and <tt>-V</tt> as described
+in section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>.
+<P>
+The following is a summary of the function of each HSLAB
+button.
+<P>
+<UL><DT><TT> <IMG WIDTH=41 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22456" SRC="img568.gif"  > </TT>
+<DD> Load a speech data file and associated transcription.
+      If changes have been made to the currently loaded transcription 
+      since it was last saved the user will be prompted to save these 
+      changes before loading the new file.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22458" SRC="img569.gif"  > </TT>
+<DD> Save changes made to the transcription into a specified
+      label file.
+<P>
+  <DT><TT> <IMG WIDTH=48 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22460" SRC="img570.gif"  > </TT>
+<DD> Print information about HSLab.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=22 ALIGN=BOTTOM ALT="tex2html_wrap22462" SRC="img571.gif"  > </TT>
+<DD> Exit from HSLAB. If alterations have been made 
+      to the currently loaded transcription since it was last saved, the user 
+      will be prompted to save these changes before exiting.
+<P>
+  <DT><TT> <IMG WIDTH=64 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22464" SRC="img572.gif"  > </TT>
+<DD> This button is used to trigger an external command which 
+      can process the waveform file currently loaded in HSLAB. This 
+      is accomplished by setting the environment variable <tt>HSLABCMD</tt> to the 
+      shell command required to perform the processing. When the <tt>Command</tt>
+      button is pressed, any occurrence of <tt>$</tt> in the shell command is 
+      replaced by the name of the currently loaded waveform file. Note that 
+      only the filename without its extension is substituted. The string 
+      displayed in the ``command'' button can be changed using the <tt>-s</tt> 
+      option.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22466" SRC="img573.gif"  > </TT>
+<DD> Mark a region of the displayed waveform. The user 
+      is prompted to specify the start and the end point of a region with
+      the mouse pointer. The marked region will be displayed in inverse 
+      colours. Only one region can be marked at a time.
+<P>
+  <DT><TT> <IMG WIDTH=56 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22468" SRC="img574.gif"  > </TT>
+<DD> Unmark a previously marked region.
+<P>
+  <DT><TT> <IMG WIDTH=33 HEIGHT=19 ALIGN=BOTTOM ALT="tex2html_wrap22470" SRC="img575.gif"  > </TT>
+<DD> Scroll the display to the left.
+<P>
+  <DT><TT> <IMG WIDTH=33 HEIGHT=19 ALIGN=BOTTOM ALT="tex2html_wrap22472" SRC="img576.gif"  > </TT>
+<DD> Scroll the display to the right.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22474" SRC="img577.gif"  > </TT>
+<DD> Zoom into a part of the displayed waveform. If there is 
+      a currently marked region then that region will be zoomed into, 
+      otherwise, the user will be prompted to select a slice of the 
+      waveform by specifying two points using the mouse pointer.
+<P>
+  <DT><TT> <IMG WIDTH=48 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22476" SRC="img578.gif"  > </TT>
+<DD> Restore the previous viewing level.
+<P>
+  <DT><TT> <IMG WIDTH=64 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22478" SRC="img579.gif"  > </TT>
+<DD> Display the complete waveform into the window. Any 
+      marked regions will be unmarked.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=23 ALIGN=BOTTOM ALT="tex2html_wrap22480" SRC="img580.gif"  > </TT>
+<DD> If there is a marked region of the waveform then
+      that portion of the signal will be played through the internal speaker.
+      Otherwise, the command will apply to the waveform visible on the 
+      screen.
+<P>
+  <DT><TT> <IMG WIDTH=33 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22482" SRC="img581.gif"  > </TT>
+<DD> This initiates recording from the audio input device. The maximum
+      duration of a recording is limited to 2 mins at 16KHz sampling rate. Two bar-graphs 
+      are displayed: the first (red) shows the number of samples recorded, the second
+      bar (green) displays the energy of the incoming signal. Once pressed, the
+      <tt>Rec</tt> button changes into <tt>Stop</tt> which, in turn, is used to terminate
+      the operation. When finished, the audio data stored in the buffer is written
+      out to disk. Each recording is stored in alternating files 
+      <tt>dataFile_0</tt> and <tt>dataFile_1</tt>.
+<P>
+  <DT><TT> <IMG WIDTH=48 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22484" SRC="img582.gif"  > </TT>
+<DD> Clicking on this button pauses/un-pauses the recording operation.
+<P>
+  <DT><TT> <IMG WIDTH=56 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22486" SRC="img583.gif"  > </TT>
+<DD> This button is used to select the playback volume of the
+      audio device.
+<P>
+  <DT><TT> <IMG WIDTH=26 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22488" SRC="img584.gif"  > </TT>
+<DD> This button selects the current level of waveform magnification.
+      The available factors are  <IMG WIDTH=14 HEIGHT=16 ALIGN=MIDDLE ALT="tex2html_wrap_inline22444" SRC="img585.gif"  > ,   <IMG WIDTH=14 HEIGHT=16 ALIGN=MIDDLE ALT="tex2html_wrap_inline22446" SRC="img586.gif"  > ,   <IMG WIDTH=15 HEIGHT=16 ALIGN=MIDDLE ALT="tex2html_wrap_inline22448" SRC="img587.gif"  > ,   <IMG WIDTH=14 HEIGHT=16 ALIGN=MIDDLE ALT="tex2html_wrap_inline22450" SRC="img588.gif"  > , 
+        <IMG WIDTH=21 HEIGHT=16 ALIGN=MIDDLE ALT="tex2html_wrap_inline22452" SRC="img589.gif"  > , and   <IMG WIDTH=21 HEIGHT=16 ALIGN=MIDDLE ALT="tex2html_wrap_inline22454" SRC="img590.gif"  > .
+<P>
+  <DT><TT> <IMG WIDTH=49 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22490" SRC="img591.gif"  > </TT>
+<DD> If a marked region exists, then the waveform contained in the 
+      region will be labelled with <EM>The Current Label</EM>. Otherwise, the 
+      command will be applied to the waveform visible on the screen.
+<P>
+  <DT><TT> <IMG WIDTH=64 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22492" SRC="img592.gif"  > </TT>
+<DD> Same as above, however, the user is prompted to type in 
+      the labelling string.
+<P>
+  <DT><TT> <IMG WIDTH=56 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22494" SRC="img593.gif"  > </TT>
+<DD> Delete a label.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22496" SRC="img594.gif"  > </TT>
+<DD> Edit the string of a label.
+<P>
+  <DT><TT> <IMG WIDTH=56 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22498" SRC="img595.gif"  > </TT>
+<DD> Select a label as a marked region.
+<P>
+  <DT><TT> <IMG WIDTH=56 HEIGHT=23 ALIGN=BOTTOM ALT="tex2html_wrap22500" SRC="img596.gif"  > </TT>
+<DD> Adjust the boundaries of a label.  To select the label 
+      boundary to adjust, click in the display near to the label boundary.
+<P>
+  <DT><TT> <IMG WIDTH=64 HEIGHT=22 ALIGN=BOTTOM ALT="tex2html_wrap22502" SRC="img597.gif"  > </TT>
+<DD> This button is used to select the current alternative 
+      transcription displayed and used in HSLAB.
+<P>
+  <DT><TT> <IMG WIDTH=33 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22504" SRC="img598.gif"  > </TT>
+<DD> Creates a new alternative transcription. If an empty alternative 
+      transcription already exists, then a new transcription is not created.
+<P>
+  <DT><TT> <IMG WIDTH=41 HEIGHT=20 ALIGN=BOTTOM ALT="tex2html_wrap22506" SRC="img599.gif"  > </TT>
+<DD> Single level undo operation for labelling commands.
+<P>
+  <DT><TT> <IMG WIDTH=56 HEIGHT=23 ALIGN=BOTTOM ALT="tex2html_wrap22508" SRC="img600.gif"  > </TT>
+<DD> Change the current labelling string (the button in the 
+  bottom right of the control area).
+</UL>
+<P>
+The following ``mouse'' shortcuts are provided. To mark a region position the pointer at
+one of the desired boundaries, then press the left mouse button and while holding it down
+position the pointer at the other region boundary. Upon releasing the mouse button the 
+marked region will be hilighted. To play a label position the mouse cursor anywhere within
+the corresponding label ``slice'' in the label area of the display and click the left
+mouse button.
+<P>
+<HR><A NAME="tex2html4773" HREF="node242.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4771" HREF="node239.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4765" HREF="node240.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4775" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4776" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4774" HREF="node242.html">13.16.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4772" HREF="node239.html">13.16 HSLab</A>
+<B> Previous:</B> <A NAME="tex2html4766" HREF="node240.html">13.16.1 Function</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

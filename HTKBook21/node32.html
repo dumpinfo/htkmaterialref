@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3.3.1 Step 9 - Making Triphones from Monophones</TITLE>
+<META NAME="description" CONTENT="3.3.1 Step 9 - Making Triphones from Monophones">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1881" HREF="node33.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1879" HREF="node31.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1873" HREF="node31.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1883" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1884" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1882" HREF="node33.html">3.3.2 Step 10 - Making Tied-State Triphones</A>
+<B>Up:</B> <A NAME="tex2html1880" HREF="node31.html">3.3 Creating Tied-State Triphones</A>
+<B> Previous:</B> <A NAME="tex2html1874" HREF="node31.html">3.3 Creating Tied-State Triphones</A>
+<BR> <P>
+<H2><A NAME="SECTION02331000000000000000">3.3.1 Step 9 - Making Triphones from Monophones</A></H2>
+<P>
+Context-dependent triphones can be made by simply 
+cloning<A NAME=2236>&#160;</A><A NAME=2237>&#160;</A> monophones and then
+re-estimating using triphone transcriptions.  The latter should be created
+first using HLED<A NAME=2450>&#160;</A> because 
+a side-effect is to generate a list of all
+the triphones for which there is at least one example in the training data.
+That is, executing
+<PRE>    HLEd -n triphones0 -l '*' -i lib/wintri.mlf mktri.led aligned.mlf</PRE>
+will convert the monophone transcriptions in <tt>aligned.mlf</tt> to
+an equivalent set of triphone transcriptions in <tt>wintri.mlf</tt>.
+At the same time, a list of triphones is written to the file <tt>triphones0</tt>.
+The edit script <tt>mktri.led</tt>  contains the commands
+<PRE>    WB sp
+    WB sil
+    TC</PRE>
+The two <tt>WB</tt><A NAME=2451>&#160;</A> commands define <tt>sp</tt> and <tt>sil</tt>
+as <i>word boundary symbols</i>.  These then block the addition of
+context in the <tt>TI</tt> command, seen in the following script, which converts all phones
+(except word boundary symbols) to triphones
+<A NAME=2250>&#160;</A><A NAME=2251>&#160;</A><A NAME=2252>&#160;</A>.  
+For example,
+<PRE>    sil th ih s sp m ae n sp ...</PRE>
+becomes
+<PRE>    sil th+ih th-ih+s ih-s sp m+ae m-ae+n ae-n sp ...</PRE>
+This style of triphone transcription is referred to as <i>word internal</i>.
+<A NAME=2254>&#160;</A>
+Note that some biphones will also be generated as contexts at word boundaries
+will sometimes only include two phones.
+<P>
+The cloning of models can be done efficiently using the HMM editor HHED:
+<PRE>    HHEd -B -H hmm9/macros -H hmm9/hmmdefs -M hmm10 
+         mktri.hed monophones1</PRE>
+where the edit script <tt>mktri.hed</tt>
+contains a clone command <tt>CL</tt> followed by <tt>TI</tt> commands to tie all of
+the transition matrices in each triphone<A NAME=2259>&#160;</A> set, that is:
+<PRE>    CL triphones0
+    TI T_ah {(*-ah+*,ah+*,*-ah).transP}
+    TI T_ax {(*-ax+*,ax+*,*-ax).transP}
+    TI T_ey {(*-ey+*,ey+*,*-ey).transP}
+    TI T_b {(*-b+*,b+*,*-b).transP}
+    TI T_ay {(*-ay+*,ay+*,*-ay).transP}
+    ...</PRE>  
+The file <tt>mktri.hed</tt> can be generated using the <EM>Perl</EM> script
+<tt>maketrihed</tt> included in the <tt>HTKTutorial</tt> directory.
+<P>
+The clone command <tt>CL</tt><A NAME=2452>&#160;</A> takes as its
+argument the name of the file containing the list of triphones (and
+biphones)<A NAME=2266>&#160;</A><A NAME=2267>&#160;</A><A NAME=2268>&#160;</A> generated
+above.  For each model of the form <tt>a-b+c</tt> in this list, it looks for
+the monophone <tt>b</tt> and makes a copy of it.<A NAME=2271>&#160;</A> Each <tt>TI</tt> command takes as its argument the name of a macro
+and a list of HMM components.  The latter uses a notation which attempts to
+mimic the hierarchical structure of the HMM parameter set in which the
+transition matrix <tt>transP</tt> can be regarded as a sub-component of each
+HMM.  The list of items within brackets are patterns designed to match the set
+of triphones, right biphones and left biphones for each phone.
+<P>
+<A NAME="fegtranstie">&#160;</A> <IMG WIDTH=330 HEIGHT=339 ALIGN=BOTTOM ALT="tex2html_wrap19812" SRC="img122.gif"  > 
+<P>
+Up to now macros and tying have only been mentioned in passing.  Although a
+full explanation must wait until chapter&nbsp;<A HREF="node93.html#cHMMDefs">7</A>, a brief explanation
+is warranted here.  Tying means that one or more HMMs share the same set of
+parameters.  On the left side of Fig.&nbsp;<A HREF="node32.html#fegtranstie">3.12</A>, two HMM definitions
+are shown.  Each HMM has its own individual transition matrix.  On the right
+side, the effect of the first <tt>TI</tt> command in the edit script
+<tt>mktri.hed</tt> is shown.  The individual transition matrices have been
+replaced by a reference to a <i>macro</i> called <tt>T_ah</tt> which
+contains a matrix shared by both models.  When reestimating tied parameters,
+the data which would have been used for each of the original untied parameters
+is pooled so that a much more reliable estimate can be obtained.
+<P>
+Of course, tying could affect performance if performed indiscriminately.
+Hence, it is important to only tie parameters which have little effect on
+discrimination.  This is the case here where the transition parameters do not
+vary significantly with acoustic context but nevertheless need to be estimated
+accurately.  Some triphones will occur only once or twice and so very poor
+estimates would be obtained if tying was not done.  These problems of data
+insufficiency will affect the output distributions too, but this will be dealt
+with in the next step.
+<P>
+Hitherto, all HMMs have been stored in text format and could be inspected like
+any text file.  Now however, the model files will be getting larger and space
+and load/store times become an issue.  For increased efficiency,
+HTK can store and load MMFs in binary<A NAME=2283>&#160;</A>
+format.  Setting the standard <tt>-B</tt> option causes this to happen.
+<P>
+
+<A NAME="fstep9">&#160;</A> <IMG WIDTH=222 HEIGHT=345 ALIGN=BOTTOM ALT="tex2html_wrap19814" SRC="img123.gif"  > 
+<P>
+Once the context-dependent models have been cloned, the new triphone set can be
+re-estimated using HEREST.  This is done as previously except that the
+monophone model list is replaced by a triphone list and the triphone
+transcriptions are used in place of the monophone transcriptions.  The
+context-dependent triphone list generated above (<tt>triphones0</tt>) must be
+augmented with the context-independent <tt>sp</tt> and <tt>sil</tt> models to
+give a new list (<tt>triphones1</tt>). This is simple to do by hand.
+<P>
+For the final pass of HEREST, the <tt>-s</tt> option should be used to
+generate a file of state occupation statistics called <tt>stats</tt>.  In
+combination with the means and variances, these enable likelihoods to be
+calculated for clusters of states and are needed during the state-clustering
+process <A NAME=2862>&#160;</A> described below.
+Fig.&nbsp;<A HREF="node32.html#fstep9">3.13</A> illustrates this step of the HMM construction
+procedure. Re-estimation should be again done twice, so that the resultant
+model sets will ultimately be saved in <tt>hmm12</tt>.
+<P>
+
+<P>
+<PRE>   HERest -C config -I aligned.mlf -t 250.0 150.0 1000.0 -s stats \
+    -S train.scp -H hmm10/macros -H hmm10/hmmdefs -M hmm11 triphones1</PRE>
+<P>
+<HR><A NAME="tex2html1881" HREF="node33.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1879" HREF="node31.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1873" HREF="node31.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1883" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1884" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1882" HREF="node33.html">3.3.2 Step 10 - Making Tied-State Triphones</A>
+<B>Up:</B> <A NAME="tex2html1880" HREF="node31.html">3.3 Creating Tied-State Triphones</A>
+<B> Previous:</B> <A NAME="tex2html1874" HREF="node31.html">3.3 Creating Tied-State Triphones</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

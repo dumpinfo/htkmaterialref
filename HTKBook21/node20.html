@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3 A Tutorial Example of Using HTK</TITLE>
+<META NAME="description" CONTENT="3 A Tutorial Example of Using HTK">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1714" HREF="node21.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1712" HREF="node2.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1708" HREF="node19.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1716" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1717" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1715" HREF="node21.html">3.1 Data Preparation</A>
+<B>Up:</B> <A NAME="tex2html1713" HREF="node2.html">Part I: Tutorial Overview</A>
+<B> Previous:</B> <A NAME="tex2html1709" HREF="node19.html">2.4.1 Whats New in Version 2.1?</A>
+<BR> <P>
+<H1><A NAME="SECTION02300000000000000000">3 A Tutorial Example of Using HTK</A></H1>
+<A NAME="cexampsys">&#160;</A>
+<P>
+This final chapter of the tutorial part of the book will describe the
+construction of a recogniser for simple voice dialling applications.  This
+recogniser will be designed to recognise continuously spoken digit strings and
+a limited set of names.  It is sub-word based so that adding a new name to the
+vocabulary involves only modification to the pronouncing dictionary and task
+grammar.  The HMMs will be continuous density mixture Gaussian tied-state
+triphones with clustering performed using phonetic decision trees.  Although
+the voice dialling task itself is quite simple, the system design is
+general-purpose and would be useful for a range of applications.
+<P>
+  <IMG WIDTH=329 HEIGHT=168 ALIGN=BOTTOM ALT="tex2html_wrap19786" SRC="img109.gif"  > 
+<P>
+The system will be built from scratch even to the extent of recording training
+and test data using the HTK tool HSLAB.  To make this tractable, the
+system will be speaker dependent but the same design would be followed to build
+a speaker independent system.  The only difference being that data would be
+required from a large number of speakers and there would be a consequential
+increase in model complexity.
+<P>
+Building a speech recogniser from scratch involves a number of inter-related
+subtasks and pedagogically it is not obvious what the best order is to present
+them. In the presentation here, the ordering is chronological so that in effect
+the text provides a recipe that could be followed to construct a similar
+system. The entire process is described in considerable detail in order give a
+clear view of the range of functions that HTK addresses and thereby to
+motivate the rest of the book.
+<P>
+The HTK software distribution also contains an example of constructing a
+recognition system for the 1000 word ARPA Naval Resource Management Task. This
+is contained in the directory <tt>RMHTK_V2.1</tt> of the HTK distribution.
+Further demonstration of HTK's capabilities can be found in the directory 
+<tt>HTKDemo</tt>. Some example scripts that may be of assistance during the 
+tutorial are available in the <tt>HTKTutorial</tt> directory.
+<P>
+At each step of the tutorial presented in this chapter, the user is advised to
+thoroughly read the entire section before executing the commands, and also to
+consult the reference section for each HTK tool being introduced
+(chapter&nbsp;<A HREF="node147.html#ctoolref">13</A>), so that all command line options and arguments are
+clearly understood.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1718" HREF="node21.html#SECTION02310000000000000000">3.1 Data Preparation</A>
+<UL> 
+<LI> <A NAME="tex2html1719" HREF="node22.html#SECTION02311000000000000000">3.1.1 Step 1 - the Task Grammar</A>
+<LI> <A NAME="tex2html1720" HREF="node23.html#SECTION02312000000000000000">3.1.2 Step 2 - the Dictionary</A>
+<LI> <A NAME="tex2html1721" HREF="node24.html#SECTION02313000000000000000">3.1.3 Step 3 - Recording the Data</A>
+<LI> <A NAME="tex2html1722" HREF="node25.html#SECTION02314000000000000000">3.1.4 Step 4 - Creating the Transcription Files</A>
+<LI> <A NAME="tex2html1723" HREF="node26.html#SECTION02315000000000000000">3.1.5 Step 5 - Coding the Data</A>
+</UL> 
+<LI> <A NAME="tex2html1724" HREF="node27.html#SECTION02320000000000000000">3.2 Creating Monophone HMMs</A>
+<UL> 
+<LI> <A NAME="tex2html1725" HREF="node28.html#SECTION02321000000000000000">3.2.1 Step 6 - Creating Flat Start Monophones</A>
+<LI> <A NAME="tex2html1726" HREF="node29.html#SECTION02322000000000000000">3.2.2 Step 7 - Fixing the Silence Models</A>
+<LI> <A NAME="tex2html1727" HREF="node30.html#SECTION02323000000000000000">3.2.3 Step 8 - Realigning the Training Data</A>
+</UL> 
+<LI> <A NAME="tex2html1728" HREF="node31.html#SECTION02330000000000000000">3.3 Creating Tied-State Triphones</A>
+<UL> 
+<LI> <A NAME="tex2html1729" HREF="node32.html#SECTION02331000000000000000">3.3.1 Step 9 - Making Triphones from Monophones</A>
+<LI> <A NAME="tex2html1730" HREF="node33.html#SECTION02332000000000000000">3.3.2 Step 10 - Making Tied-State Triphones</A>
+</UL> 
+<LI> <A NAME="tex2html1731" HREF="node34.html#SECTION02340000000000000000">3.4 Recogniser Evaluation</A>
+<UL> 
+<LI> <A NAME="tex2html1732" HREF="node35.html#SECTION02341000000000000000">3.4.1 Step 11 - Recognising the Test Data</A>
+</UL> 
+<LI> <A NAME="tex2html1733" HREF="node36.html#SECTION02350000000000000000">3.5 Running the Recogniser Live</A>
+<LI> <A NAME="tex2html1734" HREF="node37.html#SECTION02360000000000000000">3.6 Summary</A>
+</UL>
+<HR><A NAME="tex2html1714" HREF="node21.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1712" HREF="node2.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1708" HREF="node19.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1716" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1717" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1715" HREF="node21.html">3.1 Data Preparation</A>
+<B>Up:</B> <A NAME="tex2html1713" HREF="node2.html">Part I: Tutorial Overview</A>
+<B> Previous:</B> <A NAME="tex2html1709" HREF="node19.html">2.4.1 Whats New in Version 2.1?</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

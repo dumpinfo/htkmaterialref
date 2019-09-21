@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.7.4 Embedded Model Reestimation(HEREST)</TITLE>
+<META NAME="description" CONTENT="8.7.4 Embedded Model Reestimation(HEREST)">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3043" HREF="node115.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3041" HREF="node110.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3037" HREF="node113.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3045" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3046" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3044" HREF="node115.html">9 HMM System Refinement</A>
+<B>Up:</B> <A NAME="tex2html3042" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<B> Previous:</B> <A NAME="tex2html3038" HREF="node113.html">8.7.3 Single Model Reestimation(HREST)</A>
+<BR> <P>
+<H2><A NAME="SECTION03574000000000000000">8.7.4 Embedded Model Reestimation(HEREST)</A></H2>
+<P>
+<A NAME=8845>&#160;</A>
+The re-estimation formulae for the embedded model case have
+to be modified to take account of the fact that the
+entry states can be occupied at any time as a result
+of transitions out of the previous model.  The basic
+formulae for the re-estimation of the transition
+probabilities is
+<P>
+<P> <IMG WIDTH=426 HEIGHT=47 ALIGN=BOTTOM ALT="displaymath21944" SRC="img425.gif"  > <P>
+The transitions from the non-emitting entry states into the HMM are re-estimated by
+<P> <IMG WIDTH=444 HEIGHT=47 ALIGN=BOTTOM ALT="displaymath21945" SRC="img426.gif"  > <P>
+and the transitions out of the HMM into the non-emitting exit states are re-estimated by
+<P> <IMG WIDTH=387 HEIGHT=48 ALIGN=BOTTOM ALT="displaymath21946" SRC="img427.gif"  > <P>
+Finally, the direct transitions from non-emitting entry to 
+non-emitting exit states are
+re-estimated by
+<P> <IMG WIDTH=447 HEIGHT=48 ALIGN=BOTTOM ALT="displaymath21947" SRC="img428.gif"  > <P>
+<P>
+The re-estimation formulae for the output distributions are the
+same as for the single model case except 
+for the obvious additional subscript for <I>q</I>.  However, the
+probability calculations must now allow for transitions from the
+entry states by changing  <IMG WIDTH=32 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21960" SRC="img429.gif"  >  in equation&nbsp;<A HREF="node113.html#eurjt">8.1</A> to
+<P> <IMG WIDTH=445 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21948" SRC="img430.gif"  > <P>
+<P>
+<HR><A NAME="tex2html3043" HREF="node115.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3041" HREF="node110.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3037" HREF="node113.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3045" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3046" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3044" HREF="node115.html">9 HMM System Refinement</A>
+<B>Up:</B> <A NAME="tex2html3042" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<B> Previous:</B> <A NAME="tex2html3038" HREF="node113.html">8.7.3 Single Model Reestimation(HREST)</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.2 Using Discrete Models with Speech</TITLE>
+<META NAME="description" CONTENT="10.2 Using Discrete Models with Speech">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3184" HREF="node126.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3182" HREF="node123.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3176" HREF="node124.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3186" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3187" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3185" HREF="node126.html">10.3 Tied Mixture Systems</A>
+<B>Up:</B> <A NAME="tex2html3183" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<B> Previous:</B> <A NAME="tex2html3177" HREF="node124.html">10.1 Modelling Discrete Sequences</A>
+<BR> <P>
+<H1><A NAME="SECTION03720000000000000000">10.2 Using Discrete Models with Speech</A></H1>
+<A NAME="sspeechvq">&#160;</A>
+<P>
+As noted in section&nbsp;<A HREF="node74.html#svquant">5.11</A>, discrete HMMs can be used to model
+speech by using a vector quantiser to map continuous density vectors into
+discrete symbols.  A vector quantiser depends on a so-called <i>codebook</i> 
+which defines a set of partitions of the vector space.  Each partition
+is represented by the mean value of the speech vectors belonging
+to that partition and optionally  a variance representing the spread.
+Each incoming speech vector is then
+matched with each partition and assigned the index corresponding
+to the partition which is closest using a Mahanalobis distance metric.
+<P>
+In HTK such a codebook can be built using the tool HQUANT.  This tool
+takes as input a set of continuous speech vectors, clusters them and uses
+the centroid and optionally the variance of each cluster to define
+the partitions.  HQUANT can build both linear and tree structured
+codebooks.  To build a linear codebook, all training vectors are initially
+placed in one cluster and the mean calculated.  The mean is then perturbed
+to give two means and the training vectors are partitioned according to
+which mean is nearest to them.  The means are then recalculated and the
+data is repartitioned.  At each cycle, the total distortion (i.e. total
+distance between the cluster members and the mean) is recorded and repartitioning
+continues until there is no significant reduction in distortion.  The whole
+process then repeats by perturbing the mean of the cluster with the highest
+distortion.  This continues until the required number of clusters have been
+found.
+<P>
+Since all training vectors are reallocated at every cycle, this is an
+expensive algorithm to compute.  The maximum number of iterations within
+any single cluster increment can be limited using the configuration
+variable <tt>MAXCLUSTITER</tt><A NAME=10259>&#160;</A> 
+and although this can speed-up the computation
+significantly, the overall training process is still computationally expensive.
+Once built, vector quantisation is performed by scanning all codebook
+entries and finding the nearest entry.  Thus, if a large codebook is used,
+the run-time VQ look-up operation can also be expensive.
+<P>
+As an alternative to building a linear codebook, a tree-structured codebook
+can be used.  The algorithm for this is essentially the same as above
+except that every cluster is split at each stage so that the first cluster
+is split into two, they are split into four and so on.  At each stage, the
+means are recorded so that when using the codebook for vector quantising
+a fast binary search can be used to find the appropriate leaf cluster.
+Tree-structured codebooks are much faster to build since there is no
+repeated reallocation of vectors and much faster in use since only  <IMG WIDTH=62 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21990" SRC="img442.gif"  > 
+distance need to be computed where <I>N</I> is the size of the codebook.
+Unfortunately, however, tree-structured codebooks will normally incur higher 
+VQ distortion for a given codebook size.
+<P>
+When delta and acceleration coefficients are used, it is usually best
+to split the data into multiple streams (see section&nbsp;<A HREF="node73.html#sstreams">5.10</A>.
+In this case, a separate codebook is built for each stream.
+<P>
+As an example, the following invocation of HQUANT would
+generate a linear codebook in the file <tt>linvq</tt> using
+the data stored in the files listed in <tt>vq.scp</tt>.  
+<PRE>   HQuant -C config -s 4 -n 3 64 -n 4 16 -S vq.scp linvq</PRE>
+Here the configuration file <tt>config</tt> specifies the <tt>TARGETKIND</tt>
+as being <tt>MFCC_E_D_A</tt> i.e. static coefficients plus deltas plus
+accelerations plus energy.  The <tt>-s</tt> options requests that this
+parameterisation be split into
+4 separate streams.  By default, each individual codebook has 256 entries, however,
+the <tt>-n</tt> option can be used to specify alternative sizes.
+<P>
+If a tree-structured codebook was wanted rather than a linear codebook,
+the <tt>-t</tt> option would be set.
+Also the default is to use Euclidean distances both for building the
+codebook and for subsequent coding.  Setting the <tt>-d</tt> option
+causes a diagonal covariance Mahalanobis metric to be used and 
+the <tt>-f</tt> option causes a full covariance Mahalanobis metric
+to be used.
+<P>
+<A NAME=10260>&#160;</A>
+<P>
+
+<A NAME="fvqtohmm">&#160;</A> <IMG WIDTH=226 HEIGHT=330 ALIGN=BOTTOM ALT="tex2html_wrap21994" SRC="img443.gif"  > 
+<P>
+Once the codebook is built, normal speech vector files can be 
+converted to discrete files using HCOPY.  
+This was explained 
+previously in section&nbsp;<A HREF="node74.html#svquant">5.11</A>.  The basic mechanism is to
+add the qualifier <tt>_V</tt> to the 
+<tt>TARGETKIND</tt>.<A NAME=10340>&#160;</A>  This causes
+HPARM to append a codebook index to each constructed observation
+vector.  If the configuration variable <tt>SAVEASVQ</tt> is set true, then
+the output routines in HPARM will discard the original vectors
+and just save the VQ indices in a <tt>DISCRETE</tt> file. 
+Alternatively, HTK will regard any speech vector with <tt>_V</tt> set
+as being compatible with discrete HMMs.  Thus, it is not necessary
+to explicitly create a database of discrete training files if
+a set of continuous speech vector parameter files already exists.
+Fig.&nbsp;<A HREF="node125.html#fvqtohmm">10.1</A> illustrates this process.
+<P>
+
+<A NAME=10262>&#160;</A>
+<A NAME=10263>&#160;</A>
+<P>
+Once the training data has been configured for discrete HMMs, the 
+rest of the training process is similar to that previously described.
+The normal sequence is to build a set of monophone models and then
+clone them to make triphones.  As in continuous density systems, 
+state tying can be used to improve the
+robustness of the parameter estimates.  However, in the case of discrete HMMs,
+alternative methods based on interpolation are possible.  These are discussed
+in section&nbsp;<A HREF="node127.html#spsmooth">10.4</A>.
+<P>
+<HR><A NAME="tex2html3184" HREF="node126.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3182" HREF="node123.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3176" HREF="node124.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3186" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3187" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3185" HREF="node126.html">10.3 Tied Mixture Systems</A>
+<B>Up:</B> <A NAME="tex2html3183" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<B> Previous:</B> <A NAME="tex2html3177" HREF="node124.html">10.1 Modelling Discrete Sequences</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

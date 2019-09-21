@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8 HMM Parameter Estimation</TITLE>
+<META NAME="description" CONTENT="8 HMM Parameter Estimation">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2900" HREF="node104.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2898" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2892" HREF="node102.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2902" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2903" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2901" HREF="node104.html">8.1 Training Strategies</A>
+<B>Up:</B> <A NAME="tex2html2899" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2893" HREF="node102.html">7.9 The HMM Definition Language</A>
+<BR> <P>
+<H1><A NAME="SECTION03500000000000000000">8 HMM Parameter Estimation</A></H1>
+<A NAME="cTraining">&#160;</A>
+<P>
+In chapter&nbsp;<A HREF="node93.html#cHMMDefs">7</A> the various types of HMM were described
+and the way in which they are represented within HTK was explained.
+Defining the structure and overall form of a set of HMMs is the first
+step towards building a recogniser.  The second step is to estimate
+the parameters of the HMMs from examples of the data sequences that
+they are intended to model.  This process of parameter estimation
+<A NAME=9020>&#160;</A> is
+usually called <i>training</i>. 
+HTK supplies four basic tools for parameter estimation: HCOMPV,
+HINIT, HREST and HEREST.
+HCOMPV and HINIT are used for initialisation.
+HCOMPV will set the mean and variance of every Gaussian component
+in a HMM definition to be equal to the global mean and variance of the
+speech training data.  This is typically used as an initialisation stage
+for <i>flat-start</i> training.
+Alternatively, a more detailed initialisation is
+possible using HINIT which will compute the parameters of a new
+HMM using a Viterbi style of estimation.
+<P>
+  <IMG WIDTH=331 HEIGHT=250 ALIGN=BOTTOM ALT="tex2html_wrap21582" SRC="img330.gif"  > 
+<P>
+HREST and HEREST are used to refine the 
+parameters of existing HMMs using Baum-Welch Re-estimation.  
+Like HINIT, HREST 
+performs <i>isolated-unit</i> training whereas
+HEREST operates on complete model sets and performs <i>embedded-unit</i>
+training.  In general, whole word HMMs are built using HINIT
+and HREST, and continuous speech sub-word based systems
+are built using HEREST initialised by either HCOMPV or
+HINIT and HREST.
+<P>
+This chapter describes these training tools and their use for 
+estimating the parameters of plain (i.e. untied)
+continuous density HMMs. The use of tying and special cases such as
+tied-mixture HMM sets and discrete probality HMMs are dealt 
+with in later chapters.  The first section of this chapter gives an overview of the
+various training strategies possible with HTK.  This is then followed
+by sections covering initialisation, isolated-unit training, and
+embedded training.  The chapter concludes with a section detailing
+the various formulae used by the training tools.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html2904" HREF="node104.html#SECTION03510000000000000000">8.1 Training Strategies</A>
+<LI> <A NAME="tex2html2905" HREF="node105.html#SECTION03520000000000000000">8.2 Initialisation using HINIT</A>
+<LI> <A NAME="tex2html2906" HREF="node106.html#SECTION03530000000000000000">8.3 Flat Starting with HCOMPV</A>
+<LI> <A NAME="tex2html2907" HREF="node107.html#SECTION03540000000000000000">8.4 Isolated Unit Re-Estimation using HREST</A>
+<LI> <A NAME="tex2html2908" HREF="node108.html#SECTION03550000000000000000">8.5 Embedded Training using HEREST</A>
+<LI> <A NAME="tex2html2909" HREF="node109.html#SECTION03560000000000000000">8.6 Single-Pass Retraining</A>
+<LI> <A NAME="tex2html2910" HREF="node110.html#SECTION03570000000000000000">8.7 Parameter Re-Estimation Formulae</A>
+<UL> 
+<LI> <A NAME="tex2html2911" HREF="node111.html#SECTION03571000000000000000">8.7.1 Viterbi Training (HINIT)</A>
+<LI> <A NAME="tex2html2912" HREF="node112.html#SECTION03572000000000000000">8.7.2 Forward/Backward Probabilities</A>
+<LI> <A NAME="tex2html2913" HREF="node113.html#SECTION03573000000000000000">8.7.3 Single Model Reestimation(HREST)</A>
+<LI> <A NAME="tex2html2914" HREF="node114.html#SECTION03574000000000000000">8.7.4 Embedded Model Reestimation(HEREST)</A>
+</UL>
+</UL>
+<HR><A NAME="tex2html2900" HREF="node104.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2898" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2892" HREF="node102.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2902" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2903" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2901" HREF="node104.html">8.1 Training Strategies</A>
+<B>Up:</B> <A NAME="tex2html2899" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2893" HREF="node102.html">7.9 The HMM Definition Language</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

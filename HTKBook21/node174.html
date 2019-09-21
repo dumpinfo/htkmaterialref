@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>DP s n id ...</TITLE>
+<META NAME="description" CONTENT="DP s n id ...">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3957" HREF="node175.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3955" HREF="node169.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3949" HREF="node173.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3959" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3960" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3958" HREF="node175.html">JO size minw</A>
+<B>Up:</B> <A NAME="tex2html3956" HREF="node169.html">13.6.1 Function</A>
+<B> Previous:</B> <A NAME="tex2html3950" HREF="node173.html">CO newList</A>
+<BR> <P>
+<H3><A NAME="SECTION04161500000000000000"><TT>DP s n id ...</TT></A></H3>
+<P>
+Duplicates a set of HMMs.  This command is used to replicate a
+set of HMMs whilst allowing control over which structures will
+be shared between them.
+The first parameter controls duplication of tied structures.  Any
+macros whose type appears in string <tt>s</tt> are duplicated
+with new names and only used in the duplicate model set.  The remaining
+shared structures are common through all the model sets (original and
+duplicates).
+The second parameter defines the number of times the current
+HMM set should be duplicated with the remaining <tt>n</tt> parameters
+providing suffices to make the original macro identifiers unique
+in each duplicated HMM set.
+<P>
+For instance the following script could be used to duplicate
+a set of tied state models to produce gender dependent ones
+with tied variances.
+<PRE>    MM &quot;v_&quot; { (*).state[2-4].mix[1-2].cov }
+    DP &quot;v&quot; 2 &quot;:m&quot; &quot;:f&quot;</PRE>
+The <tt>MM</tt> command converts all variances into macros
+(with each macro referring to only one variance).
+The <tt>DP</tt> command then duplicates the current HMM set twice.
+Each of the duplicate sets will share the tied variances with
+the original set but will have new mixture means, weights and
+state macros.  The new macro names will be constructed by
+appending the id <tt>&quot;:m&quot;</tt> or <tt>&quot;:f&quot;</tt> to the original 
+macro name whilst the model names have the id appended after
+the base phone name (so <tt>ax-b+d</tt> becomes <tt>ax-b:m+d</tt> or
+<tt>ax-b:f+d</tt>.
+<P>
+<HR><A NAME="tex2html3957" HREF="node175.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3955" HREF="node169.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3949" HREF="node173.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3959" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3960" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3958" HREF="node175.html">JO size minw</A>
+<B>Up:</B> <A NAME="tex2html3956" HREF="node169.html">13.6.1 Function</A>
+<B> Previous:</B> <A NAME="tex2html3950" HREF="node173.html">CO newList</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>9.3 Parameter Tying and Item Lists</TITLE>
+<META NAME="description" CONTENT="9.3 Parameter Tying and Item Lists">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3098" HREF="node119.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3096" HREF="node115.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3090" HREF="node117.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3100" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3101" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3099" HREF="node119.html">9.4 Data-Driven Clustering</A>
+<B>Up:</B> <A NAME="tex2html3097" HREF="node115.html">9 HMM System Refinement</A>
+<B> Previous:</B> <A NAME="tex2html3091" HREF="node117.html">9.2 Constructing Context-Dependent Models</A>
+<BR> <P>
+<H1><A NAME="SECTION03630000000000000000">9.3 Parameter Tying and Item Lists</A></H1>
+<A NAME="sparmtying">&#160;</A>
+<P>
+As explained in Chapter&nbsp;<A HREF="node93.html#cHMMDefs">7</A>, HTK uses macros to support a 
+generalised parameter tying facility.  Referring again to
+Fig.&nbsp;7.<A HREF="node96.html#fhierarch">7.8</A>, each of the solid black circles denotes a potential
+<EM>tie-point</EM> in the hierarchy of HMM parameters.  When two or more
+parameter sets are tied, the same set of parameter values are shared by all
+the <EM>owners</EM> of the tied set.  Externally, tied parameters<A NAME=9702>&#160;</A> are
+represented by macros and internally they are represented by structure 
+sharing.  The accumulators needed for  the numerators and denominators of
+the Baum-Welch re-estimation formulae  given in section&nbsp;<A HREF="node110.html#sbwformulae">8.7</A>
+are attached directly to  the parameters themselves. Hence,  when the values
+of a tied parameter set are re-estimated, all of the data which would have
+been used to  estimate each individual untied parameter are effectively
+pooled leading to more robust parameter estimation.<A NAME=9704>&#160;</A>
+<P>
+Note also that although parameter tying is implemented in
+a way which makes it transparent to the HTK re-estimation and recognition
+tools.  In practice, these tools do notice when a system has been tied
+and try to take advantage of it by avoiding redundant computations.
+<P>
+Although macro definitions could be written by hand, in practice,
+tying is performed by executing HHED commands and the
+resulting
+macros are thus generated automatically.  The basic HHED command for
+tying a set of parameters is the <tt>TI</tt> command which has the form
+<PRE>   TI macroname itemlist</PRE>
+This causes all items in the given <tt>itemlist</tt> to be tied together
+and output as a macro called <tt>macroname</tt>.  Macro names are
+written as a string of
+characters optionally enclosed in double quotes.  The latter are necessary
+if the name contains one or more characters which are not letters or digits.
+<P>
+
+<A NAME="fitemtree">&#160;</A> <IMG WIDTH=255 HEIGHT=273 ALIGN=BOTTOM ALT="tex2html_wrap21976" SRC="img432.gif"  > 
+<P>
+Item lists use a simple language to identify sets of points in the 
+HMM parameter hierarchy illustrated in Fig.&nbsp;7.<A HREF="node96.html#fhierarch">7.8</A>.  
+This language is defined fully in the reference entry
+for HHED.
+The essential idea is that item lists<A NAME=10025>&#160;</A>  represent paths down the hierarchical
+parameter tree where the direction <I>down</I> should be regarded as 
+travelling from the <I>root</I>
+of the tree to towards the <I>leaves</I>.  
+A path can be unique, or more usually, it can
+be a pattern representing a set of paths down the tree.  The point at
+which each path stops identifies one member of the set represented by
+the item list.  
+Fig.&nbsp;<A HREF="node118.html#fitemtree">9.1</A> shows the possible paths down the tree.  In
+text form the branches are replaced by dots and the underlined node
+names are possible terminating points.  At the topmost level, an
+item list is a comma separated list of paths enclosed in braces.
+<P>
+
+<P>
+Some examples, should make all this clearer.  Firstly, the
+following is a legal but somewhat long-winded way of specifying
+the set of items comprising states 2, 3 and 4 of the HMM called <tt>aa</tt>
+<PRE>     { aa.state[2],aa.state[3],aa.state[4] }</PRE>
+however in practice this would be written much more compactly as
+<PRE>     { aa.state[2-4] }</PRE>
+It must be emphasised that indices in item lists are really <I>patterns</I>.
+The set represented by an item list consists of all those elements which
+match the patterns.  Thus, if <tt>aa</tt> only had two emitting states, the above item
+list would not generate an error.  It would simply only match two items.
+The reason for this is that the same pattern can be applied to many different
+objects.  For example, the HMM name can be replaced by a list of names 
+enclosed in brackets, furthermore each HMM name can include `?' characters
+which match any single character and `*' characters which match zero or
+more characters.  Thus <A NAME=9724>&#160;</A>
+<PRE>     { (aa+*,iy+*,eh+*).state[2-4] }</PRE>
+represents states 2, 3 and 4  
+of all biphone models corresponding to
+the phonemes <tt>aa</tt>, <tt>iy</tt> and <tt>eh</tt>.  If <tt>aa</tt> had just 2 emitting
+states and the others had 4 emitting states, then this item list would include
+2 states from each of the <tt>aa</tt> models and 3 states from
+each of the others.  Moving further down the tree, the item list
+<PRE>     { *.state[2-4].stream[1].mix[1,3].cov }</PRE>
+denotes the set of all covariance vectors (or matrices) of the first and
+third mixture
+components of stream 1, of states 2 to 4 of all HMMs.  Since many HMM systems
+are single stream, the <tt>stream</tt> part of the path can be omitted if its value
+is 1.  Thus, the above could have been written
+<PRE>     { *.state[2-4].mix[1,3].cov }</PRE>
+These last two examples also show that indices<A NAME=9731>&#160;</A> can be written as comma
+separated lists as well as ranges, for example, <tt>[1,3,4-6,9]</tt>
+is a valid index list representing states 1, 3, 4, 5, 6, and 9.
+<P>
+When item lists are used as the argument to a <tt>TI</tt> 
+command<A NAME=9926>&#160;</A>, the
+kind of items represented by the list determines the macro type in a fairly
+obvious way.  The only non-obvious cases are firstly that lists ending
+in <tt>cov</tt> generate  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21966" SRC="img433.gif"  > <i>v</i>,  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21968" SRC="img433.gif"  > <i>i</i>,  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21970" SRC="img433.gif"  > <i>c</i>, or  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21972" SRC="img433.gif"  > <i>x</i> macros as
+appropriate.   If an explicit set of mixture components is defined
+as in
+<PRE>     { *.state[2].mix[1-5] }</PRE>
+then   <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21974" SRC="img433.gif"  > <i>m</i> macros are generated but omitting
+the indices  altogether denotes a special case of mixture 
+tying<A NAME=9741>&#160;</A>
+which is explained later in Chapter&nbsp;<A HREF="node123.html#cdiscmods">10</A>.
+<P>
+To illustrate the use of item lists, some example <tt>TI</tt> commands
+can now be given.  Firstly, when a set of context-dependent models is created, it can
+be beneficial to share one transition matrix across all variants
+of a phone rather than having a distinct transition matrix for each.
+This could be achieved by adding <tt>TI</tt>
+commands immediately after the <tt>CL</tt> command described in
+the previous section, that is<A NAME=9746>&#160;</A>
+<PRE>    CL cdlist
+    TI T_ah {*-ah+*.transP}
+    TI T_eh {*-eh+*.transP}
+    TI T_ae {*-ae+*.transP}
+    TI T_ih {*-ih+*.transP}
+     ... etc</PRE>
+<P>
+As a second example, a so-called Grand Variance<A NAME=9747>&#160;</A> 
+HMM system can
+be generated very easily with the following HHEd command
+<PRE>     TI &quot;gvar&quot; { *.state[2-4].mix[1].cov }</PRE>
+where it is assumed that the HMMs are 3-state 
+single mixture component models.   The effect
+of this command is to tie all state distributions to a single global variance
+vector.  For applications, where there is limited training data, this technique
+can improve performance, particularly in noise.
+<P>
+Speech recognition systems will often have distinct
+models for silence  and short pauses.  A 
+silence model<A NAME=9748>&#160;</A> <tt>sil</tt> may have
+the normal 3 state topology whereas a short pause model may have just 
+a single state.  To avoid the two models <i>competing</i> with each other, the
+<tt>sp</tt> model state can be tied to the centre state of the <tt>sil</tt> model
+thus
+<PRE>     TI &quot;silst&quot; { sp.state[2], sil.state[3] }</PRE>
+<P>
+So far nothing has been said about how the parameters are actually
+determined when a set of items is replaced by a single shared representative.
+When states are tied, the state with the broadest  variances  and as few as
+possible zero mixture component weights is selected from the pool and used
+as the representative.  When mean vectors are tied, the average of all the
+mean vectors in the pool is used and when variances are tied, the largest
+variance in the the pool is used.  In all other cases, the last item in the
+tie-list is  arbitrarily chosen as representative.
+All of these selection criteria are <i>ad hoc</i>, but since
+the tie operations are always followed by explicit re-estimation
+using HEREST, the precise choice of representative for a tied
+set is not critical.<A NAME=9755>&#160;</A>
+<P>
+Finally, tied parameters can be
+untied.  For example,  subsequent refinements of the context-dependent model set
+generated above with tied transition matrices might result in
+a much more compact set of models for which individual transition
+parameters could be robustly estimated.    This 
+can be done using the <tt>UT</tt> command<A NAME=9927>&#160;</A> whose effect is to untie all of the
+items in its argument list.  For example, the command
+<PRE>     UT {*-iy+*.transP}</PRE>
+would untie the transition parameters in all variants of the <tt>iy</tt>
+phoneme.
+This untying works by simply making unique copies of the tied parameters.
+These untied parameters can then subsequently be re-estimated.
+<P>
+<HR><A NAME="tex2html3098" HREF="node119.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3096" HREF="node115.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3090" HREF="node117.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3100" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3101" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3099" HREF="node119.html">9.4 Data-Driven Clustering</A>
+<B>Up:</B> <A NAME="tex2html3097" HREF="node115.html">9 HMM System Refinement</A>
+<B> Previous:</B> <A NAME="tex2html3091" HREF="node117.html">9.2 Constructing Context-Dependent Models</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

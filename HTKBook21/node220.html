@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.11.4 Use</TITLE>
+<META NAME="description" CONTENT="13.11.4 Use">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4515" HREF="node221.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4513" HREF="node216.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4507" HREF="node219.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4517" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4518" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4516" HREF="node221.html">13.11.5 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4514" HREF="node216.html">13.11 HParse</A>
+<B> Previous:</B> <A NAME="tex2html4508" HREF="node219.html">13.11.3 Compatibility Mode</A>
+<BR> <P>
+<H2><A NAME="SECTION041114000000000000000">13.11.4 Use</A></H2>
+<P>
+HPARSE is invoked via the command line
+<PRE>   HParse [options] syntaxFile latFile</PRE>
+HPARSE will then read the set of ENBF rules 
+in <tt>syntaxFile</tt> and produce the output lattice in <tt>latFile</tt>.
+<P>
+The detailed operation of HPARSE is controlled by the following
+command line options
+<UL><DT><TT>-b</TT>
+<DD> Output the lattice in binary format. This increases
+              speed of subsequent loading (default ASCII text lattices).
+<P>
+  <DT><TT>-c</TT>
+<DD> Set V1.5 compatibility mode. Compatibility mode can also
+              be set by using the configuration variable V1COMPAT
+              (default compatibility mode disabled).
+<P>
+  <DT><TT>-d s</TT>
+<DD> Output dictionary to file <TT>s</TT>. This is only
+                a valid option when operating in compatibility mode.
+                If not set no dictionary will be produced.
+<P>
+  <DT><TT>-l</TT>
+<DD> Include language model log probabilities in the output
+              These  log probabilities are calculated as 
+               <IMG WIDTH=165 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline22386" SRC="img550.gif"  >  for each network node.
+</UL>
+HPARSE also supports the standard options <tt>-A</tt>,
+<tt>-C</tt>,  <tt>-D</tt>, <tt>-S</tt>, <tt>-T</tt>, and <tt>-V</tt> as described
+in section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>.
+<P>
+<HR><A NAME="tex2html4515" HREF="node221.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4513" HREF="node216.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4507" HREF="node219.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4517" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4518" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4516" HREF="node221.html">13.11.5 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4514" HREF="node216.html">13.11 HParse</A>
+<B> Previous:</B> <A NAME="tex2html4508" HREF="node219.html">13.11.3 Compatibility Mode</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

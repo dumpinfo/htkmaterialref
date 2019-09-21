@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>11.1 How Networks are Used</TITLE>
+<META NAME="description" CONTENT="11.1 How Networks are Used">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3239" HREF="node130.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3237" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3231" HREF="node128.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3241" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3242" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3240" HREF="node130.html">11.2 Word Networks and Standard Lattice Format</A>
+<B>Up:</B> <A NAME="tex2html3238" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3232" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<BR> <P>
+<H1><A NAME="SECTION03810000000000000000">11.1 How Networks are Used</A></H1>
+<A NAME="snetuse">&#160;</A>
+<P>
+Before delving into the details of word networks<A NAME=10406>&#160;</A> and dictionaries, it will
+be helpful to understand their r&#244;le in building a speech recogniser
+using HTK.  Fig&nbsp;<A HREF="node129.html#frecsys">11.1</A> illustrates the overall recognition
+process.  A word network is defined using HTK Standard Lattice Format
+(SLF).  An SLF  word network is just a text file and it can be written
+directly with a text editor or a tool can be used to build it. HTK provides 
+two such tools, HBUILD and
+HPARSE.  These both take as input a textual description and
+output an SLF file.  Other methods of generating SLF files might in the future
+include 
+graphics-based systems which allow the required networks to be drawn on
+the screen.  Whatever method is chosen, word network SLF generation 
+is done <i>off-line</i>
+and is part of the system build process.
+<P>
+An SLF file contains a list of nodes representing words and a
+list of arcs representing the transitions between words.   The transitions
+can have probabilities attached to them and these can be used to indicate
+<i>preferences</i> in a grammar network.  They can also be used to
+represent bigram probabilities in a back-off bigram network and 
+HBUILD can generate such a bigram network automatically.
+In addition to an SLF file, a HTK recogniser requires a 
+dictionary to supply pronunciations for each word in the network
+and a set of acoustic HMM phone models. 
+Dictionaries are input via the HTK interface module HDICT.
+<P>
+The dictionary, HMM set and word network are input to the HTK library
+module HNET whose function is to generate an equivalent network of
+HMMs. Each word in the dictionary may have several pronunciations and in
+this case there will be one branch in the network corresponding to each
+alternative pronunciation. Each pronunciation may consist either of a list
+of phones or a list of HMM names. In the former case, HNET can
+optionally expand the HMM network to use either word internal triphones or
+cross-word triphones.
+Once the HMM network has been constructed, it can be
+input to the decoder module HREC and used to recognise
+speech input.  Note that HMM network construction is performed <i>on-line</i>
+at recognition time as part of the initialisation process.
+<P>
+<A NAME="frecsys">&#160;</A> <IMG WIDTH=413 HEIGHT=488 ALIGN=BOTTOM ALT="tex2html_wrap22024" SRC="img452.gif"  > 
+<P>
+For convenience, HTK provides a recognition<A NAME=10422>&#160;</A> tool called HVITE
+to allow the functions provided by HNET and HREC
+to be invoked from the command line. HVITE is particularly
+useful for running experimental evaluations on test speech stored
+in disk files and for basic testing using live audio input.
+However, application developers
+should note that HVITE is just a shell containing calls to
+load the word network, dictionary and models; generate the recognition
+network and then repeatedly recognise each input utterance.
+For embedded applications, it may well be appropriate to
+dispense with HVITE and call the functions in 
+HNET and HREC directly from the application.
+The use of HVITE is explained in the next chapter.
+<P>
+<HR><A NAME="tex2html3239" HREF="node130.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3237" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3231" HREF="node128.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3241" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3242" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3240" HREF="node130.html">11.2 Word Networks and Standard Lattice Format</A>
+<B>Up:</B> <A NAME="tex2html3238" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3232" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.13 Copying and Coding using HCOPY</TITLE>
+<META NAME="description" CONTENT="5.13 Copying and Coding using HCOPY">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2556" HREF="node77.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2554" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2548" HREF="node75.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2558" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2559" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2557" HREF="node77.html">5.14 Version 1.5 Compatibility</A>
+<B>Up:</B> <A NAME="tex2html2555" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2549" HREF="node75.html">5.12 Viewing Speech with HLIST</A>
+<BR> <P>
+<H1><A NAME="SECTION032130000000000000000">5.13 Copying and Coding using HCOPY</A></H1>
+<A NAME="sUseHCopy">&#160;</A>
+<P>
+<A NAME=4203>&#160;</A>
+HCOPY<A NAME=4592>&#160;</A> is a general-purpose tool 
+for copying and manipulating speech files.
+The general form of invocation is
+<PRE>    HCopy src tgt</PRE>
+which will make a new copy called <tt>tgt</tt> of the file called <tt>src</tt>.
+HCOPY can also concatenate several sources together as in 
+<PRE>    HCopy src1 + src2 + src3 tgt</PRE>
+which concatenates the contents of <tt>src1</tt>, <tt>src2</tt> and <tt>src3</tt>,
+storing the results in the file <tt>tgt</tt>.  As well as putting speech files
+together, HCOPY can also take them apart.  For example,
+<PRE>    HCopy -b 100 -e -100 src tgt</PRE>
+will extract samples 100 through to N-100 of the file <tt>src</tt> to the file
+<tt>tgt</tt> where N is the total number of samples in the source file.
+The range of samples to be copied can also be specified with reference to
+a label file, and modifications made to the speech file can be tracked in a 
+copy of the label file.  All of the various options provided by HCOPY 
+are given in the reference section and in total they provide a powerful
+facility for manipulating speech data files.
+<P>
+However, the use of HCOPY extends beyond that of copying, chopping
+and concatenating files.  HCOPY reads in all files using the speech 
+input/output subsystem described in the preceding sections.  Hence, by specifying
+an appropriate configuration file, HCOPY is also a speech coding tool.
+For example, if the configuration file <tt>config</tt> was set-up to convert
+waveform data to MFCC coefficients, the command
+<PRE>    HCopy -C config -b 100 -e -100 src.wav tgt.mfc</PRE>
+would parameterise the file waveform file <tt>src.wav</tt>, excluding the
+first and last 100 samples, and store the result in <tt>tgt.mfc</tt>.
+<P>
+HCOPY will process its arguments in pairs, and as with all HTK tools,
+argument lists can be written in a script file specified via the <tt>-S</tt>
+option.  When coding a large database, the separate invocation of HCOPY 
+for each file needing to be processed would incur a very large overhead.  Hence,
+it is better to create a file, <tt>flist</tt> say, containing a list of
+all source and target files, as in for example,
+<PRE>    src1.wav tgt1.mfc
+    src2.wav tgt2.mfc
+    src3.wav tgt3.mfc
+    src4.wav tgt4.mfc
+    etc</PRE>
+and then invoke HCOPY by
+<PRE>    HCopy -C config -b 100 -e -100 -S flist</PRE>
+which would encode each file listed in <tt>flist</tt> in a single invocation.
+<P>
+Normally HCOPY makes a direct copy of the target speech data in the
+output file.  However, if the configuration 
+parameter <tt>SAVECOMPRESSED</tt><A NAME=4593>&#160;</A>
+is set true then the output is saved in compressed 
+form and if the 
+configuration parameter <tt>SAVEWITHCRC</tt><A NAME=4594>&#160;</A>
+is set true then a checksum is appended to the output 
+(see section&nbsp;<A HREF="node57.html#sparmstore">5.7</A>).  If the configuration 
+parameter <tt>SAVEASVQ</tt> is set true then only
+VQ indices are saved and the kind of the target file is changed to
+<tt>DISCRETE</tt>.  For this to work, the target kind must have the
+qualifier <tt>_V</tt>
+<A NAME=4595>&#160;</A>
+attached (see section&nbsp;<A HREF="node74.html#svquant">5.11</A>). 
+<A NAME=4240>&#160;</A><A NAME=4241>&#160;</A>
+<A NAME=4242>&#160;</A><A NAME=4243>&#160;</A>
+<P>
+<A NAME="fcoercions">&#160;</A> <IMG WIDTH=411 HEIGHT=190 ALIGN=BOTTOM ALT="tex2html_wrap19984" SRC="img197.gif"  > <HR><A NAME="tex2html2556" HREF="node77.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2554" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2548" HREF="node75.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2558" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2559" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2557" HREF="node77.html">5.14 Version 1.5 Compatibility</A>
+<B>Up:</B> <A NAME="tex2html2555" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2549" HREF="node75.html">5.12 Viewing Speech with HLIST</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

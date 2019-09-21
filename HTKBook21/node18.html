@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>2.4 Whats New in Version 2.0?</TITLE>
+<META NAME="description" CONTENT="2.4 Whats New in Version 2.0?">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1693" HREF="node19.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1691" HREF="node10.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1687" HREF="node17.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1695" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1696" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1694" HREF="node19.html">2.4.1 Whats New in Version 2.1?</A>
+<B>Up:</B> <A NAME="tex2html1692" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<B> Previous:</B> <A NAME="tex2html1688" HREF="node17.html">2.3.4 Analysis Tool</A>
+<BR> <P>
+<H1><A NAME="SECTION02240000000000000000">2.4 Whats New in Version 2.0?</A></H1>
+<A NAME="swhatsnew">&#160;</A>
+<P>
+Whilst every effort has been made to maintain compatibility with
+earlier versions of HTK some changes have been unavoidable.  Also
+of course,  Version 2.0 contains many new features<A NAME=1540>&#160;</A>.
+<A NAME=1541>&#160;</A>
+For the benefit of existing HTK users, this section lists the main
+changes in HTK Version 2.0 compared to the preceding Version 1.5.
+<P>
+<OL><LI> The HTK libraries in <tt>HTKLib</tt> have been rewritten and 
+greatly extended, HSPIO<A NAME=1666>&#160;</A> has been 
+deleted and 11 new modules added.<LI> The source directory 
+<tt>HTKResearch</tt><A NAME=1667>&#160;</A> has been deleted.  
+The tools HCOMPV, HCOPY and HSMOOTH have been moved to
+the main tools directory <tt>HTKTools</tt>.  The functionality
+of the old HALIGN<A NAME=1668>&#160;</A> tool 
+is now included in HVITE and the 
+remaining tools in <tt>HTKResearch</tt> have been deleted.<LI> The tools HLAB2NET<A NAME=1669>&#160;</A> 
+and HCODE<A NAME=1670>&#160;</A> have been deleted.  The
+functionality of the former is subsumed within HVITE and
+the latter within HCOPY.<LI> The tools HBUILD, HDMAN, HPARSE and HQUANT
+have been added.<LI> The command line options<A NAME=1566>&#160;</A> have 
+changed in a number of tools.  Most 
+changes follow from the enhancements made to functionality.  However, 
+the standard options denoted by capital letters have been rationalised
+and extended. New standard command line options include echoing of
+the command line (<tt>-A</tt>), load a configuration file  (<tt>-C</tt>),
+display a configuration file and show which parameters have been
+referenced  (<tt>-D</tt>), and print version information  (<tt>-V</tt>).<LI> The handling of strings (particularly for labels and HMMs) has
+been rationalised.  This has resulted in minor changes to the way MLFs
+are handled.  Version 1.5 behaviour can be restored by setting
+the configuration variable <tt>V1COMPAT</tt> to true in HLABEL.<LI> The use of UNIX environment variables has been replaced by
+configuration variables.  One consequence of this is that library functions
+are now much more configurable (see section&nbsp;<A HREF="node42.html#sconfig">4.3</A>). Also, all
+library functions now have trace facilities.<LI> All of the main input and output file types can now be input or
+output via filters.  This allows standard compression tools and user-defined
+translations to be applied.<LI> HMM definition file formats have changed.  All definitions are
+now macros including HMMs.  The definition of a HMM set can be distributed
+across multiple files.  
+The &lt;Use&gt;<A NAME=1574>&#160;</A> 
+clause is now ignored.  Version 1.5
+model definitions can be read by Version 2.0 provided that a global
+options macro is loaded prior to reading any HMM definition 
+(see section&nbsp;<A HREF="node95.html#sOneHMM">7.2</A>).  HMM definition files are loaded
+using the standard (<tt>-H</tt>) option and the target directory
+for new definition files is specified with the  (<tt>-M</tt>) option.<LI> HMM definition files can be stored in binary format.  Binary
+and text formats can be mixed and loading is transparent.<LI> Discrete probabilities are now supported and the HMM definition
+format has been extended accordingly.<LI> The internal representation of HMMs has changed to allow multiple
+models sets to be manipulated and to allow efficient storage of
+discrete probability and tied-mixture systems.  Also, HMM covariance
+matrices are now stored in triangular form internally.<LI> Memory management is now controlled centrally.  This allows
+tracing of memory usage and avoids the time/space overheads of
+using <tt>malloc</tt> and <tt>free</tt>.<LI> The speech input subsystem has been replaced.  Conversions directly
+from waveform can be performed on-the-fly and speech can be input via
+an audio device.   Some minor changes have been 
+made to accommodate this
+and hence the parameterised values produced by V2.0 may
+differ slightly.  To obtain identical output when processing pre-stored
+waveform files the Boolean configuration variable 
+<tt>V1COMPAT</tt><A NAME=1671>&#160;</A> should be set 
+true in HPARM.<LI> A VQ codebook<A NAME=1583>&#160;</A> can now be 
+loaded and speech parameter vectors
+can have a VQ symbol attached.<LI> The ESPS file<A NAME=1584>&#160;</A> format has been replaced by 
+the new Entropic Esignal<A NAME=1585>&#160;</A>
+format.  Unlike ESPS, Esignal is a public format and will be common to
+all future Entropic products.  ESPS files can still be manipulated
+directly however by attaching Esignal-ESPS filters to HTK's input
+and output streams.<A NAME=1586>&#160;</A><LI> The HTK label file format has been extended to include
+multiple levels as well as multiple alternatives.  All changes should
+be backwards compatible.<LI> The operation of HINIT has been changed for mixture Gaussians.
+Previously, clustering within each state was performed every iteration.
+Now it is only used on the first iteration, thereafter the Viterbi state
+and component alignment is used and mixture weights are calculated from
+occupancy counts instead of cluster size.<LI> HEREST will now automatically reprocess an utterance
+if a pruning error occurs with a higher pruning threshold.   This allows
+tight pruning to be set for the majority of cases allowing much faster
+processing.<LI> HEREST can now perform single-pass retraining in which
+the state/component occupation probabilities are calculated using
+an existing model and training set, but the new model parameters are
+calculated using a new training set.<LI> HHED has been extended with 9 new commands including
+facilities to apply phonetic decision tree clustering to tie states
+or models (<tt>TB</tt> command).  The trees built during this process
+can be saved and later reloaded to synthesise triphones which
+were not seen in the data (<tt>ST</tt>,<tt>LT</tt> and <tt>AU</tt> commands).<LI> Command names in HLED now consist of 2 letters and a number
+ of new commands have been added.  For backwards compatibility, Version 1.5
+1 letter command names are still recognised.  HLED has also been
+modified to allow multiple levels to be edited by switching between
+levels (using the <tt>ML</tt> move level command).    HLED
+can also use a dictionary to expand word labels to phone labels
+(see the <tt>EX</tt> command).<LI>  The recognition tool HVITE has been completely rewritten.
+It is now word-based rather than phone-based and
+word networks are now compiled off-line.  Backwards compatibility is
+provided by the tool HPARSE which will convert the old grammar
+format to an equivalent word network.  Version 1.5 grammar files
+included the pronunciation of each word within the grammar definition.
+To allow existing files in this format to be processed by Version 2.0,
+HPARSE has an option to output a dictionary built from these
+embedded word pronunciations.<A NAME=1603>&#160;</A><LI>  In Version 1.5, any name appearing in a grammar definition
+for which no further definition could be found was assumed to be
+the name of a HMM.  In version 2.0 every name in a grammar or word network
+must have a dictionary entry.  Hence, to set up a 
+phone recogniser or a whole word recogniser it is now necessary
+to have a dictionary in which the name of the appropriate HMM is
+given as the pronunciation for each vocabulary item.<LI> HVITE  has considerable extra functionality including
+provision for cross-word triphones, multiple tokens, lattice generation
+and N-best output.  It can also perform forced alignment (subsuming
+the old HALIGN tool) and rescoring of output lattices.<LI> HTK now supports back-off bigrams by allowing probabilities
+to be attached to the transitions in a word network.  HLSTATS
+has been extended to compute the bigram probabilities and HBUILD
+can automatically build the word network from a word list.<LI> HSLAB has been extended to allow point and click region
+selection, direct audio recording and the annotation of multiple level 
+label files.<LI> Error numbers in Version 2.0 are now grouped into major and minor
+numbers so that the lower 2 digits identify the error and the upper 2 digits
+identify the module or tool.<LI> The <i>HTKDemo</i> has been rewritten and now offers the user
+control over the demonstration of a wide range of the features in HTK.
+<P>
+</OL><BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1697" HREF="node19.html#SECTION02241000000000000000">2.4.1 Whats New in Version 2.1?</A>
+</UL>
+<HR><A NAME="tex2html1693" HREF="node19.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1691" HREF="node10.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1687" HREF="node17.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1695" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1696" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1694" HREF="node19.html">2.4.1 Whats New in Version 2.1?</A>
+<B>Up:</B> <A NAME="tex2html1692" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<B> Previous:</B> <A NAME="tex2html1688" HREF="node17.html">2.3.4 Analysis Tool</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

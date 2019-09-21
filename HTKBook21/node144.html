@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>12.6 Recognition using Direct Audio Input</TITLE>
+<META NAME="description" CONTENT="12.6 Recognition using Direct Audio Input">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3422" HREF="node145.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3420" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3414" HREF="node143.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3424" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3425" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3423" HREF="node145.html">12.7 N-Best Lists and Lattices</A>
+<B>Up:</B> <A NAME="tex2html3421" HREF="node138.html">12 Decoding</A>
+<B> Previous:</B> <A NAME="tex2html3415" HREF="node143.html">12.5 Generating Forced Alignments</A>
+<BR> <P>
+<H1><A NAME="SECTION03960000000000000000">12.6 Recognition using Direct Audio Input</A></H1>
+<A NAME="srecaudio">&#160;</A>
+<P>
+<A NAME=11342>&#160;</A>
+In all of the preceding discussion, it has been assumed that input was
+from speech files stored on disk.  These files would normally have
+been stored in parameterised form so that little or no conversion
+of the source speech data was required.   When HVITE
+is invoked with no files listed on the command line, it assumes that
+input is to be taken directly from the audio input.  In this case,
+configuration variables must be used to specify firstly how the
+speech waveform is to be captured and secondly, how the captured
+waveform is to be converted to parameterised form.
+<P>
+Dealing with waveform capture<A NAME=11344>&#160;</A> first, as described in
+section&nbsp;<A HREF="node72.html#saudioio">5.9</A>, HTK provides two main forms of control over speech
+capture: signals/keypress and an automatic speech/silence
+detector<A NAME=11346>&#160;</A>. To use the speech/silence detector
+alone, the configuration file would contain the following
+<PRE>    # Waveform capture
+    SOURCERATE=625.0
+    SOURCEKIND=WAVEFORM
+    SOURCEFORMAT=HAUDIO
+    USESILDET=T
+    MEASURESIL=T
+    OUTSILWARN=T
+    ENORMALISE=F</PRE>
+<P>
+where the source sampling rate is being set to 16kHz.  Notice that the
+<tt>SOURCEKIND</tt><A NAME=11417>&#160;</A> must be set to
+<tt>WAVEFORM</tt> and the <tt>SOURCEFORMAT</tt> must be set to 
+<tt>HAUDIO</tt>. Setting the Boolean variable 
+<tt>USESILDET</tt><A NAME=11418>&#160;</A> causes the
+speech/silence detector to be used, and the
+<tt>MEASURESIL</tt><A NAME=11419>&#160;</A>
+<tt>OUTSILWARN</tt><A NAME=11420>&#160;</A> 
+variables result in a measurement being taken of the background silence level
+prior to capturing the first utterance.  To make sure that each input utterance
+is being captured properly, the HVITE option <tt>-g</tt> can be set to
+cause the captured wave to be output after each recognition attempt. Note that
+for recognition of live audio input the configuration variable
+<tt>ENORMALISE</tt> should be set to false.
+<P>
+As an alternative to using the speech/silence detector, a
+signal<A NAME=11361>&#160;</A> can be used to start and stop
+recording.  For example,
+<PRE>    # Waveform capture
+    SOURCERATE=625.0
+    SOURCEKIND=WAVEFORM
+    SOURCEFORMAT=HAUDIO
+    AUDIOSIG=2</PRE>
+would result in the Unix interrupt signal (usually the Control-C key) being
+used as a start and stop control<A NAME="tex2html913" HREF="footnode.html#11421"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>. Key-press control of the audio input can be obtained by
+setting <tt>AUDIOSIG</tt> to a negative number.
+<P>
+Both of the above can be used together, in this case, audio capture is disabled
+until the specified signal is received.  From then on control is in the hands
+of the speech/silence detector.
+<P>
+The captured waveform must be converted to the required 
+target parameter kind.  Thus, the configuration file must define
+all of the parameters needed to control the
+conversion of the waveform to the required target kind.
+This process is described in detail in Chapter&nbsp;<A HREF="node50.html#cspeechio">5</A>.
+As an example, the following parameters would allow conversion
+to Mel-frequency cepstral coefficients with delta and acceleration
+parameters.
+<PRE>    # Waveform to MFCC parameters
+    TARGETKIND=MFCC_0_D_A
+    TARGETRATE=100000.0
+    WINDOWSIZE=250000.0
+    ZMEANSOURCE=T
+    USEHAMMING = T
+    PREEMCOEF = 0.97
+    USEPOWER = T
+    NUMCHANS = 26
+    CEPLIFTER = 22
+    NUMCEPS = 12</PRE>
+Many of these variable settings are the default settings
+and could be omitted, they are included explicitly here as a reminder
+of the main configuration options available.
+<P>
+When HVITE is executed in direct audio input mode,
+it issues a prompt prior to each input and it is normal to enable
+basic tracing so that the recognition results can be seen.
+A typical terminal output might be
+<PRE>    READY[1]&gt;
+    Please speak sentence - measuring levels
+    Level measurement completed
+    DIAL ONE FOUR SEVEN  
+         ==  [258 frames] -97.8668 [Ac=-25031.3 LM=-218.4] (Act=22.3)
+
+    READY[2]&gt;
+    CALL NINE TWO EIGHT  
+         ==  [233 frames] -97.0850 [Ac=-22402.5 LM=-218.4] (Act=21.8)
+
+    etc</PRE>
+If required, a transcription of each spoken input can be output 
+to a label file or an MLF in the usual way by setting the <tt>-e</tt> option.  
+However, to do this
+a file name must be synthesised.  This is done by using a counter
+prefixed by the value of the
+HVITE configuration variable
+<tt>RECOUTPREFIX</tt><A NAME=11422>&#160;</A> and 
+suffixed by the value of <tt>RECOUTSUFFIX</tt>
+<A NAME=11423>&#160;</A>.
+For example, with the settings
+<PRE>    RECOUTPREFIX = sjy
+    RECOUTSUFFIX = .rec</PRE>
+then the output transcriptions would be stored as 
+<tt>sjy0001.rec</tt>,  <tt>sjy0002.rec</tt> etc.
+<P>
+<HR><A NAME="tex2html3422" HREF="node145.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3420" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3414" HREF="node143.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3424" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3425" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3423" HREF="node145.html">12.7 N-Best Lists and Lattices</A>
+<B>Up:</B> <A NAME="tex2html3421" HREF="node138.html">12 Decoding</A>
+<B> Previous:</B> <A NAME="tex2html3415" HREF="node143.html">12.5 Generating Forced Alignments</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

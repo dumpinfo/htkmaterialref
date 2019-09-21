@@ -1,0 +1,11 @@
+HTK识别三要素：语法文件gram、字典文件dict和列表文件list。举个简单的例子：
+dict:  A a      list:   a
+         B b               b
+gram: $name = A | B;
+         ($name)
+
+要注意两点：
+1). a、b不能以数字开头，A、B可以。
+2). 猜测识别程序读取顺序为gram==>dict==>list，如果只想识别出A，则最小的修改为gram，dict和list可以不改变。
+        
+

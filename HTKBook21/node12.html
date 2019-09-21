@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>2.2 Generic Properties of a HTK Tool</TITLE>
+<META NAME="description" CONTENT="2.2 Generic Properties of a HTK Tool">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1621" HREF="node13.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1619" HREF="node10.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1613" HREF="node11.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1623" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1624" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1622" HREF="node13.html">2.3 The Toolkit</A>
+<B>Up:</B> <A NAME="tex2html1620" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<B> Previous:</B> <A NAME="tex2html1614" HREF="node11.html">2.1 HTK Software Architecture</A>
+<BR> <P>
+<H1><A NAME="SECTION02220000000000000000">2.2 Generic Properties of a HTK Tool</A></H1>
+<A NAME="sgenprops">&#160;</A>
+<P>
+HTK tools are designed to run with a traditional command-line style interface.
+Each tool<A NAME=1428>&#160;</A>
+has a number of required arguments plus optional arguments.
+The latter are always prefixed by a minus sign.  As an example,
+the following command would invoke the mythical HTK tool called
+HFOO
+<PRE>    HFoo -T 1 -f 34.3 -a -s myfile file1 file2</PRE>
+This tool has two main arguments called <tt>file1</tt> and
+<tt>file2</tt> plus four optional arguments.  Options
+are always introduced by a single letter option name followed
+where appropriate by the option value.  The option value
+is always separated from the option name by a space. Thus, the value of the
+<tt>-f</tt> option is a real number, the value of the
+<tt>-T</tt> option is an integer number and the value of the
+<tt>-s</tt> option is a string.  The <tt>-a</tt> option has no following
+value and it is used as a simple flag to enable or disable some
+feature of the tool.  Options whose names are a capital letter
+have the same meaning across all tools.  For example, the <tt>-T</tt>
+option is always used to control the trace output of a HTK tool.
+<P>
+In addition to command line arguments, the operation of a tool
+can be controlled by parameters stored 
+in a configuration file<A NAME=1437>&#160;</A>.
+For example, if the command 
+<PRE>    HFoo -C config -f 34.3 -a -s myfile file1 file2</PRE>
+is executed, the tool HFOO will load the 
+parameters stored in the configuration
+file <tt>config</tt> during its initialisation procedures.  
+Configuration parameters can sometimes be used as an
+alternative to using command line arguments.  For example, trace
+options can always be set within a configuration file.  However, the
+main use of configuration files is to control the detailed behaviour
+of the library modules on which all HTK tools depend.
+<P>
+Although this style of command-line 
+working may seem old-fashioned when compared to modern
+graphical user interfaces, it has many advantages.  In particular,
+it makes it simple to write shell scripts to control HTK tool execution.  This
+is vital for performing large-scale system building and experimentation.
+Furthermore, defining all operations using text-based commands allows
+the details of system construction or experimental procedure to
+be recorded and documented.
+<P>
+Finally, note that a summary of the command line and
+options for any HTK tool can be obtained simply by executing
+the tool with no arguments.
+<P>
+<HR><A NAME="tex2html1621" HREF="node13.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1619" HREF="node10.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1613" HREF="node11.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1623" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1624" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1622" HREF="node13.html">2.3 The Toolkit</A>
+<B>Up:</B> <A NAME="tex2html1620" HREF="node10.html">2 An Overview of the HTK Toolkit</A>
+<B> Previous:</B> <A NAME="tex2html1614" HREF="node11.html">2.1 HTK Software Architecture</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.2.1 Function</TITLE>
+<META NAME="description" CONTENT="13.2.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3699" HREF="node154.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3697" HREF="node152.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3691" HREF="node152.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3701" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3702" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3700" HREF="node154.html">13.2.2 Use</A>
+<B>Up:</B> <A NAME="tex2html3698" HREF="node152.html">13.2 HCompV</A>
+<B> Previous:</B> <A NAME="tex2html3692" HREF="node152.html">13.2 HCompV</A>
+<BR> <P>
+<H2><A NAME="SECTION04121000000000000000">13.2.1 Function</A></H2>
+<P>
+<A NAME=11865>&#160;</A>
+This program will calculate the global mean and covariance
+of a set of training data.  It is primarily used to initialise
+the parameters of a HMM such that all component means and all covariances
+are set equal to the global data mean and covariance.  This might form
+the first stage of a <i>flat start</i> training scheme 
+where all models are initially given the same parameters.  
+Alternatively, the covariances may be used as the basis for Fixed
+Variance and Grand Variance training schemes.  These can sometimes be
+beneficial in adverse conditions where a fixed covariance matrix can
+give increased robustness.
+<P>
+When training large model sets from limited data, setting a floor
+is often necessary to prevent variances being badly underestimated
+through lack of data.  One way of doing this is to define
+a variance macro called <tt>varFloorN</tt>
+where <tt>N</tt> is the stream index. HCOMPV can also be
+used to create these variance floor macros with values equal to
+a specified fraction of the global variance.
+<P>
+<HR><A NAME="tex2html3699" HREF="node154.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3697" HREF="node152.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3691" HREF="node152.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3701" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3702" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3700" HREF="node154.html">13.2.2 Use</A>
+<B>Up:</B> <A NAME="tex2html3698" HREF="node152.html">13.2 HCompV</A>
+<B> Previous:</B> <A NAME="tex2html3692" HREF="node152.html">13.2 HCompV</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

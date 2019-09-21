@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.4 Parameter Smoothing</TITLE>
+<META NAME="description" CONTENT="10.4 Parameter Smoothing">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3206" HREF="node128.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3204" HREF="node123.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3200" HREF="node126.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3208" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3209" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3207" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B>Up:</B> <A NAME="tex2html3205" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<B> Previous:</B> <A NAME="tex2html3201" HREF="node126.html">10.3 Tied Mixture Systems</A>
+<BR> <P>
+<H1><A NAME="SECTION03740000000000000000">10.4 Parameter Smoothing</A></H1>
+<A NAME="spsmooth">&#160;</A>
+<P>
+When large sets of context-dependent triphones are built using
+discrete models or
+tied-mixture models, under-training<A NAME=10219>&#160;</A> can be a 
+severe problem since each 
+state has a large number of mixture weight parameters to estimate.
+The HTK tool HSMOOTH allows these discrete probabilities or
+mixture component weights
+to be smoothed with the monophone weights using a technique called 
+deleted interpolation<A NAME=10221>&#160;</A>.
+<P>
+HSMOOTH is used in combination with HEREST
+working in parallel mode.  The training data is split
+into blocks and each block is used separately to re-estimate the
+HMMs.  However, since HEREST is in parallel mode, it outputs a dump
+file of accumulators instead of updating the models.  HSMOOTH is then
+used in place of the second pass of HEREST.  It reads in the 
+accumulator information from each of the blocks, performs deleted
+interpolation smoothing on the accumulator values and then outputs
+the re-estimated HMMs in the normal way.
+<P>
+HSMOOTH<A NAME=10269>&#160;</A> implements a 
+conventional deleted interpolation scheme.
+However, optimisation of the smoothing weights uses a fast 
+binary chop<A NAME=10229>&#160;</A> scheme 
+rather than the more usual Baum-Welch approach.
+The algorithm for finding the optimal interpolation weights for a given
+state and stream is as follows where the description is given in terms
+of tied-mixture weights but the same applies to discrete probabilities.
+<P>
+Assume that HEREST
+has been set-up to output <I>N</I> separate blocks of accumulators.
+Let  <IMG WIDTH=25 HEIGHT=32 ALIGN=MIDDLE ALT="tex2html_wrap_inline21998" SRC="img444.gif"  >  be the <I>i</I>'th
+mixture weight based on the accumulator blocks 1 to <I>N</I> but excluding
+block <I>n</I>, and let  <IMG WIDTH=25 HEIGHT=32 ALIGN=MIDDLE ALT="tex2html_wrap_inline22008" SRC="img445.gif"  >  be the corresponding context
+independent weight.  Let  <IMG WIDTH=24 HEIGHT=32 ALIGN=MIDDLE ALT="tex2html_wrap_inline22010" SRC="img446.gif"  >  be the <I>i</I>'th mixture weight 
+count for the deleted block <I>n</I>.  The derivative of the log
+likelihood of the deleted block, given the probability distribution with
+weights  <IMG WIDTH=130 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline22016" SRC="img447.gif"  >  is given by
+<P> <IMG WIDTH=500 HEIGHT=44 ALIGN=BOTTOM ALT="equation10236" SRC="img448.gif"  > <P>
+Since the log likelihood is a convex function of  <IMG WIDTH=6 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline22018" SRC="img356.gif"  > , this derivative
+allows the optimal value of  <IMG WIDTH=6 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline22020" SRC="img356.gif"  >  to be found by a simple
+binary chop algorithm, viz.
+<PRE>     function FindLambdaOpt:
+        if (D(0) &lt;= 0) return 0;
+        if (D(1) &gt;= 0) return = 1;
+        l=0; r=1;
+        for (k=1; k&lt;=maxStep; k++){
+           m = (l+r)/2;
+           if (D(m) == 0) return m;
+           if (D(m) &gt; 0) l=m; else r=m;
+        }
+        return m;</PRE>
+<P>
+HSMOOTH is invoked in a similar way to HEREST.
+For example, suppose that the directory <tt>hmm2</tt> contains a set of
+accumulator files output by the first pass of HEREST running in parallel
+mode using as source the HMM definitions listed in <tt>hlist</tt> and 
+stored in <tt>hmm1/HMMDefs</tt>.  Then the command
+<PRE>    HSmooth -c 4 -w 2.0 -H hmm1/HMMDefs -M hmm2 hlist hmm2/*.acc</PRE>
+would generate a new smoothed HMM set in <tt>hmm2</tt>.  Here the <tt>-w</tt>
+option is used to set the minimum mixture component weight in any state to
+twice the value of <tt>MINMIX</tt><A NAME=10272>&#160;</A>.  
+The <tt>-c</tt> option sets the maximum
+number of iterations of the binary chop procedure to be 4.
+<P>
+<HR><A NAME="tex2html3206" HREF="node128.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3204" HREF="node123.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3200" HREF="node126.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3208" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3209" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3207" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B>Up:</B> <A NAME="tex2html3205" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<B> Previous:</B> <A NAME="tex2html3201" HREF="node126.html">10.3 Tied Mixture Systems</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

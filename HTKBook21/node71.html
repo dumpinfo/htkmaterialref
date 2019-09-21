@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.8.11 ALIEN and NOHEAD File Formats</TITLE>
+<META NAME="description" CONTENT="5.8.11 ALIEN and NOHEAD File Formats">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2496" HREF="node72.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2494" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2490" HREF="node70.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2498" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2499" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2497" HREF="node72.html">5.9 Direct Audio Input/Output</A>
+<B>Up:</B> <A NAME="tex2html2495" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2491" HREF="node70.html">5.8.10 WAVE File Format</A>
+<BR> <P>
+<H2><A NAME="SECTION032811000000000000000">5.8.11 ALIEN and NOHEAD File Formats</A></H2>
+<P>
+<A NAME=4014>&#160;</A>
+<A NAME=4015>&#160;</A>
+HTK tools can read speech waveform files with alien formats provided that
+their overall structure is that of a header followed by data.  This is done by
+setting the format to <tt>ALIEN</tt> and setting the environment variable
+<tt>HEADERSIZE</tt> to the number of bytes in the header.  HTK will then
+attempt to infer the rest of the information it needs.  However, if input is
+from a pipe, then the number of samples expected must be set using the
+environment variable <tt>NSAMPLES</tt><A NAME=4570>&#160;</A>.  The
+sample rate of the source file is defined by the configuration parameter
+<tt>SOURCERATE</tt> as described in section&nbsp;<A HREF="node52.html#ssigproc">5.2</A>.  If the file has
+no header then the format <tt>NOHEAD</tt> may be specified instead of
+<tt>ALIEN</tt><A NAME=4571>&#160;</A> in which case
+<tt>HEADERSIZE</tt><A NAME=4572>&#160;</A> is assumed to be
+zero.
+<P>
+<HR><A NAME="tex2html2496" HREF="node72.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2494" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2490" HREF="node70.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2498" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2499" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2497" HREF="node72.html">5.9 Direct Audio Input/Output</A>
+<B>Up:</B> <A NAME="tex2html2495" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2491" HREF="node70.html">5.8.10 WAVE File Format</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

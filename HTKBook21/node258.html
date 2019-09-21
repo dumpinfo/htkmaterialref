@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>16.1 SLF Files</TITLE>
+<META NAME="description" CONTENT="16.1 SLF Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4978" HREF="node259.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4976" HREF="node257.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4970" HREF="node257.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4980" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4981" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4979" HREF="node259.html">16.2 Format</A>
+<B>Up:</B> <A NAME="tex2html4977" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<B> Previous:</B> <A NAME="tex2html4971" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<BR> <P>
+<H1><A NAME="SECTION04410000000000000000">16.1 SLF Files</A></H1>
+<A NAME="sslffiles">&#160;</A>
+<P>
+Lattices in HTK are used for storing 
+multiple hypotheses<A NAME=16723>&#160;</A> from the
+output of a speech recogniser and for specifying finite state syntax
+networks for recognition.  The HTK standard lattice format (SLF) is
+designed to be extensible and to be able to serve a variety of
+purposes.  However, in order to facilitate the transfer of 
+lattices<A NAME=16724>&#160;</A>,
+it incorporates a core set of common features.
+<P>
+An SLF file can contain zero or more sub-lattices<A NAME=16725>&#160;</A> 
+followed by a main
+lattice.  Sub-lattices are used for defining sub-networks prior to
+their use in subsequent sub-lattices or the main lattice.  They are
+identified by the presence of a <tt>SUBLAT</tt><A NAME=16748>&#160;</A> field and they are
+terminated by a single period on a line by itself.
+<P>
+A  lattice consists of optional header<A NAME=16728>&#160;</A> information followed by a
+sequence of node definitions and a sequence of links (arc) definitions.
+Nodes and links are numbered and the first definition line must give
+the total number of each.
+<P>
+Each link<A NAME=16729>&#160;</A> represents a word instance occurring between 
+two nodes, however for more compact storage the nodes often hold the
+word labels since these are frequently common to all words entering a
+node (the node effectively represents the end of several word instances).
+This is also used in lattices representing word-level networks where
+each node is a word end, and each arc is a word transition.
+<P>
+Each node<A NAME=16730>&#160;</A> may optionally be labelled with a word hypothesis 
+and with a time. Each link has a start and end node number 
+and may optionally be labelled with a word hypothesis (including the 
+pronunciation variant, acoustic score and segmentation of 
+the word hypothesis) and a language model score.
+<P>
+<HR><A NAME="tex2html4978" HREF="node259.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4976" HREF="node257.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4970" HREF="node257.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4980" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4981" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4979" HREF="node259.html">16.2 Format</A>
+<B>Up:</B> <A NAME="tex2html4977" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<B> Previous:</B> <A NAME="tex2html4971" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.8.4 NIST File Format</TITLE>
+<META NAME="description" CONTENT="5.8.4 NIST File Format">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2414" HREF="node65.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2412" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2406" HREF="node63.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2416" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2417" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2415" HREF="node65.html">5.8.5 SCRIBE File Format</A>
+<B>Up:</B> <A NAME="tex2html2413" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2407" HREF="node63.html">5.8.3 TIMIT File Format</A>
+<BR> <P>
+<H2><A NAME="SECTION03284000000000000000">5.8.4 NIST File Format</A></H2>
+<P>
+<A NAME=3934>&#160;</A>
+The NIST file format is also referred to as the Sphere file format.
+A NIST header consists of ASCII text.  It begins with a label of the
+form  <tt>NISTxx</tt> where xx is a version code followed by the number
+of bytes in the header.  The remainder of the header consists of
+name value pairs of which HTK decodes the following
+<PRE><TT> 
+		<tt>sample_rate</tt>  		- sample rate in Hz
+<P>
+		<tt>sample_n_bytes</tt> 		- number of bytes in each sample
+<P>
+		<tt>sample_count</tt> 		- number of samples in file
+<P>
+		<tt>sample_byte_format</tt> 		- byte order
+<P>
+		<tt>sample_coding</tt> 		- speech coding eg pcm,  <IMG WIDTH=6 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19966" SRC="img126.gif"  > law, shortpack
+<P>
+		<tt>channels_interleaved</tt> 		- for 2 channel data only
+<P>
+</TT></PRE>
+The current NIST Sphere data format<A NAME=3944>&#160;</A> subsumes a
+variety of internal data organisations.  HTK currently supports interleaved
+ <IMG WIDTH=6 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19968" SRC="img126.gif"  > law used in Switchboard, Shortpack compression used in the original
+version of WSJ0 and standard 16bit linear PCM as used in Resource Management,
+TIMIT, etc.  It does not currently support the Shorten compression format as
+used in WSJ1 due to licensing restrictions.  Hence, to read WSJ1, the files
+must be converted using the NIST supplied decompression routines into standard
+16 bit linear PCM.  This is most conveniently done under UNIX by using the
+decompression program as an input filter set via the environment variable
+<tt>HWAVEFILTER</tt><A NAME=4569>&#160;</A> (see
+section&nbsp;<A HREF="node47.html#siopipes">4.8</A>).
+<P>
+For interleaved  <IMG WIDTH=6 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19970" SRC="img126.gif"  > law as used in Switchboard, the default is to add the two
+channels together.  The left channel only can be obtained by setting the
+environment variable <tt>STEREOMODE</tt> to <tt>LEFT</tt> and the right channel
+only can be obtained by setting the environment variable <tt>STEREOMODE</tt> to
+<tt>RIGHT</tt>.  <A NAME=3952>&#160;</A> <HR><A NAME="tex2html2414" HREF="node65.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2412" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2406" HREF="node63.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2416" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2417" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2415" HREF="node65.html">5.8.5 SCRIBE File Format</A>
+<B>Up:</B> <A NAME="tex2html2413" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2407" HREF="node63.html">5.8.3 TIMIT File Format</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

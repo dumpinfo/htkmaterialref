@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.4 Editing Label Files</TITLE>
+<META NAME="description" CONTENT="6.4 Editing Label Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2751" HREF="node92.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2749" HREF="node79.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2743" HREF="node90.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2753" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2754" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2752" HREF="node92.html">6.5 Summary</A>
+<B>Up:</B> <A NAME="tex2html2750" HREF="node79.html">6 Transcriptions and Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2744" HREF="node90.html">6.3.4 MLF Examples</A>
+<BR> <P>
+<H1><A NAME="SECTION03340000000000000000">6.4 Editing Label Files</A></H1>
+<A NAME="sedlab">&#160;</A>
+<P>
+HTK training tools typically expect the labels used in 
+transcription files to correspond<A NAME=5402>&#160;</A>
+directly to the names of the HMMs chosen to build an application.  Hence,
+the label files supplied with a speech database will often need 
+modifying.  For example, the original transcriptions attached to a database
+might be at a fine level of acoustic detail.  Groups of labels corresponding 
+to a sequence of acoustic events (e.g. <tt>pcl p'</tt>) might need converting
+to some simpler form (e.g. <tt>p</tt>) which is more suitable for being
+represented by a HMM.  As a second example, current high performance speech
+recognisers use a large number of context dependent models to allow more
+accurate acoustic modelling.  For this case, the labels in the transcription
+must be converted to show the required contexts explicitly.
+<P>
+HTK supplies a tool called HLED for rapidly and efficiently converting
+label files. The HLED command invocation specifies the names of the files
+to be converted and the name of a script file holding the actual
+HLED<A NAME=5567>&#160;</A> commands.  For example, the command
+<PRE>    HLEd edfile.led l1 l2 l3</PRE>
+would apply the edit commands stored in the file <tt>edfile.led</tt>
+to each of the label files <tt>l1</tt>, <tt>l2</tt> and <tt>l3</tt>. More commonly
+the new label files are stored in a new directory to avoid overwriting
+the originals.  This is done by using the 
+<tt>-L</tt><A NAME=5568>&#160;</A> option.  For example,
+<PRE>    HLEd -L newlabs edfile.led l1 l2 l3</PRE>
+would have the same effect as previously except that the new
+label files would be stored in the directory <tt>newlabs</tt>.
+<P>
+Each edit command stored in an edit file<A NAME=5416>&#160;</A> is identified by
+a mnemonic consisting of two letters<A NAME="tex2html518" HREF="footnode.html#5569"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>
+and must be stored on a separate
+line.  The supplied edit commands can be divided into two groups.
+The first group consist of commands which perform selective 
+changes to specific labels and the second group contains commands
+which perform global transformations.  
+The reference section defines all of these
+commands.  Here a few examples will be given to illustrate the
+use of HLED.
+<P>
+As a first example, when using the 
+TIMIT database<A NAME=5419>&#160;</A>,  
+the original 61 phoneme symbol set is often mapped
+into a simpler 48 phoneme symbol set.  The aim of this mapping
+is to delete all glottal stops, replace all closures preceding a voiced stop 
+by a generic
+voiced closure (<tt>vcl</tt>), all closures preceding an unvoiced stop 
+by a generic
+unvoiced closure (<tt>cl</tt>) and the different types of silence to
+a single generic silence (<tt>sil</tt>).  A HLED script to
+do this might be
+<PRE>    # Map 61 Phone Timit Set -&gt; 48 Phones
+    SO
+    DE q
+    RE cl pcl tcl kcl qcl
+    RE vcl bcl dcl gcl
+    RE sil h# #h pau</PRE>
+The first line is a comment indicated by the initial hash character.
+The command on the second line is the <I>Sort</I> command 
+<tt>SO</tt><A NAME=5570>&#160;</A>.<A NAME=5427>&#160;</A>
+This is an example of a global command.
+Its effect is to sort all the labels into time order.
+Normally the labels in a transcription will already be in time order
+but some speech editors simply output labels in the order that the
+transcriber marked them.  Since this would confuse the re-estimation
+tools, it is good practice to explicitly sort all label files in this
+way.
+<P>
+The command on the third line is the <I>Delete</I> command 
+<tt>DE</tt><A NAME=5571>&#160;</A>.  
+This is
+a selective command.  Its<A NAME=5431>&#160;</A>
+effect is to delete all of the labels
+listed on the rest of the command line, wherever they occur.
+In this case, there is
+just one label listed for deletion, the
+glottal stop  <tt>q</tt>.
+Hence, the overall effect of this command will be to delete all occurrences
+of the <tt>q</tt> label in the edited label files.
+<P>
+The remaining commands in this example script are <I>Replace</I> commands
+<tt>RE</tt>.  The effect of a Replace command is to substitute the first
+label following the <tt>RE</tt><A NAME=5572>&#160;</A> for every occurrence of the remaining labels
+on that line.<A NAME=5438>&#160;</A>  Thus, for example, the 
+command on the third line causes all occurrences of the labels <tt>pcl</tt>,
+<tt>tcl</tt>, <tt>kcl</tt> or <tt>qcl</tt> to be replaced by the label <tt>cl</tt>.
+<P>
+To illustrate the overall effect of the above HLED command script on
+a complete label file, the following <tt>TIMIT</tt> format label file
+<PRE>     0000 2241 h#
+     2241 2715 w
+     2715 4360 ow
+     4360 5478 bcl
+     5478 5643 b
+     5643 6360 iy
+     6360 7269 tcl
+     7269 8313 t
+     8313 11400 ay
+    11400 12950 dcl
+    12950 14360 dh
+    14360 14640 h#</PRE>
+would be converted by the above script to the following
+<PRE>          0 1400625 sil 
+    1400625 1696875 w 
+    1696875 2725000 ow 
+    2725000 3423750 vcl 
+    3423750 3526875 b 
+    3526875 3975000 iy 
+    3975000 4543125 cl 
+    4543125 5195625 t 
+    5195625 7125000 ay 
+    7125000 8093750 vcl 
+    8093750 8975000 dh 
+    8975000 9150000 sil</PRE>
+Notice that label boundaries in TIMIT format are given in terms of sample
+numbers (16kHz sample rate), whereas the edited output file is in 
+HTK format in which all times are in absolute 100ns units.
+<P>
+As well as the Replace command, there is
+also a <I>Merge</I> command <tt>ME</tt><A NAME=5573>&#160;</A>.  This command is used 
+to replace a sequence of labels by a single label.  <A NAME=5449>&#160;</A>
+For example, the following commands would merge the closure and release
+labels in the previous TIMIT transcription into single labels
+<PRE>    ME b bcl b
+    ME d dcl dh
+    ME t tcl t</PRE>
+As shown by this example, the label used for the merged sequence can be
+the same as occurs in the original but some care is needed since
+HLED commands are normally applied in sequence.   Thus, a command
+on line <I>n</I> is applied to the label sequence that remains after the
+commands on lines 1 to <I>n</I>-1 have been applied.
+<P>
+There is one exception to the above rule of sequential edit command
+application.  The <I>Change</I> command <A NAME=5452>&#160;</A>
+<tt>CH</tt><A NAME=5574>&#160;</A> provides for context
+sensitive replacement.  However, when a sequence of Change commands occur
+in a script, the sequence is applied as a block so that the contexts
+which apply for each command are those that existed just prior to the
+block being executed. The Change command takes 4 arguments <tt>X A Y
+B</tt> such that every occurrence of label <tt>Y</tt> in the context of
+<tt>A _ B</tt> is changed to the label <tt>X</tt>.  The contexts
+<tt>A</tt> and <tt>B</tt> refer to sets of labels and  are defined by
+separate <i>Define Context</i> commands <tt>DC</tt><A NAME=5575>&#160;</A>.   
+The <tt>CH</tt> and
+<tt>DC</tt> commands are primarily used for creating context sensitive
+labels.  For example, suppose that a set of context-dependent phoneme
+models are needed for TIMIT.  Rather than treat all possible contexts
+separately and build separate triphones for each  (see below), the
+possible contexts  will be grouped into just 5 broad classes: C
+(consonant), V (vowel), N (nasal), L (liquid) and S (silence). The goal
+then is to translate a label sequence such as <tt>sil b ah t iy n ...</tt>
+into <tt>sil+C S-b+V C-ah+C V-t+V C-iy+N V-n+ ...</tt> where the
+<tt>-</tt> and <tt>+</tt> symbols within a label are recognised by 
+HTK as defining the left and right context, respectively. To perform this
+transformation, it is necessary to firstly use <tt>DC</tt> commands to
+define the 5 contexts, that is
+<PRE>    DC V iy ah ae eh ix ... 
+    DC C t k d k g dh ... 
+    DC L l r w j ...
+    DC N n m ng ...
+    DC S h# #h epi ...</PRE>
+Having defined the required contexts, a change command must be
+written for each context dependent triphone, that is
+<PRE>    CH V-ah+V V ah V
+    CH V-ah+C V ah C
+    CH V-ah+N V ah N
+    CH V-ah+L V ah L
+     ...
+     etc</PRE>
+This script will, of course, be rather long (25  <IMG WIDTH=6 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20012" SRC="img211.gif"  >  number of
+phonemes) but it can easily be generated automaticaly 
+by a simple program or shell script.
+<P>
+The previous example shows how to transform a set of phonemes into a
+context dependent set in which the contexts are user-defined.
+<A NAME=5471>&#160;</A> For
+convenience, HLED provides a set of global transformation commands
+for converting phonemic transcriptions to conventional left or right
+biphones, or full triphones.  For example, a script containing the single
+<I>Triphone Conversion</I> command <tt>TC</tt><A NAME=5576>&#160;</A> will convert phoneme 
+files to regular
+triphones.  As an illustration, applying the <tt>TC</tt> command to a file
+containing the sequence <tt>sil b ah t iy n ...</tt> would  give the
+transformed sequence 
+<tt>sil+b sil-b+ah b-ah+t ah-t+iy t-iy+n iy-n+ ...</tt>. Notice that the
+first and last phonemes in the sequence  cannot be transformed in the
+normal way.  Hence, the left-most and right-most contexts of these
+start and end phonemes can be specified
+explicitly as arguments to the <tt>TC</tt> commands if required.  For
+example, the command <tt>TC # #</tt> would give the sequence
+<tt>#-sil+b sil-b+ah b-ah+t ah-t+iy t-iy+n iy-n+ ... +#</tt>.  
+Also, the contexts at pauses and word boundaries can be blocked
+using the
+<tt>WB</tt> command.   For example, if <tt>WB sp</tt> was executed, the
+effect of a subsequent <tt>TC</tt> command on the sequence 
+<tt>sil b ah t sp iy n ...</tt> would be to give the sequence 
+<tt>sil+b sil-b+ah b-ah+t ah-t sp iy+n iy-n+ ...</tt>, 
+where <tt>sp</tt> represents a short pause. Conversely, the <tt>NB</tt> command
+command can be used to ignore a label as far as context is concerned.  For example,
+if  <tt>NB sp</tt> was executed, the
+effect of a subsequent <tt>TC</tt> command on the sequence 
+<tt>sil b ah t sp iy n ...</tt> would be to give the sequence 
+<tt>sil+b sil-b+ah b-ah+t ah-t+iy sp t-iy+n iy-n+ ...</tt>.
+<P>
+When processing HTK format label files with multiple levels, only the 
+level 1 (i.e. left-most) labels are affected.<A NAME=5493>&#160;</A>  To process a higher
+level, the <i>Move Level</i> command <tt>ML</tt><A NAME=5577>&#160;</A> should be used.
+For example, in the script
+<PRE>    ML 2
+    RE one 1
+    RE two 2
+    ...</PRE>
+the Replace commands are applied to level 2 which is the first level
+above the basic level.  The command <tt>ML 1</tt> returns to the 
+base level.  A complete level can be deleted by the 
+<i>Delete Level</i> command <tt>DL</tt>.  This command can
+be given a numeric argument to delete a specific level or
+with no argument, the current level is deleted.
+Multiple levels can also be split into single level alternatives
+by using the <i>Split Level</i> command <tt>SL</tt>.
+<P>
+When processing HTK format files with multiple alternatives,
+each alternative is processed as though it were a separate file.
+<P>
+Remember also that in addition to the explicit HLED commands,
+levels and alternatives can be filtered on input by setting the
+configuration variables <tt>TRANSLEV</tt><A NAME=5578>&#160;</A> and 
+<tt>TRANSALT</tt><A NAME=5579>&#160;</A> 
+(see section&nbsp;<A HREF="node80.html#slabstruct">6.1</A>).
+<P>
+Finally, it should be noted that most HTK tools require 
+all HMMs used in a system to be defined in<A NAME=5508>&#160;</A>
+a <I>HMM List</I>.  HLED can be made to automatically generate such
+a list as a by-product of editing the label files by using the 
+<tt>-n</tt> option.  For example, the following command would apply
+the script <tt>timit.led</tt> to all files in the directory <tt>tlabs</tt>,
+write the converted files to the directory <tt>hlabs</tt>
+and also write out a list of all new labels in the edited
+files to <tt>tlist</tt>.
+<PRE>    HLEd -n tlist -L hlabs -G TIMIT timit.led tlabs/*</PRE>
+Notice here that the <tt>-G</tt> option is used to inform HLED 
+that the format of the source files is <tt>TIMIT</tt>. This could also
+be indicated by setting the configuration variable 
+<tt>SOURCELABEL</tt><A NAME=5580>&#160;</A>.
+<P>
+<HR><A NAME="tex2html2751" HREF="node92.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2749" HREF="node79.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2743" HREF="node90.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2753" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2754" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2752" HREF="node92.html">6.5 Summary</A>
+<B>Up:</B> <A NAME="tex2html2750" HREF="node79.html">6 Transcriptions and Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2744" HREF="node90.html">6.3.4 MLF Examples</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

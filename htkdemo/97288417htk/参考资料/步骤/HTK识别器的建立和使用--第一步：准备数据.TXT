@@ -1,0 +1,136 @@
+                  HTK识别器的建立和使用--第一步：准备数据
+    
+    以下五个步骤就是准备数据的全过程。
+Step 1.创建语法和网络文件
+  如果要识别的是一些简单的拨号命令，如：
+  Dial three three two six five four 
+  Dial nine zero four one oh nine 
+  Phone Woodland 
+  Call Steve Young 
+  按照这些命令编辑语法文件，格式如下：
+  
+  $digit = ONE | TWO | THREE | FOUR | FIVE |
+           SIX | SEVEN | EIGHT | NINE | OH | ZERO;
+  $name  = [ JOOP ] JANSEN |
+           [ JULIAN ] ODELL |
+           [ DAVE ] OLLASON |
+           [ PHIL ] WOODLAND | 
+           [ STEVE ] YOUNG;
+  ( SENT-START ( DIAL <$digit> | (PHONE|CALL) $name) SENT-END )
+  
+  假设语法文件名为gram,则利用HTK中的HPARSE工具创建单词网络文件wdnet,命令
+格式为：
+  HParse gram wdnet
+
+Step 2.创建词典文件
+  该文件创建比较复杂。所用的命令格式为：
+  HDMan -m -w wlist -n monophones1 -l dlog dict beep names
+  其中，wlist是单词列表文件，它有着自己的格式，最初可以将它写成文本格式的
+文件，例如：
+    S0001 ONE VALIDATED ACTS OF SCHOOL DISTRICTS
+    S0002 TWO OTHER CASES ALSO WERE UNDER ADVISEMENT
+    S0003 BOTH FIGURES WOULD GO HIGHER IN LATER YEARS
+    S0004 THIS IS NOT A PROGRAM OF SOCIALIZED MEDICINE
+    etc
+  然后，利用HTK提供的工具prompts2wlist可以将其转化为符合要求的wlist文件，
+在这个文件中，每行只有一个单词，而且按照字母顺序排列，而且在面向任务的识
+别器中，单词的范围是限定的。
+  接着，有了源词典beep和names，从这些词典中，可以搜寻到wlist文件里所列出的
+各个单词的发音，beep是一般单词的发音词典，可以下载得到。而names则是手工
+创建的文件，给出了识别任务里所用到的姓名的发音。
+  -l dlog将把已建立的辞典的各种统计信息输出到日志文件dlog中去，这些信息
+可以告诉你是否遗漏某些单词。-n monophones1则把用到的音子都输出到文件mon
+ophones1中，在以后的步骤中，每一个这里的音子都会相应地被创建一个HMM模型。
+  最后是词典文件dict的一般格式：
+  WORD [outsym] p1 p2 p3 ....
+  意思就是，单词WORD的发音是按照音子序列p1 p2 p3的顺序发出的，当单词被识
+别出来，它就以方括号里面的字串作为结果输出。[outsym]是个可选项，如果没有
+它，则单词以本身的形式输出；如果有但是方括号里面为空，则什么也不输出。
+
+Step 3.录制数据
+  HSLab提供录音和标注的功能。它的格式为：
+  HSLab 文件名，可以用来录制训练数据和测试数据。训练数据的数据源可以来自
+已有的语音数据库，而测试数据的数据源可以利用HSgen工具从现成的网络文件和
+词典文件中产生，它能够随机地通过单词网络并输出每一个遇到的单词，其命令格
+式为：
+  HSGen -l -n 200 wdnet dict，其中-n 200表示产生句子的数目为200个。
+  
+Step 4.创建转换文件
+  为了训练HMM模型，每一个训练数据文件都必须有一个相关联的音子层次上的转
+换。由于训练数据不能够自展成一系列的转换模型，所以需要用一个平稳的方案，
+得用两次音子转换。第一次转换在词与词之间不加入停顿(sp)，接下来，一旦
+产生合理的音子模型，一个sp模型就将被插入到单词之间，以表示由说话者引入的
+暂停。对于训练数据，可以用文本编辑器，也可以用HTK提供的工具prompts2mlf
+来生成其转换。例如，对于数据库提供的训练数据：
+    S0001 ONE VALIDATED ACTS OF SCHOOL DISTRICTS
+用prompts2mlf生成的便是如下形式：
+    #!MLF!#
+    "*/S0001.lab"
+    ONE 
+    VALIDATED 
+    ACTS 
+    OF 
+    SCHOOL 
+    DISTRICTS
+    .
+数据标号转换为路径名，每个单词占一行，每一句话以一个句号作为终结。第一行
+则定义了此文件为Master Label File(MLF)。这样单个的文件包含了一套完全的转
+换，虽然每个转换可以单独存在一个文件里，但是显然使用MLF更加高效。路径名
+的星号是一个通配符，它使得同名但不同路径的语音文件可以使用同一个转换。
+    一旦单词层次的mlf文件word.mlf创建好以后，就可以用标注编辑工具HLED来
+产生音子层次的mlf文件：
+    HLEd -l '*' -d dict -i phones0.mlf mkphones0.led words.mlf
+选项-l是为了产生路径的通配符，产生的phones0.mlf文件形式如下：
+    #!MLF!#
+    "*/S0001.lab"
+    sil
+    w
+    ah
+    n
+    v
+    ae
+    l
+    ih
+    d
+    .. etc
+mkphones0.led是HLED的编辑脚本，包含以下命令行：
+   EX
+   IS sil sil
+   DE sp
+EX命令用dict文件里的发音替代word.mlf中的每一个单词，IS命令则在每一句话的
+开头和结尾插入静音模型sil，最后DE命令删除所有停顿sp标注，对转化的标注
+而言，已经不需要sp了。
+
+Step 5.数据编码
+  原始的语音波形需要参量化成特征向量序列，而对波形的分析，可以基于FFT，
+也可以基于LPC。这两种HTK都支持。这里将要用到的是源自基于FFT的对数谱的Mel
+频率倒谱系数(MFCCs)。HTK提供的编码工具HCOPY可以自动地将它的输入（语音文
+件）转化为MFCC向量输出到扩展名为.mfc的文件中，而配置文件config将提供所需
+的转化参数，通常是：
+    # Coding parameters
+    TARGETKIND = MFCC_0
+    TARGETRATE = 100000.0
+    SAVECOMPRESSED = T
+    SAVEWITHCRC = T
+    WINDOWSIZE = 250000.0
+    USEHAMMING = T
+    PREEMCOEF = 0.97
+    NUMCHANS = 26
+    CEPLIFTER = 22
+    NUMCEPS = 12
+    ENORMALISE = F
+其中一些其实是缺省设置，为了完整起见，还是把它们给写出来。简单说明一下这
+些参量的意义。TARGETKIND = MFCC_0表示目标参量是MFCC，并且C0是能量部分；
+TARGETRATE = 100000.0表示语音帧的周期是10毫秒（HTK的时间单位是10纳秒）；
+SAVECOMPRESSED = T表示输出要以压缩的格式存储；SAVEWITHCRC = T表示要加上
+CRC校验；WINDOWSIZE = 250000.0表示加窗的宽度是25毫秒；USEHAMMING = T表示
+用的是哈明窗；PREEMCOEF = 0.97表示信号预加重的系数是0.97；NUMCHANS = 26
+表示滤波器组合应该有26个通道；NUMCEPS = 12表示输出的MFCC系数是12个；变量
+ENORMALISE缺省设置应该是true，它表示对已录制的音频文件进行能量归一化，但
+是在当场识别语音的情况下，需设置为false。
+  运行HCOPY的时候还需要一个源文件(.wav)和相应的输出文件(.mfc)的列表，这种
+列表文件按惯例的扩展名是.scp，在命令行中用-s指明。假设已有文件codetr.scp，
+则HCOPY命令格式为：
+    HCopy -T 1 -C config -S codetr.scp
+  在以后的步骤中，当准备开始训练HMM模型的时候，还会有一个类似的编码过程，
+不过是针对测试数据的。

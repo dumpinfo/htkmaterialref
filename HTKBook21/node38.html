@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Part II: HTK in Depth</TITLE>
+<META NAME="description" CONTENT="Part II: HTK in Depth">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1948" HREF="node39.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1946" HREF="HTKBook.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1940" HREF="node37.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1950" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1951" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1949" HREF="node39.html">4 The Operating Environment</A>
+<B>Up:</B> <A NAME="tex2html1947" HREF="HTKBook.html">HTKBook</A>
+<B> Previous:</B> <A NAME="tex2html1941" HREF="node37.html">3.6 Summary</A>
+<BR> <P>
+<H1><A NAME="SECTION03000000000000000000">Part II: HTK in Depth</A></H1>
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1952" HREF="node39.html#SECTION03100000000000000000">4 The Operating Environment</A>
+<UL> 
+<LI> <A NAME="tex2html1953" HREF="node40.html#SECTION03110000000000000000">4.1 The Command Line</A>
+<LI> <A NAME="tex2html1954" HREF="node41.html#SECTION03120000000000000000">4.2 Script Files</A>
+<LI> <A NAME="tex2html1955" HREF="node42.html#SECTION03130000000000000000">4.3 Configuration Files</A>
+<LI> <A NAME="tex2html1956" HREF="node43.html#SECTION03140000000000000000">4.4 Standard Options</A>
+<LI> <A NAME="tex2html1957" HREF="node44.html#SECTION03150000000000000000">4.5 Error Reporting</A>
+<LI> <A NAME="tex2html1958" HREF="node45.html#SECTION03160000000000000000">4.6 Strings and Names</A>
+<LI> <A NAME="tex2html1959" HREF="node46.html#SECTION03170000000000000000">4.7 Memory Management</A>
+<LI> <A NAME="tex2html1960" HREF="node47.html#SECTION03180000000000000000">4.8 Input/Output via Pipes and Networks</A>
+<LI> <A NAME="tex2html1961" HREF="node48.html#SECTION03190000000000000000">4.9 Byte-swapping of HTK data files</A>
+<LI> <A NAME="tex2html1962" HREF="node49.html#SECTION031100000000000000000">4.10 Summary</A>
+</UL> 
+<LI> <A NAME="tex2html1963" HREF="node50.html#SECTION03200000000000000000">5 Speech Input/Output</A>
+<UL> 
+<LI> <A NAME="tex2html1964" HREF="node51.html#SECTION03210000000000000000">5.1 General Mechanism</A>
+<LI> <A NAME="tex2html1965" HREF="node52.html#SECTION03220000000000000000">5.2 Speech Signal Processing</A>
+<LI> <A NAME="tex2html1966" HREF="node53.html#SECTION03230000000000000000">5.3 Linear Prediction Analysis</A>
+<LI> <A NAME="tex2html1967" HREF="node54.html#SECTION03240000000000000000">5.4 Filterbank Analysis</A>
+<LI> <A NAME="tex2html1968" HREF="node55.html#SECTION03250000000000000000">5.5 Energy Measures</A>
+<LI> <A NAME="tex2html1969" HREF="node56.html#SECTION03260000000000000000">5.6 Delta and Acceleration Coefficients</A>
+<LI> <A NAME="tex2html1970" HREF="node57.html#SECTION03270000000000000000">5.7 Storage of Parameter Files</A>
+<UL> 
+<LI> <A NAME="tex2html1971" HREF="node58.html#SECTION03271000000000000000">5.7.1 HTK Format Parameter Files</A>
+<LI> <A NAME="tex2html1972" HREF="node59.html#SECTION03272000000000000000">5.7.2 Esignal Format Parameter Files</A>
+</UL> 
+<LI> <A NAME="tex2html1973" HREF="node60.html#SECTION03280000000000000000">5.8 Waveform File Formats</A>
+<UL> 
+<LI> <A NAME="tex2html1974" HREF="node61.html#SECTION03281000000000000000">5.8.1 HTK File Format</A>
+<LI> <A NAME="tex2html1975" HREF="node62.html#SECTION03282000000000000000">5.8.2 Esignal File Format</A>
+<LI> <A NAME="tex2html1976" HREF="node63.html#SECTION03283000000000000000">5.8.3 TIMIT File Format</A>
+<LI> <A NAME="tex2html1977" HREF="node64.html#SECTION03284000000000000000">5.8.4 NIST File Format</A>
+<LI> <A NAME="tex2html1978" HREF="node65.html#SECTION03285000000000000000">5.8.5 SCRIBE File Format</A>
+<LI> <A NAME="tex2html1979" HREF="node66.html#SECTION03286000000000000000">5.8.6 SDES1 File Format</A>
+<LI> <A NAME="tex2html1980" HREF="node67.html#SECTION03287000000000000000">5.8.7 AIFF File Format</A>
+<LI> <A NAME="tex2html1981" HREF="node68.html#SECTION03288000000000000000">5.8.8 SUNAU8 File Format</A>
+<LI> <A NAME="tex2html1982" HREF="node69.html#SECTION03289000000000000000">5.8.9 OGI File Format</A>
+<LI> <A NAME="tex2html1983" HREF="node70.html#SECTION032810000000000000000">5.8.10 WAVE File Format</A>
+<LI> <A NAME="tex2html1984" HREF="node71.html#SECTION032811000000000000000">5.8.11 ALIEN and NOHEAD File Formats</A>
+</UL> 
+<LI> <A NAME="tex2html1985" HREF="node72.html#SECTION03290000000000000000">5.9 Direct Audio Input/Output</A>
+<LI> <A NAME="tex2html1986" HREF="node73.html#SECTION032100000000000000000">5.10 Multiple Input Streams</A>
+<LI> <A NAME="tex2html1987" HREF="node74.html#SECTION032110000000000000000">5.11 Vector Quantisation</A>
+<LI> <A NAME="tex2html1988" HREF="node75.html#SECTION032120000000000000000">5.12 Viewing Speech with HLIST</A>
+<LI> <A NAME="tex2html1989" HREF="node76.html#SECTION032130000000000000000">5.13 Copying and Coding using HCOPY</A>
+<LI> <A NAME="tex2html1990" HREF="node77.html#SECTION032140000000000000000">5.14 Version 1.5 Compatibility</A>
+<LI> <A NAME="tex2html1991" HREF="node78.html#SECTION032150000000000000000">5.15 Summary</A>
+</UL> 
+<LI> <A NAME="tex2html1992" HREF="node79.html#SECTION03300000000000000000">6 Transcriptions and Label Files</A>
+<UL> 
+<LI> <A NAME="tex2html1993" HREF="node80.html#SECTION03310000000000000000">6.1 Label File Structure</A>
+<LI> <A NAME="tex2html1994" HREF="node81.html#SECTION03320000000000000000">6.2 Label File Formats</A>
+<UL> 
+<LI> <A NAME="tex2html1995" HREF="node82.html#SECTION03321000000000000000">6.2.1 HTK Label Files</A>
+<LI> <A NAME="tex2html1996" HREF="node83.html#SECTION03322000000000000000">6.2.2 ESPS Label Files</A>
+<LI> <A NAME="tex2html1997" HREF="node84.html#SECTION03323000000000000000">6.2.3 TIMIT Label Files</A>
+<LI> <A NAME="tex2html1998" HREF="node85.html#SECTION03324000000000000000">6.2.4 SCRIBE Label Files</A>
+</UL> 
+<LI> <A NAME="tex2html1999" HREF="node86.html#SECTION03330000000000000000">6.3 Master Label Files</A>
+<UL> 
+<LI> <A NAME="tex2html2000" HREF="node87.html#SECTION03331000000000000000">6.3.1 General Principles of MLFs</A>
+<LI> <A NAME="tex2html2001" HREF="node88.html#SECTION03332000000000000000">6.3.2 Syntax and Semantics</A>
+<LI> <A NAME="tex2html2002" HREF="node89.html#SECTION03333000000000000000">6.3.3 MLF Search</A>
+<LI> <A NAME="tex2html2003" HREF="node90.html#SECTION03334000000000000000">6.3.4 MLF Examples</A>
+</UL> 
+<LI> <A NAME="tex2html2004" HREF="node91.html#SECTION03340000000000000000">6.4 Editing Label Files</A>
+<LI> <A NAME="tex2html2005" HREF="node92.html#SECTION03350000000000000000">6.5 Summary</A>
+</UL> 
+<LI> <A NAME="tex2html2006" HREF="node93.html#SECTION03400000000000000000">7 HMM Definition Files</A>
+<UL> 
+<LI> <A NAME="tex2html2007" HREF="node94.html#SECTION03410000000000000000">7.1 The HMM Parameters</A>
+<LI> <A NAME="tex2html2008" HREF="node95.html#SECTION03420000000000000000">7.2 Basic HMM Definitions</A>
+<LI> <A NAME="tex2html2009" HREF="node96.html#SECTION03430000000000000000">7.3 Macro Definitions</A>
+<LI> <A NAME="tex2html2010" HREF="node97.html#SECTION03440000000000000000">7.4 HMM Sets</A>
+<LI> <A NAME="tex2html2011" HREF="node98.html#SECTION03450000000000000000">7.5 Tied-Mixture Systems</A>
+<LI> <A NAME="tex2html2012" HREF="node99.html#SECTION03460000000000000000">7.6 Discrete Probability HMMs</A>
+<LI> <A NAME="tex2html2013" HREF="node100.html#SECTION03470000000000000000">7.7 Tee Models</A>
+<LI> <A NAME="tex2html2014" HREF="node101.html#SECTION03480000000000000000">7.8 Binary Storage Format</A>
+<LI> <A NAME="tex2html2015" HREF="node102.html#SECTION03490000000000000000">7.9 The HMM Definition Language</A>
+</UL> 
+<LI> <A NAME="tex2html2016" HREF="node103.html#SECTION03500000000000000000">8 HMM Parameter Estimation</A>
+<UL> 
+<LI> <A NAME="tex2html2017" HREF="node104.html#SECTION03510000000000000000">8.1 Training Strategies</A>
+<LI> <A NAME="tex2html2018" HREF="node105.html#SECTION03520000000000000000">8.2 Initialisation using HINIT</A>
+<LI> <A NAME="tex2html2019" HREF="node106.html#SECTION03530000000000000000">8.3 Flat Starting with HCOMPV</A>
+<LI> <A NAME="tex2html2020" HREF="node107.html#SECTION03540000000000000000">8.4 Isolated Unit Re-Estimation using HREST</A>
+<LI> <A NAME="tex2html2021" HREF="node108.html#SECTION03550000000000000000">8.5 Embedded Training using HEREST</A>
+<LI> <A NAME="tex2html2022" HREF="node109.html#SECTION03560000000000000000">8.6 Single-Pass Retraining</A>
+<LI> <A NAME="tex2html2023" HREF="node110.html#SECTION03570000000000000000">8.7 Parameter Re-Estimation Formulae</A>
+<UL> 
+<LI> <A NAME="tex2html2024" HREF="node111.html#SECTION03571000000000000000">8.7.1 Viterbi Training (HINIT)</A>
+<LI> <A NAME="tex2html2025" HREF="node112.html#SECTION03572000000000000000">8.7.2 Forward/Backward Probabilities</A>
+<LI> <A NAME="tex2html2026" HREF="node113.html#SECTION03573000000000000000">8.7.3 Single Model Reestimation(HREST)</A>
+<LI> <A NAME="tex2html2027" HREF="node114.html#SECTION03574000000000000000">8.7.4 Embedded Model Reestimation(HEREST)</A>
+</UL> 
+</UL> 
+<LI> <A NAME="tex2html2028" HREF="node115.html#SECTION03600000000000000000">9 HMM System Refinement</A>
+<UL> 
+<LI> <A NAME="tex2html2029" HREF="node116.html#SECTION03610000000000000000">9.1 Using HHED</A>
+<LI> <A NAME="tex2html2030" HREF="node117.html#SECTION03620000000000000000">9.2 Constructing Context-Dependent Models</A>
+<LI> <A NAME="tex2html2031" HREF="node118.html#SECTION03630000000000000000">9.3 Parameter Tying and Item Lists</A>
+<LI> <A NAME="tex2html2032" HREF="node119.html#SECTION03640000000000000000">9.4 Data-Driven Clustering</A>
+<LI> <A NAME="tex2html2033" HREF="node120.html#SECTION03650000000000000000">9.5 Tree-Based Clustering</A>
+<LI> <A NAME="tex2html2034" HREF="node121.html#SECTION03660000000000000000">9.6 Mixture Incrementing</A>
+<LI> <A NAME="tex2html2035" HREF="node122.html#SECTION03670000000000000000">9.7 Miscellaneous Operations</A>
+</UL> 
+<LI> <A NAME="tex2html2036" HREF="node123.html#SECTION03700000000000000000">10 Discrete and Tied-Mixture Models</A>
+<UL> 
+<LI> <A NAME="tex2html2037" HREF="node124.html#SECTION03710000000000000000">10.1 Modelling Discrete Sequences</A>
+<LI> <A NAME="tex2html2038" HREF="node125.html#SECTION03720000000000000000">10.2 Using Discrete Models with Speech</A>
+<LI> <A NAME="tex2html2039" HREF="node126.html#SECTION03730000000000000000">10.3 Tied Mixture Systems</A>
+<LI> <A NAME="tex2html2040" HREF="node127.html#SECTION03740000000000000000">10.4 Parameter Smoothing</A>
+</UL> 
+<LI> <A NAME="tex2html2041" HREF="node128.html#SECTION03800000000000000000">11 Networks, Dictionaries and Language Models</A>
+<UL> 
+<LI> <A NAME="tex2html2042" HREF="node129.html#SECTION03810000000000000000">11.1 How Networks are Used</A>
+<LI> <A NAME="tex2html2043" HREF="node130.html#SECTION03820000000000000000">11.2 Word Networks and Standard Lattice Format</A>
+<LI> <A NAME="tex2html2044" HREF="node131.html#SECTION03830000000000000000">11.3 Building a Word Network with HPARSE</A>
+<LI> <A NAME="tex2html2045" HREF="node132.html#SECTION03840000000000000000">11.4 Bigram Language Models</A>
+<LI> <A NAME="tex2html2046" HREF="node133.html#SECTION03850000000000000000">11.5 Building a Word Network with HBUILD</A>
+<LI> <A NAME="tex2html2047" HREF="node134.html#SECTION03860000000000000000">11.6 Testing a Word Network using HSGEN</A>
+<LI> <A NAME="tex2html2048" HREF="node135.html#SECTION03870000000000000000">11.7 Constructing a Dictionary</A>
+<LI> <A NAME="tex2html2049" HREF="node136.html#SECTION03880000000000000000">11.8 Word Network Expansion</A>
+<LI> <A NAME="tex2html2050" HREF="node137.html#SECTION03890000000000000000">11.9 Other Kinds of Recognition System</A>
+</UL> 
+<LI> <A NAME="tex2html2051" HREF="node138.html#SECTION03900000000000000000">12 Decoding</A>
+<UL> 
+<LI> <A NAME="tex2html2052" HREF="node139.html#SECTION03910000000000000000">12.1 Decoder Operation</A>
+<LI> <A NAME="tex2html2053" HREF="node140.html#SECTION03920000000000000000">12.2 Decoder Organisation</A>
+<LI> <A NAME="tex2html2054" HREF="node141.html#SECTION03930000000000000000">12.3 Recognition using Test Databases</A>
+<LI> <A NAME="tex2html2055" HREF="node142.html#SECTION03940000000000000000">12.4 Evaluating Recognition Results</A>
+<LI> <A NAME="tex2html2056" HREF="node143.html#SECTION03950000000000000000">12.5 Generating Forced Alignments</A>
+<LI> <A NAME="tex2html2057" HREF="node144.html#SECTION03960000000000000000">12.6 Recognition using Direct Audio Input</A>
+<LI> <A NAME="tex2html2058" HREF="node145.html#SECTION03970000000000000000">12.7 N-Best Lists and Lattices</A>
+</UL>
+</UL>
+<HR><A NAME="tex2html1948" HREF="node39.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1946" HREF="HTKBook.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1940" HREF="node37.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1950" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1951" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1949" HREF="node39.html">4 The Operating Environment</A>
+<B>Up:</B> <A NAME="tex2html1947" HREF="HTKBook.html">HTKBook</A>
+<B> Previous:</B> <A NAME="tex2html1941" HREF="node37.html">3.6 Summary</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>1.3 Output Probability Specification</TITLE>
+<META NAME="description" CONTENT="1.3 Output Probability Specification">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1542" HREF="node7.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1540" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1534" HREF="node5.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1544" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1545" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1543" HREF="node7.html">1.4 Baum-Welch Re-Estimation</A>
+<B>Up:</B> <A NAME="tex2html1541" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1535" HREF="node5.html">1.2 Isolated Word Recognition</A>
+<BR> <P>
+<H1><A NAME="SECTION02130000000000000000">1.3 Output Probability Specification</A></H1>
+<A NAME="soutprobspec">&#160;</A>
+<P>
+Before<A NAME=538>&#160;</A> the problem of parameter estimation can be discussed in more
+detail, the form of the output distributions  <IMG WIDTH=49 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19500" SRC="img35.gif"  > 
+needs to be made explicit. HTK is designed primarily for modelling
+continuous parameters using continuous density multivariate output
+distributions.  It can also handle observation sequences
+consisting of discrete symbols in which case, the output distributions
+are discrete probabilities.  For simplicity, however, the presentation 
+in this chapter will assume that continuous density 
+distributions are being used. The minor differences that the use
+of discrete probabilities entail are noted in chapter&nbsp;<A HREF="node93.html#cHMMDefs">7</A>
+and discussed in more detail in chapter&nbsp;<A HREF="node123.html#cdiscmods">10</A>.
+<P>
+In common with most other<A NAME=543>&#160;</A><A NAME=544>&#160;</A><A NAME=545>&#160;</A>
+continuous density HMM systems, HTK represents output distributions
+by Gaussian Mixture Densities.  
+In HTK, however, a further
+generalisation is made.  HTK allows each observation vector at time <I>t</I>
+to be split into a number of <I>S</I> independent data streams  <IMG WIDTH=15 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19506" SRC="img36.gif"  > .  The
+formula for computing  <IMG WIDTH=36 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19508" SRC="img37.gif"  >  is then
+<P><A NAME="e8">&#160;</A> <IMG WIDTH=500 HEIGHT=44 ALIGN=BOTTOM ALT="equation549" SRC="img38.gif"  > <P>
+where  <IMG WIDTH=17 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19518" SRC="img416.gif"  >  is the number of mixture components in stream <I>s</I>,  <IMG WIDTH=26 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19522" SRC="img40.gif"  > 
+is the weight of the <I>m</I>'th component and 
+ <IMG WIDTH=63 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19526" SRC="img41.gif"  >  is a multivariate Gaussian with
+mean vector  <IMG WIDTH=7 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19528" SRC="img42.gif"  >  and covariance matrix  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline19530" SRC="img43.gif"  > ,
+that is<A NAME=572>&#160;</A><A NAME=573>&#160;</A>
+<P> <IMG WIDTH=500 HEIGHT=35 ALIGN=BOTTOM ALT="equation574" SRC="img44.gif"  > <P>
+where <I>n</I> is the dimensionality of  <IMG WIDTH=7 HEIGHT=6 ALIGN=BOTTOM ALT="tex2html_wrap_inline19552" SRC="img45.gif"  > .
+<P>
+The exponent  <IMG WIDTH=11 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19554" SRC="img46.gif"  >  is a stream weight<A NAME="tex2html10" HREF="footnode.html#591"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  It 
+can be used to give a particular stream more emphasis, however,
+it can only be set manually.  No current HTK training tools 
+can estimate values for it.
+<P>
+Multiple data streams are used to
+enable separate modelling of multiple information sources.  In
+HTK, the processing of streams is completely general.  However,
+the speech input modules assume that the 
+source data is split into at most 4 streams.  Chapter&nbsp;<A HREF="node50.html#cspeechio">5</A>
+discusses this in more detail but for now it is sufficient to
+remark that the default streams are the
+basic parameter vector, first (delta) and second (acceleration)
+difference coefficients and log energy.
+<P>
+<HR><A NAME="tex2html1542" HREF="node7.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1540" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1534" HREF="node5.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1544" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1545" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1543" HREF="node7.html">1.4 Baum-Welch Re-Estimation</A>
+<B>Up:</B> <A NAME="tex2html1541" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1535" HREF="node5.html">1.2 Isolated Word Recognition</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

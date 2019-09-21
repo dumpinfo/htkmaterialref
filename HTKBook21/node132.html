@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>11.4 Bigram Language Models</TITLE>
+<META NAME="description" CONTENT="11.4 Bigram Language Models">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3275" HREF="node133.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3273" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3267" HREF="node131.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3277" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3278" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3276" HREF="node133.html">11.5 Building a Word Network with HBUILD</A>
+<B>Up:</B> <A NAME="tex2html3274" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3268" HREF="node131.html">11.3 Building a Word Network with HPARSE</A>
+<BR> <P>
+<H1><A NAME="SECTION03840000000000000000">11.4 Bigram Language Models</A></H1>
+<A NAME="sbiglms">&#160;</A>
+<P>
+<A NAME=10506>&#160;</A>
+Before continuing with the description of network generation
+and, in particular, the use of HBUILD<A NAME=10741>&#160;</A>, the 
+use of bigram language models needs to be described.
+Support for statistical language models in HTK is provided
+by the library module HLM.  Although the interface to
+HLM<A NAME=10742>&#160;</A> can support general N-grams<A NAME=10512>&#160;</A>,  
+the facilities for
+constructing and using N-grams are limited to bigrams.
+<P>
+A bigram language model can be built using HLSTATS<A NAME=10743>&#160;</A>
+invoked as follows where it is a assumed that all of the
+label files used for
+training are stored in an MLF called <tt>labs</tt>
+<PRE>    HLStats -b bigfn -o -I labs wordlist</PRE>
+All words used in the label files must be listed in the <tt>wordlist</tt>.
+This command will read all of the transcriptions in <tt>labs</tt>,
+build a table of
+bigram counts in memory, and then output a back-off bigram<A NAME=10518>&#160;</A>
+to the file <tt>bigfn</tt>.  The formulae used for this are
+given in the reference entry for HLSTATS.  However, the 
+basic idea is encapsulated in the following formula
+<P> <IMG WIDTH=394 HEIGHT=34 ALIGN=BOTTOM ALT="displaymath22032" SRC="img456.gif"  > <P>
+where <I>N</I>(<I>i</I>,<I>j</I>) is the number of times word <I>j</I> follows word <I>i</I> and
+<I>N</I>(<I>i</I>) is the number of times that word <I>i</I> appears.
+Essentially, a small part of the available probability mass
+is deducted from the higher bigram counts and distributed amongst
+the infrequent bigrams.  This process is called <i>discounting</i>.
+The default value for the discount constant <I>D</I> is 0.5 but 
+this can be altered using the configuration variable 
+<tt>DISCOUNT</tt><A NAME=10744>&#160;</A>.
+When a bigram count falls below the threshold
+<I>t</I>, the bigram is backed-off to the unigram probability suitably scaled
+by a back-off weight in order to ensure that all bigram probabilities for a given
+history sum to one.
+<P>
+Backed-off bigrams<A NAME=10529>&#160;</A> are 
+stored in a text file using the standard
+ARPA MIT-LL format which as used in HTK is as follows
+<P>
+<PRE>    \data\
+    ngram 1=&lt;num 1-grams&gt;
+    ngram 2=&lt;num 2-ngrams&gt;
+
+    \1-grams:
+    P(!ENTER)      !ENTER  B(!ENTER)
+    P(W1)	    W1     B(W1)
+    P(W2)	    W2     B(W2)
+    ...
+    P(!EXIT)       !EXIT   B(!EXIT)
+
+    \2-grams:
+    P(W1 | !ENTER)  !ENTER W1
+    P(W2 | !ENTER)  !ENTER W2
+    P(W1 | W1)      W1     W1
+    P(W2 | W1)      W1     W2
+    P(W1 | W2)      W2     W1
+    ....
+    P(!EXIT | W1)   W1     !EXIT
+    P(!EXIT | W2)   W2     !EXIT
+    \end\</PRE>
+where all probabilities are stored as base-10 logs.  The default
+start and end words, <tt>!ENTER</tt> and <tt>!EXIT</tt> can be changed
+using the HLSTATS <tt>-s</tt> option.
+<P>
+For some applications, a simple matrix style of bigram representation
+may be more appropriate.  If the <tt>-o</tt> option is omitted in
+the above invocation of HLSTATS, then a simple full bigram
+matrix will be output using the format
+<PRE>    !ENTER    0   P(W1 | !ENTER) P(W2 | !ENTER) .....
+    W1        0   P(W1 | W1)     P(W2 | W1)     .....
+    W2        0   P(W1 | W2)     P(W2 | W2)     .....
+    ...
+    !EXIT     0   PN             PN             .....</PRE> 
+where the probability  <IMG WIDTH=56 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline22050" SRC="img457.gif"  >  is given by row <I>i</I>,<I>j</I> of the matrix.
+If there are a total of N words in the vocabulary then <tt>PN</tt>
+in the above is set to 1/(<I>N</I>+1), this ensures that the last row
+sums to one.  As a very crude form of smoothing, a floor can be set
+using the <tt>-f minp</tt> option to prevent any entry falling
+below <tt>minp</tt>.  Note, however, that this does not affect the 
+bigram entries in the first
+column which are zero by definition.  Finally, as with the storage
+of tied-mixture and discrete probabilities, a run-length encoding
+scheme is used whereby any value can be followed by an 
+asterix and a repeat count (see section&nbsp;<A HREF="node98.html#stmix">7.5</A>).
+<P>
+<HR><A NAME="tex2html3275" HREF="node133.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3273" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3267" HREF="node131.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3277" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3278" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3276" HREF="node133.html">11.5 Building a Word Network with HBUILD</A>
+<B>Up:</B> <A NAME="tex2html3274" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3268" HREF="node131.html">11.3 Building a Word Network with HPARSE</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

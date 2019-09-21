@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>9.6 Mixture Incrementing</TITLE>
+<META NAME="description" CONTENT="9.6 Mixture Incrementing">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3134" HREF="node122.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3132" HREF="node115.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3126" HREF="node120.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3136" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3137" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3135" HREF="node122.html">9.7 Miscellaneous Operations</A>
+<B>Up:</B> <A NAME="tex2html3133" HREF="node115.html">9 HMM System Refinement</A>
+<B> Previous:</B> <A NAME="tex2html3127" HREF="node120.html">9.5 Tree-Based Clustering</A>
+<BR> <P>
+<H1><A NAME="SECTION03660000000000000000">9.6 Mixture Incrementing</A></H1>
+<A NAME="supmix">&#160;</A>
+<P>
+When building sub-word based continuous density systems, 
+the final system will typically consist of multiple mixture component
+context-dependent HMMs.  However, as indicated previously, the early
+stages of triphone construction, particularly state tying, are best done
+with single Gaussian models.  Indeed, if tree-based clustering is to be
+used there is no option.<A NAME=9868>&#160;</A><A NAME=9869>&#160;</A>
+<P>
+In HTK therefore, the conversion from single Gaussian HMMs to multiple
+mixture component HMMs is usually one of the final steps in building
+a system.  The mechanism provided to do this is the HHED <tt>MU</tt> command
+which will increase the number of components in a mixture by 
+a process called <i>mixture splitting</i>.
+This approach to building a multiple
+mixture component system is extremely
+flexible since it allows the number of mixture components to be repeatedly increased
+until the desired level of performance is achieved.<A NAME=9873>&#160;</A>
+<P>
+The <tt>MU</tt> command<A NAME=9939>&#160;</A> has the form
+<PRE>     MU n itemList</PRE>
+where <tt>n</tt> gives the new number of mixture components required and
+<tt>itemList</tt> defines the actual mixture distributions to modify.  This
+command works by repeatedly splitting the mixture with the largest mixture
+weight until the required number of components is obtained.  The actual
+split is performed by copying the mixture, dividing the weights of both
+copies by 2, and finally perturbing the means by plus or minus 0.2 standard
+deviations.
+For example, the command
+<PRE>     MU 3 {aa.state[2].mix}</PRE>
+would increase the number of mixture components in the output distribution
+for state 2 of model <tt>aa</tt> to 3.   Normally, however,  the number of
+components in all mixture distributions will be increased at the same time.
+Hence, a command of the form is more usual
+<PRE>     MU 3 {*.state[2-4].mix}</PRE>
+It is usually a good idea to increment mixture components in
+stages, for example, by incrementing by 1 or 2 then re-estimating, then
+incrementing by 1 or 2 again and re-estimating, and so on until the
+required number of components are obtained.  This also allows recognition performance
+to be monitored to find the optimum.
+<P>
+One final point with regard to multiple mixture component distributions is that
+all HTK tools ignore mixture components whose weights fall below a threshold value
+called <tt>MINMIX</tt> (defined in <tt>HModel.h</tt>).  Such mixture components
+are called <I>defunct</I>.  Defunct mixture components can be
+prevented by setting the <tt>-w</tt> option in HEREST so that all mixture
+weights are floored to some level above 
+<tt>MINMIX</tt><A NAME=9940>&#160;</A>.  If 
+mixture weights<A NAME=9886>&#160;</A>
+are allowed to fall below <tt>MINMIX</tt> then the corresponding Gaussian
+parameters will not be written out when the model containing that component
+is saved.  It is possible to recover from this, however, since the <tt>MU</tt> command
+will replace defunct mixtures<A NAME=9889>&#160;</A> before performing any requested mixture
+component increment.
+<P>
+<HR><A NAME="tex2html3134" HREF="node122.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3132" HREF="node115.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3126" HREF="node120.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3136" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3137" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3135" HREF="node122.html">9.7 Miscellaneous Operations</A>
+<B>Up:</B> <A NAME="tex2html3133" HREF="node115.html">9 HMM System Refinement</A>
+<B> Previous:</B> <A NAME="tex2html3127" HREF="node120.html">9.5 Tree-Based Clustering</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

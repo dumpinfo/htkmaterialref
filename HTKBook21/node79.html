@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6 Transcriptions and Label Files</TITLE>
+<META NAME="description" CONTENT="6 Transcriptions and Label Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2590" HREF="node80.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2588" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2582" HREF="node78.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2592" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2593" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2591" HREF="node80.html">6.1 Label File Structure</A>
+<B>Up:</B> <A NAME="tex2html2589" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2583" HREF="node78.html">5.15 Summary</A>
+<BR> <P>
+<H1><A NAME="SECTION03300000000000000000">6 Transcriptions and Label Files</A></H1>
+<A NAME="clabels">&#160;</A>
+<P>
+Many of the operations performed by HTK which involve speech data
+files assume that the speech is divided into segments and each segment
+has a name or <i>label</i>.  The set of labels associated with a
+speech file constitute a <i>transcription</i> and each transcription is
+stored in a separate <i>label file</i>.  Typically, the name of the
+label file will be the same as the corresponding speech file but with
+a different extension.  For convenience, label files are often stored
+in a separate directory and all HTK tools have an option to specify
+this.  When very large numbers of files are being processing, label
+file access can be greatly facilitated by using<A NAME=5589>&#160;</A>
+<i>Master Label Files (MLFs)</i>.  MLFs may be regarded as index<A NAME=5591>&#160;</A>
+files holding pointers to the actual label files which can either be
+embedded in the same index file or stored anywhere else in the file system.
+Thus, MLFs allow large sets of files to be stored in a single file, they
+allow a single transcription to be shared by many logical label files
+and they allow arbitrary file redirection.<A NAME=5592>&#160;</A>
+<P>
+  <IMG WIDTH=324 HEIGHT=194 ALIGN=BOTTOM ALT="tex2html_wrap19996" SRC="img208.gif"  > 
+<P>
+The HTK interface to label files is provided by the module HLABEL
+which implements the MLF facility and support for a number of external
+label file formats. 
+All of the facilities supplied by HLABEL, including the
+supported label file formats, are described in this chapter.
+In addition, HTK provides a tool called HLED for simple 
+batch editing of label files and this is also described.
+Before proceeding to the details, however, the general structure of
+label files will be reviewed.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html2594" HREF="node80.html#SECTION03310000000000000000">6.1 Label File Structure</A>
+<LI> <A NAME="tex2html2595" HREF="node81.html#SECTION03320000000000000000">6.2 Label File Formats</A>
+<UL> 
+<LI> <A NAME="tex2html2596" HREF="node82.html#SECTION03321000000000000000">6.2.1 HTK Label Files</A>
+<LI> <A NAME="tex2html2597" HREF="node83.html#SECTION03322000000000000000">6.2.2 ESPS Label Files</A>
+<LI> <A NAME="tex2html2598" HREF="node84.html#SECTION03323000000000000000">6.2.3 TIMIT Label Files</A>
+<LI> <A NAME="tex2html2599" HREF="node85.html#SECTION03324000000000000000">6.2.4 SCRIBE Label Files</A>
+</UL> 
+<LI> <A NAME="tex2html2600" HREF="node86.html#SECTION03330000000000000000">6.3 Master Label Files</A>
+<UL> 
+<LI> <A NAME="tex2html2601" HREF="node87.html#SECTION03331000000000000000">6.3.1 General Principles of MLFs</A>
+<LI> <A NAME="tex2html2602" HREF="node88.html#SECTION03332000000000000000">6.3.2 Syntax and Semantics</A>
+<LI> <A NAME="tex2html2603" HREF="node89.html#SECTION03333000000000000000">6.3.3 MLF Search</A>
+<LI> <A NAME="tex2html2604" HREF="node90.html#SECTION03334000000000000000">6.3.4 MLF Examples</A>
+</UL> 
+<LI> <A NAME="tex2html2605" HREF="node91.html#SECTION03340000000000000000">6.4 Editing Label Files</A>
+<LI> <A NAME="tex2html2606" HREF="node92.html#SECTION03350000000000000000">6.5 Summary</A>
+</UL>
+<HR><A NAME="tex2html2590" HREF="node80.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2588" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2582" HREF="node78.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2592" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2593" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2591" HREF="node80.html">6.1 Label File Structure</A>
+<B>Up:</B> <A NAME="tex2html2589" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2583" HREF="node78.html">5.15 Summary</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

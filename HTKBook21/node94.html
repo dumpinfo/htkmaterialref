@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.1 The HMM Parameters</TITLE>
+<META NAME="description" CONTENT="7.1 The HMM Parameters">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2794" HREF="node95.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2792" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2786" HREF="node93.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2796" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2797" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2795" HREF="node95.html">7.2 Basic HMM Definitions</A>
+<B>Up:</B> <A NAME="tex2html2793" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2787" HREF="node93.html">7 HMM Definition Files</A>
+<BR> <P>
+<H1><A NAME="SECTION03410000000000000000">7.1 The HMM Parameters</A></H1>
+<A NAME="sHMMparm">&#160;</A>
+<P>
+A HMM consists of a number of states.  Each state <I>j</I> has an associated
+observation probability distribution  <IMG WIDTH=36 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline20020" SRC="img37.gif"  >   which
+determines the probability of generating observation  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline20022" SRC="img16.gif"  >  at
+time <I>t</I> and each pair of states <I>i</I> and <I>j</I> has an associated
+transition probability  <IMG WIDTH=14 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20030" SRC="img18.gif"  > .  In HTK the entry state 1 and
+the exit state <I>N</I> of an <I>N</I> state HMM are non-emitting.
+<P>
+
+<A NAME="fhmm1">&#160;</A> <IMG WIDTH=289 HEIGHT=208 ALIGN=BOTTOM ALT="tex2html_wrap20112" SRC="img218.gif"  > 
+<P>
+Fig.&nbsp;<A HREF="node94.html#fhmm1">7.1</A> shows a simple left-right HMM with five states in
+total.  Three of these are emitting states and have output probability
+distributions associated with them.   The transition matrix for
+this model will have 5 rows and 5 columns.  Each row will sum to one
+except for the final row which is always all zero since no
+transitions are allowed out of the final state.
+<P>
+HTK is principally concerned with continuous<A NAME=6638>&#160;</A>
+density models in which each observation probability distribution
+is represented by a mixture Gaussian density.  In this case,
+for state <I>j</I>
+the probability  <IMG WIDTH=36 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline20040" SRC="img37.gif"  >  of generating 
+observation  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline20042" SRC="img16.gif"  >  is given by
+<P>
+
+<P>
+<P><A NAME="ecdpdf">&#160;</A> <IMG WIDTH=500 HEIGHT=51 ALIGN=BOTTOM ALT="equation6656" SRC="img221.gif"  > <P>
+where  <IMG WIDTH=23 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline20052" SRC="img222.gif"  >  is the number of mixture components<A NAME=5786>&#160;</A> 
+in state <I>j</I> for stream <I>s</I>,
+ <IMG WIDTH=26 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20058" SRC="img40.gif"  >  is the weight of the <I>m</I>'th  component and 
+ <IMG WIDTH=63 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline20062" SRC="img41.gif"  >  is a multivariate Gaussian
+with mean vector<A NAME=5791>&#160;</A>  <IMG WIDTH=7 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20064" SRC="img42.gif"  >  and 
+covariance matrix<A NAME=5793>&#160;</A>  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline20066" SRC="img43.gif"  > , that
+is<A NAME=5795>&#160;</A>
+<P><A NAME="egnorm">&#160;</A> <IMG WIDTH=500 HEIGHT=35 ALIGN=BOTTOM ALT="equation6690" SRC="img227.gif"  > <P>
+where <I>n</I> is the dimensionality of  <IMG WIDTH=7 HEIGHT=6 ALIGN=BOTTOM ALT="tex2html_wrap_inline20088" SRC="img45.gif"  > .  The exponent  <IMG WIDTH=11 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline20090" SRC="img46.gif"  >  is
+a stream weight<A NAME=5812>&#160;</A> and its 
+default value is one.  Other values can be
+used to emphasise particular streams, however, none of the standard
+HTK tools manipulate it.
+<P>
+HTK also supports discrete probability 
+distributions<A NAME=5813>&#160;</A> in which
+case <A NAME=5814>&#160;</A>
+<P><A NAME="eddpdf">&#160;</A> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation6732" SRC="img230.gif"  > <P>
+where  <IMG WIDTH=41 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline20096" SRC="img231.gif"  >  is the output of the vector 
+quantiser for stream <I>s</I>
+given input vector  <IMG WIDTH=18 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline20100" SRC="img232.gif"  >  and  <IMG WIDTH=35 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline20102" SRC="img233.gif"  >  is the 
+probability of state <I>j</I> generating symbol <I>v</I> in stream <I>s</I>.
+<P>
+In addition to the above, any model or state can have an
+associated vector of duration parameters
+<A NAME=5828>&#160;</A>  <IMG WIDTH=26 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline20110" SRC="img234.gif"  > <A NAME="tex2html549" HREF="footnode.html#5829"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  
+Also,
+it is necessary to specify the kind of the observation
+vectors, and the width of the observation vector in each stream.
+Thus, the total information needed to define a single HMM is 
+as follows
+   <UL><LI> type of observation vector<LI> number and width of each data stream<LI> optional model duration parameter vector<LI> number of states<LI> for each emitting state and each stream
+        <UL><LI> mixture component weights or discrete probabilities<LI> if continuous density, then means and covariances<LI> optional stream weight vector<LI> optional duration parameter vector
+         </UL><LI> transition matrix
+</UL>
+The following sections explain how these are defined.
+<P>
+<HR><A NAME="tex2html2794" HREF="node95.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2792" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2786" HREF="node93.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2796" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2797" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2795" HREF="node95.html">7.2 Basic HMM Definitions</A>
+<B>Up:</B> <A NAME="tex2html2793" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2787" HREF="node93.html">7 HMM Definition Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

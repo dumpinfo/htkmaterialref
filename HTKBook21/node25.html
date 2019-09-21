@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3.1.4 Step 4 - Creating the Transcription Files</TITLE>
+<META NAME="description" CONTENT="3.1.4 Step 4 - Creating the Transcription Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1796" HREF="node26.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1794" HREF="node21.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1788" HREF="node24.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1798" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1799" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1797" HREF="node26.html">3.1.5 Step 5 - Coding the Data</A>
+<B>Up:</B> <A NAME="tex2html1795" HREF="node21.html">3.1 Data Preparation</A>
+<B> Previous:</B> <A NAME="tex2html1789" HREF="node24.html">3.1.3 Step 3 - Recording the Data</A>
+<BR> <P>
+<H2><A NAME="SECTION02314000000000000000">3.1.4 Step 4 - Creating the Transcription Files</A></H2>
+<P>
+To train a set of HMMs, every file of training data must have an associated
+phone level transcription.  Since there is no hand labelled data to bootstrap a
+set of models, a flat-start scheme will be used instead.  To do this, two sets
+of phone transcriptions will be needed.  The set used initially will have no
+short-pause (<tt>sp</tt>) models between words.  Then once reasonable phone
+models have been generated, an <tt>sp</tt> model will be inserted between words
+to take care of any pauses introduced by the speaker.<A NAME=2045>&#160;</A>
+<P>
+The starting point for both sets of phone transcription is an
+orthographic<A NAME=2046>&#160;</A> transcription in HTK label
+format.  This can be created fairly easily using a text editor or a scripting
+language.
+An example of this is found in the RM Demo at point 0.4. Alternatively, the
+script <tt>prompts2mlf</tt> has been provided in the <tt>HTKTutorial</tt>
+directory.
+The effect should be to convert the prompt utterances exampled above into the
+following form:
+<PRE>    #!MLF!#
+    &quot;*/S0001.lab&quot;
+    ONE 
+    VALIDATED 
+    ACTS 
+    OF 
+    SCHOOL 
+    DISTRICTS
+    .
+    &quot;*/S0002.lab&quot;
+    TWO 
+    OTHER 
+    CASES 
+    ALSO 
+    WERE 
+    UNDER 
+    ADVISEMENT
+    .
+    &quot;*/S0003.lab&quot; 
+    BOTH 
+    FIGURES 
+    (etc.)</PRE>
+As can be seen, the prompt labels need to be converted into path names, each
+word should be written on a single line and each utterance should be terminated
+by a single period on its own.  The first line of the file just identifies the
+file as a <i>Master Label File</i> (MLF).  This is a single file containing a
+complete set of transcriptions.  HTK allows each individual transcription to
+be stored in its own file but it is more efficient to use an MLF.
+<A NAME=2050>&#160;</A><A NAME=2051>&#160;</A>
+<P>
+The form of the path name used in the MLF deserves some explanation since it is
+really a <i>pattern</i> and not a name.<A NAME=2053>&#160;</A>
+When HTK processes speech files, it expects to find a transcription (or 
+<I>label file</I>) with the same name but a different extension.  Thus, if the file
+<tt>/root/sjy/data/S0001.wav</tt> was being processed, HTK would look for a
+label file called <tt>/root/sjy/data/S0001.lab</tt>.  When MLF files are used,
+HTK scans the file for a pattern which matches the required label file name.
+However, an asterix will match any character string and hence the pattern used
+in the example is in effect path independent.  It therefore allows the same
+transcriptions to be used with different versions of the speech data to be
+stored in different locations.
+<P>
+Once the word level MLF has been created, phone level MLFs can be generated
+using the label editor HLED<A NAME=2438>&#160;</A>. For example,
+assuming that the above word level MLF is stored in the file
+<tt>words.mlf</tt>, the command
+<PRE>    HLEd -l '*' -d dict -i phones0.mlf mkphones0.led words.mlf</PRE>
+will generate a phone level transcription of the following form
+where the <tt>-l</tt> option is needed to generate the path '<code>*</code>' in the 
+output pattens.
+<PRE>    #!MLF!#
+    &quot;*/S0001.lab&quot;
+    sil
+    w
+    ah
+    n
+    v
+    ae
+    l
+    ih
+    d
+    .. etc</PRE>
+This process is illustrated in Fig.&nbsp;<A HREF="node25.html#fstep4">3.5</A>.
+<P>
+The HLED edit script <tt>mkphones0.led</tt> 
+contains the following commands
+<PRE>   EX
+   IS sil sil
+   DE sp</PRE>
+The expand <tt>EX</tt> command replaces each word in <tt>words.mlf</tt> 
+by the corresponding pronunciation in the dictionary file <tt>dict</tt>.  
+The <tt>IS</tt>
+command inserts a silence model <tt>sil</tt> at the start and end of
+every utterance.  Finally, the delete <tt>DE</tt> command deletes all
+short-pause <tt>sp</tt> labels, which are not wanted in the transcription
+labels at this point.
+<P>
+<A NAME="fstep4">&#160;</A> <IMG WIDTH=239 HEIGHT=341 ALIGN=BOTTOM ALT="tex2html_wrap19796" SRC="img114.gif"  > 
+<P>
+A set of phone level transcriptions which include short-pauses between words,
+needed later in the training process,
+can also be created in a file called <tt>phones1.mlf</tt> by
+using the same procedure except that the <tt>DE</tt> command would be omitted
+from the edit script in order to leave the <tt>sp</tt> models intact.
+<P>
+<HR><A NAME="tex2html1796" HREF="node26.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1794" HREF="node21.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1788" HREF="node24.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1798" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1799" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1797" HREF="node26.html">3.1.5 Step 5 - Coding the Data</A>
+<B>Up:</B> <A NAME="tex2html1795" HREF="node21.html">3.1 Data Preparation</A>
+<B> Previous:</B> <A NAME="tex2html1789" HREF="node24.html">3.1.3 Step 3 - Recording the Data</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

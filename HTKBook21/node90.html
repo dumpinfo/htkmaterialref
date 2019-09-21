@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.3.4 MLF Examples</TITLE>
+<META NAME="description" CONTENT="6.3.4 MLF Examples">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2739" HREF="node91.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2737" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2733" HREF="node89.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2741" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2742" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2740" HREF="node91.html">6.4 Editing Label Files</A>
+<B>Up:</B> <A NAME="tex2html2738" HREF="node86.html">6.3 Master Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2734" HREF="node89.html">6.3.3 MLF Search</A>
+<BR> <P>
+<H2><A NAME="SECTION03334000000000000000">6.3.4 MLF Examples</A></H2>
+<P>
+<A NAME=5376>&#160;</A>
+<OL><LI>
+Suppose a data set consisted of two training data files with
+corresponding label files:
+<BR>
+<tt>a.lab</tt> contains 
+<PRE>       000000  590000  sil
+       600000 2090000  a
+      2100000 4500000  sil</PRE>
+<tt>b.lab</tt> contains 
+<PRE>       000000  990000  sil
+      1000000 3090000  b
+      3100000 4200000  sil</PRE>
+Then the above two individual label files could be replaced by a single MLF
+<PRE>      #!MLF!#
+      &quot;*/a.lab&quot;
+       000000  590000  sil
+       600000 2090000  a
+      2100000 4500000  sil
+      .                      
+      &quot;*/b.lab&quot;
+       000000  990000  sil
+      1000000 3090000  b
+      3100000 4200000  sil
+      .</PRE><LI>
+A digit data base contains training tokens <tt>one.1.wav, one.2.wav, one.3.wav, ...,
+two.1.wav, two.2.wav, two.3.wav, ...</tt>, etc.  Label files are required containing
+just the name of the model so that HTK tools such as HEREST can be used.
+If MLFs are not used, individual label files are needed.  For example,
+the individual label files <tt>one.1.lab, one.2.lab, one.3.lab, ....</tt> would be
+needed
+to identifiy instances of ``one'' even though each file contains the same entry, just
+<PRE>      one</PRE>
+Using an MLF containing
+<PRE>      #!MLF!#
+      &quot;*/one.*.lab&quot;
+      one
+      .
+      &quot;*/two.*.lab&quot;
+      two
+      .
+      &quot;*/three.*.lab&quot;
+      three
+      .
+      &lt;etc.&gt;</PRE>
+avoids the need for many duplicate label files.<LI>
+A training database <tt>/db</tt> contains directories <tt>dr1, dr2, ..., dr8</tt>.
+Each directory contains a subdirectory called <tt>labs</tt> holding the
+label files for the data files in that directory.  The following
+MLF would allow them to be found
+<PRE>      #!MLF!#
+      &quot;*&quot; -&gt; &quot;/db/dr1/labs&quot;
+      &quot;*&quot; -&gt; &quot;/db/dr2/labs&quot;
+      ...
+      &quot;*&quot; -&gt; &quot;/db/dr7/labs&quot;
+      &quot;*&quot; -&gt; &quot;/db/dr8/labs&quot;</PRE>      
+Each attempt to open a label file will result in a linear search
+through <tt>dr1</tt> to <tt>dr8</tt> to find that file.  If the sub-directory name
+is embedded into the label file name, then this searching can
+be avoided.  For example, if the label files in directory <tt>drx</tt> had
+the form <tt>drx_xxxx.lab</tt>, then the MLF would be written as
+<PRE>      #!MLF!#
+      &quot;*/dr1_*&quot; -&gt; &quot;/db/dr1/labs&quot;
+      &quot;*/dr2_*&quot; -&gt; &quot;/db/dr2/labs&quot;
+      ...
+      &quot;*/dr7_*&quot; -&gt; &quot;/db/dr7/labs&quot;
+      &quot;*/dr8_*&quot; -&gt; &quot;/db/dr8/labs&quot;</PRE><LI>
+A training database is organised as a hierarchy where 
+<tt>/disk1/db/dr1/sp2/u3.wav</tt> is the data file for the third
+repetition from speaker 2 in dialect region <tt>dr1</tt>
+(see Figure&nbsp;<A HREF="node90.html#fdbhier">6.2</A>).
+<P>
+<A NAME="fdbhier">&#160;</A> <IMG WIDTH=424 HEIGHT=203 ALIGN=BOTTOM ALT="tex2html_wrap20006" SRC="img210.gif"  > 
+<P>
+Suppose
+that a similar hierarchy of label files was constructed on
+<tt>disk3</tt>.
+These label files could be found by any HTK tool by using an
+MLF containing just
+<PRE>      #!MLF!#
+      &quot;*&quot; =&gt; &quot;/disk3&quot;</PRE>      
+If for some reason all of the <tt>drN</tt> directories were
+renamed <tt>ldrN</tt> in the label hierarchy, then this could be
+handled by an MLF file containing
+<PRE>      #!MLF!#
+      &quot;*/dr1/*&quot; =&gt; &quot;/disk3/ldr1&quot;
+      &quot;*/dr2/*&quot; =&gt; &quot;/disk3/ldr2&quot;
+      &quot;*/dr3/*&quot; =&gt; &quot;/disk3/ldr3&quot;
+               etc.</PRE>      
+</OL>
+These few examples should illustrate the flexibility and power of MLF files.
+<P>
+<HR><A NAME="tex2html2739" HREF="node91.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2737" HREF="node86.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2733" HREF="node89.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2741" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2742" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2740" HREF="node91.html">6.4 Editing Label Files</A>
+<B>Up:</B> <A NAME="tex2html2738" HREF="node86.html">6.3 Master Label Files</A>
+<B> Previous:</B> <A NAME="tex2html2734" HREF="node89.html">6.3.3 MLF Search</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

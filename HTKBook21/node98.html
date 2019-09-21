@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.5 Tied-Mixture Systems</TITLE>
+<META NAME="description" CONTENT="7.5 Tied-Mixture Systems">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2842" HREF="node99.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2840" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2834" HREF="node97.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2844" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2845" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2843" HREF="node99.html">7.6 Discrete Probability HMMs</A>
+<B>Up:</B> <A NAME="tex2html2841" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2835" HREF="node97.html">7.4 HMM Sets</A>
+<BR> <P>
+<H1><A NAME="SECTION03450000000000000000">7.5 Tied-Mixture Systems</A></H1>
+<A NAME="stmix">&#160;</A>
+<P>
+A Tied-Mixture System<A NAME=6279>&#160;</A> is one in which all 
+Gaussian components are stored in
+a pool and all state output distributions share this pool.  Fig&nbsp;<A HREF="node98.html#ftmixeg">7.13</A>
+illustrates this for the case of single data stream.
+<P>
+
+<A NAME="ftmixeg">&#160;</A> <IMG WIDTH=331 HEIGHT=240 ALIGN=BOTTOM ALT="tex2html_wrap21104" SRC="img298.gif"  > 
+<P>
+Each state output distribution is defined by <I>M</I>
+mixture component weights and since all states share the same components,
+all of the state-specific discrimination  is encapsulated within these
+weights.  The set of Gaussian components selected for the pool
+should be representative of the acoustic space covered by the feature
+vectors.  To keep <I>M</I> manageable, multiple data streams are typically
+used with tied-mixture systems.  For example, static parameters may
+be in one stream and delta parameters in another (see section&nbsp;<A HREF="node73.html#sstreams">5.10</A>).
+Each stream then has a separate pool of Gaussians which are often referred
+to as <i>codebooks</i>.
+<P>
+
+<P>
+More formally, for <I>S</I> independent data streams, 
+the output distribution for state <I>j</I>
+is defined as <A NAME=6287>&#160;</A>
+<P>
+<P><A NAME="etmixpdf">&#160;</A> <IMG WIDTH=500 HEIGHT=44 ALIGN=BOTTOM ALT="equation7799" SRC="img299.gif"  > <P>
+where the notation is identical to that used in equation&nbsp;<A HREF="node94.html#ecdpdf">7.1</A>.
+Note however that this equation differs from equation&nbsp;<A HREF="node94.html#ecdpdf">7.1</A>
+in that the Gaussian component parameters and the 
+number of mixture components
+per stream are state independent.
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=290 ALIGN=BOTTOM ALT="tex2html_wrap21106" SRC="img300.gif"  > 
+<P>
+<A NAME="ftmixpool">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=255 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap21108" SRC="img301.gif"  > </P></DIV>
+<P>
+Tied-mixture systems lack the modelling accuracy of fully continuous
+density systems.  However, they can often be implemented more efficiently
+since the total number of Gaussians which must be evaluated at
+each input frame is independent of the number of active HMM states and
+is typically much smaller.
+<P>
+A tied-mixture HMM system in HTK is defined by representing the
+pool of shared Gaussians as  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline21010" SRC="img433.gif"  > <i>m</i> macros with names ``xxx1'',
+``xxx2'', ..., ``xxxM'' where ``xxx'' is an arbitrary name.
+Each HMM state definition is then specified by giving the name
+``xxx'' followed by a list of the mixture weights.  Multiple
+streams are identified using the &lt;<i>Stream</i>&gt;<A NAME=7868>&#160;</A> keyword as described
+previously.
+<P>
+As an example, Fig&nbsp;<A HREF="node98.html#ftmixpool">7.14</A> shows a set of macro
+definitions which specify a 5 Gaussian component tied-mixture pool.
+<P>
+
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=238 ALIGN=BOTTOM ALT="tex2html_wrap21110" SRC="img303.gif"  > 
+<P>
+<A NAME="ftmixhmm">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=228 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap21112" SRC="img304.gif"  > </P></DIV>
+<P>
+Fig&nbsp;<A HREF="node98.html#ftmixhmm">7.15</A> then shows a typical 
+tied-mixture<A NAME=7951>&#160;</A> HMM definition
+which uses this pool.  As can be seen, the mixture component weights
+are represented an array of real numbers as in the continuous density case.
+<P>
+
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=185 ALIGN=BOTTOM ALT="tex2html_wrap21114" SRC="img305.gif"  > 
+<P>
+<A NAME="ftmixhmm2">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=281 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap21116" SRC="img306.gif"  > </P></DIV>
+<P>
+The number of components in each tied-mixture codebook is typically
+of the order of 2 or 3 hundred.  Hence, the list of mixture weights in
+each state is often long with many values being repeated, particularly
+floor values.  To allow more efficient coding, successive identical
+values can be represented as a single value plus a repeat count in the
+form of an asterix followed by an integer multiplier.  For example,
+Fig&nbsp;<A HREF="node98.html#ftmixhmm2">7.16</A> shows the same HMM definition as above but using
+repeat counts.  When HTK writes out a tied-mixture definition, it
+uses repeat counts wherever possible.
+<P>
+
+<P>
+<HR><A NAME="tex2html2842" HREF="node99.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2840" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2834" HREF="node97.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2844" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2845" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2843" HREF="node99.html">7.6 Discrete Probability HMMs</A>
+<B>Up:</B> <A NAME="tex2html2841" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2835" HREF="node97.html">7.4 HMM Sets</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>11.6 Testing a Word Network using HSGEN</TITLE>
+<META NAME="description" CONTENT="11.6 Testing a Word Network using HSGEN">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3299" HREF="node135.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3297" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3291" HREF="node133.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3301" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3302" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3300" HREF="node135.html">11.7 Constructing a Dictionary</A>
+<B>Up:</B> <A NAME="tex2html3298" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3292" HREF="node133.html">11.5 Building a Word Network with HBUILD</A>
+<BR> <P>
+<H1><A NAME="SECTION03860000000000000000">11.6 Testing a Word Network using HSGEN</A></H1>
+<A NAME="susehsgen">&#160;</A>
+<P>
+When designing task grammars, it is useful to be able to check
+that the  language defined by the final word network is as envisaged.
+One simple way to check this is to use the network as a generator by
+randomly traversing it and outputting the name of each word node
+encountered.  HTK provides a very simple tool called 
+HSGEN<A NAME=10750>&#160;</A>
+for doing this.
+<P>
+As an example if the file <tt>bnet</tt> contained the simple Bit-But
+netword described above and the file <tt>bdic</tt> contained a corresponding
+dictionary then the command
+<PRE>    HSGen bnet bdic</PRE>
+would generate a random list of examples of the language
+defined by  <tt>bnet</tt>, for example,
+<PRE>    start bit but bit bit bit end 
+    start but bit but but end 
+    start bit bit but but end 
+    .... etc</PRE>
+This is perhaps not too informative in this case but for more
+complex grammars, this type of output can be quite illuminating.
+<P>
+HSGEN will also estimate the empirical entropy
+by recording
+the probability of each sentence generated<A NAME=10571>&#160;</A>.  
+To use this facility, it
+is best to suppress the sentence output and generate a large number
+of examples.  For example, executing
+<PRE>    HSGen -s -n 1000 -q bnet bdic</PRE>
+where the <tt>-s</tt> option requests statistics, the <tt>-q</tt> option
+suppresses the output and <tt>-n 1000</tt> asks for 1000 sentences
+would generate the following output
+<PRE>    Number of Nodes = 4 [0 null], Vocab Size = 4
+    Entropy = 1.156462,  Perplexity = 2.229102
+    1000 Sentences: average len = 5.1, min=3, max=19</PRE>
+<P>
+<HR><A NAME="tex2html3299" HREF="node135.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3297" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3291" HREF="node133.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3301" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3302" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3300" HREF="node135.html">11.7 Constructing a Dictionary</A>
+<B>Up:</B> <A NAME="tex2html3298" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3292" HREF="node133.html">11.5 Building a Word Network with HBUILD</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5 Speech Input/Output</TITLE>
+<META NAME="description" CONTENT="5 Speech Input/Output">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2207" HREF="node51.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2205" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2199" HREF="node49.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2209" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2210" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2208" HREF="node51.html">5.1 General Mechanism</A>
+<B>Up:</B> <A NAME="tex2html2206" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2200" HREF="node49.html">4.10 Summary</A>
+<BR> <P>
+<H1><A NAME="SECTION03200000000000000000">5 Speech Input/Output</A></H1>
+<A NAME="cspeechio">&#160;</A>
+<P>
+Many tools need to input parameterised speech data and HTK provides 
+a number of different methods for doing this:
+<UL><LI> input from a previously encoded speech parameter file<LI> input from a waveform file which is encoded as part of the 
+       input processing<LI> input from an audio device which is encoded as part of the 
+       input processing.
+</UL>
+For input from a waveform file, a large number of different file formats
+are supported, including all of the commonly used CD-ROM formats.
+Input/output for parameter files is limited to the standard HTK file format
+and the new Entropic Esignal format.
+<P>
+  <IMG WIDTH=324 HEIGHT=194 ALIGN=BOTTOM ALT="tex2html_wrap19836" SRC="img136.gif"  > 
+<P>
+All HTK speech input<A NAME=3472>&#160;</A> is controlled by configuration
+parameters which give details of what processing operations to apply to each
+input speech file or audio source.  This chapter describes speech input/output
+in HTK.  The general mechanisms are explained and the various configuration
+parameters are defined.  The facilities for signal pre-processing, linear
+prediction-based processing, Fourier-based processing and vector quantisation
+are presented and the supported file formats are given.  Also described are the
+facilities for augmenting the basic speech parameters with energy measures,
+delta coefficients and acceleration (delta-delta) coefficients and for
+splitting each parameter vector into multiple data streams to form
+<i>observations</i>.  The chapter concludes with a brief description of the
+tools HLIST and HCOPY which are provided for viewing,
+manipulating and encoding speech files.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html2211" HREF="node51.html#SECTION03210000000000000000">5.1 General Mechanism</A>
+<LI> <A NAME="tex2html2212" HREF="node52.html#SECTION03220000000000000000">5.2 Speech Signal Processing</A>
+<LI> <A NAME="tex2html2213" HREF="node53.html#SECTION03230000000000000000">5.3 Linear Prediction Analysis</A>
+<LI> <A NAME="tex2html2214" HREF="node54.html#SECTION03240000000000000000">5.4 Filterbank Analysis</A>
+<LI> <A NAME="tex2html2215" HREF="node55.html#SECTION03250000000000000000">5.5 Energy Measures</A>
+<LI> <A NAME="tex2html2216" HREF="node56.html#SECTION03260000000000000000">5.6 Delta and Acceleration Coefficients</A>
+<LI> <A NAME="tex2html2217" HREF="node57.html#SECTION03270000000000000000">5.7 Storage of Parameter Files</A>
+<UL> 
+<LI> <A NAME="tex2html2218" HREF="node58.html#SECTION03271000000000000000">5.7.1 HTK Format Parameter Files</A>
+<LI> <A NAME="tex2html2219" HREF="node59.html#SECTION03272000000000000000">5.7.2 Esignal Format Parameter Files</A>
+</UL> 
+<LI> <A NAME="tex2html2220" HREF="node60.html#SECTION03280000000000000000">5.8 Waveform File Formats</A>
+<UL> 
+<LI> <A NAME="tex2html2221" HREF="node61.html#SECTION03281000000000000000">5.8.1 HTK File Format</A>
+<LI> <A NAME="tex2html2222" HREF="node62.html#SECTION03282000000000000000">5.8.2 Esignal File Format</A>
+<LI> <A NAME="tex2html2223" HREF="node63.html#SECTION03283000000000000000">5.8.3 TIMIT File Format</A>
+<LI> <A NAME="tex2html2224" HREF="node64.html#SECTION03284000000000000000">5.8.4 NIST File Format</A>
+<LI> <A NAME="tex2html2225" HREF="node65.html#SECTION03285000000000000000">5.8.5 SCRIBE File Format</A>
+<LI> <A NAME="tex2html2226" HREF="node66.html#SECTION03286000000000000000">5.8.6 SDES1 File Format</A>
+<LI> <A NAME="tex2html2227" HREF="node67.html#SECTION03287000000000000000">5.8.7 AIFF File Format</A>
+<LI> <A NAME="tex2html2228" HREF="node68.html#SECTION03288000000000000000">5.8.8 SUNAU8 File Format</A>
+<LI> <A NAME="tex2html2229" HREF="node69.html#SECTION03289000000000000000">5.8.9 OGI File Format</A>
+<LI> <A NAME="tex2html2230" HREF="node70.html#SECTION032810000000000000000">5.8.10 WAVE File Format</A>
+<LI> <A NAME="tex2html2231" HREF="node71.html#SECTION032811000000000000000">5.8.11 ALIEN and NOHEAD File Formats</A>
+</UL> 
+<LI> <A NAME="tex2html2232" HREF="node72.html#SECTION03290000000000000000">5.9 Direct Audio Input/Output</A>
+<LI> <A NAME="tex2html2233" HREF="node73.html#SECTION032100000000000000000">5.10 Multiple Input Streams</A>
+<LI> <A NAME="tex2html2234" HREF="node74.html#SECTION032110000000000000000">5.11 Vector Quantisation</A>
+<LI> <A NAME="tex2html2235" HREF="node75.html#SECTION032120000000000000000">5.12 Viewing Speech with HLIST</A>
+<LI> <A NAME="tex2html2236" HREF="node76.html#SECTION032130000000000000000">5.13 Copying and Coding using HCOPY</A>
+<LI> <A NAME="tex2html2237" HREF="node77.html#SECTION032140000000000000000">5.14 Version 1.5 Compatibility</A>
+<LI> <A NAME="tex2html2238" HREF="node78.html#SECTION032150000000000000000">5.15 Summary</A>
+</UL>
+<HR><A NAME="tex2html2207" HREF="node51.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2205" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2199" HREF="node49.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2209" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2210" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2208" HREF="node51.html">5.1 General Mechanism</A>
+<B>Up:</B> <A NAME="tex2html2206" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2200" HREF="node49.html">4.10 Summary</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

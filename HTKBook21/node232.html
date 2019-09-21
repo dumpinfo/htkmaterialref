@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.14.1 Function</TITLE>
+<META NAME="description" CONTENT="13.14.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4663" HREF="node233.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4661" HREF="node231.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4655" HREF="node231.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4665" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4666" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4664" HREF="node233.html">13.14.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4662" HREF="node231.html">13.14 HResults</A>
+<B> Previous:</B> <A NAME="tex2html4656" HREF="node231.html">13.14 HResults</A>
+<BR> <P>
+<H2><A NAME="SECTION041141000000000000000">13.14.1 Function</A></H2>
+<P>
+<A NAME=14417>&#160;</A>
+HRESULTS is the HTK performance analysis tool.
+It reads in a set of label files (typically output
+from a recognition tool such as HVITE) and compares them
+with the corresponding reference transcription files.  
+For the analysis of speech recognition output, the comparison
+is based on a Dynamic Programming-based string alignment procedure.
+For the analysis of word-spotting output, the comparison
+uses the standard US NIST FOM metric.
+<P>
+When used to calculate the sentence accuracy using DP the basic 
+output is recognition statistics for the whole file set in the format
+<PRE>   --------------------------- Overall Results -------------------
+   SENT:  %Correct=13.00 [H=13, S=87, N=100]
+   WORD:  %Corr=53.36, Acc=44.90 [H=460,D=49,S=353,I=73,N=862]
+   ===============================================================</PRE>
+The first line gives the sentence-level accuracy based on the 
+total number of label files which are identical to the transcription
+files.  The second line is the word accuracy based on the DP matches
+between the label files and the transcriptions <A NAME="tex2html932" HREF="footnode.html#14418"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+In this second line,
+<I>H</I> is the number of correct labels, <I>D</I> is the number of deletions,
+<I>S</I> is the number of substitutions, <I>I</I> is the number of insertions and
+<I>N</I> is the total number of labels in the defining transcription files.
+The percentage number of labels correctly recognised is given by
+<P> <IMG WIDTH=500 HEIGHT=29 ALIGN=BOTTOM ALT="equation14328" SRC="img553.gif"  > <P>
+and the accuracy is computed by
+<P> <IMG WIDTH=500 HEIGHT=29 ALIGN=BOTTOM ALT="equation14333" SRC="img554.gif"  > <P>
+<P>
+In addition to the standard HTK output format, 
+HRESULTS provides an alternative similar to that used
+in the US NIST scoring package, i.e.
+<PRE>    |=============================================================|
+    |           # Snt |  Corr    Sub    Del    Ins    Err  S. Err |
+    |-------------------------------------------------------------|
+    | Sum/Avg |   87  |  53.36  40.95   5.68   8.47  55.10  87.00 |
+    `-------------------------------------------------------------'</PRE>
+<P>
+Optional extra outputs available from HRESULTS are
+<UL><LI>   recognition statistics on a per file basis<LI>   recognition statistics on a per speaker basis<LI>   recognition statistics from best of N alternatives<LI>   time-aligned transcriptions<LI>   confusion matrices
+</UL>
+For comparison purposes, it is also possible to assign two
+labels to the same equivalence class (see <TT>-e option</TT>).  
+Also, the <EM>null</EM> label <TT>???</TT> is defined so that making any
+label equivalent to the null label means that it will be
+ignored in the matching process.  Note that the order of equivalence
+labels is important, to ensure that label <TT>X</TT> is ignored, the
+command line option <code>-e ??? X</code> would be used.
+Label files containing triphone labels of the form <TT>A-B+C</TT> can be 
+optionally stripped down to just the class name <TT>B</TT> via the <TT>-s</TT> 
+switch.
+<P>
+The word spotting mode of scoring can be used to calculate hits,
+false alarms and the associated figure of merit for each of a
+set of keywords.
+Optionally it can also calculate ROC information over a range of
+false alarm rates.  A typical output is as follows
+<PRE>------------------------ Figures of Merit -------------------------
+      KeyWord:    #Hits     #FAs  #Actual      FOM
+            A:        8        1       14    30.54
+            B:        4        2       14    15.27
+      Overall:       12        3       28    22.91
+-------------------------------------------------------------------</PRE>
+which shows the number of hits and false alarms (FA) for two keywords
+<tt>A</tt> and <tt>B</tt>.  A label in the test file with start time  <IMG WIDTH=9 HEIGHT=18 ALIGN=MIDDLE ALT="tex2html_wrap_inline22408" SRC="img555.gif"  > 
+and end time  <IMG WIDTH=9 HEIGHT=18 ALIGN=MIDDLE ALT="tex2html_wrap_inline22410" SRC="img556.gif"  >  constitutes a hit if there is a corresponding label
+in the reference file such that  <IMG WIDTH=76 HEIGHT=18 ALIGN=MIDDLE ALT="tex2html_wrap_inline22412" SRC="img557.gif"  >  where  <IMG WIDTH=14 HEIGHT=18 ALIGN=MIDDLE ALT="tex2html_wrap_inline22414" SRC="img558.gif"  >  is the
+mid-point of the reference label.
+<P>
+Note that for keyword scoring, the test
+transcriptions must include a score with each labelled word spot
+and all transcriptions must include boundary time information.
+<P>
+The FOM gives the % of hits
+averaged over the range 1 to 10 FA's per hour.  This is calculated
+by first ordering all spots for a particular keyword according to
+the match score.  Then for each FA rate <I>f</I>, the number of hits are counted
+starting from the top of the ordered list and stopping when 
+<I>f</I> have been encountered.  This corresponds to <i>a posteriori</i>
+setting of the keyword detection threshold and effectively gives an
+upper bound on keyword spotting performance.
+<P>
+<HR><A NAME="tex2html4663" HREF="node233.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4661" HREF="node231.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4655" HREF="node231.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4665" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4666" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4664" HREF="node233.html">13.14.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4662" HREF="node231.html">13.14 HResults</A>
+<B> Previous:</B> <A NAME="tex2html4656" HREF="node231.html">13.14 HResults</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

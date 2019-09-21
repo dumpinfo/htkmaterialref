@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.17.2 Use</TITLE>
+<META NAME="description" CONTENT="13.17.2 Use">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4822" HREF="node246.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4820" HREF="node243.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4814" HREF="node244.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4824" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4825" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4823" HREF="node246.html">13.17.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4821" HREF="node243.html">13.17 HSmooth</A>
+<B> Previous:</B> <A NAME="tex2html4815" HREF="node244.html">13.17.1 Function</A>
+<BR> <P>
+<H2><A NAME="SECTION041172000000000000000">13.17.2 Use</A></H2>
+<P>
+HSMOOTH is invoked via the command line
+<PRE>   HSmooth [options] hmmList accFile ...</PRE>
+where <TT>hmmList</TT> contains the list of context dependent models
+to be smoothed and each <TT>accFile</TT> is a file of the form
+<TT>HERN.acc</TT> dumped by a previous execution of HEREST with the <TT>-p</TT>
+option set to <TT>N</TT>.  The HMM definitions are loaded and then for
+every state and stream of every context dependent model X, the optimal
+interpolation weight is found for smoothing between the mixture
+weights determined from the X accumulators alone and those determined
+from the context independent version of X.  The latter is computed simply
+by summing the accumulators across all context dependent allophones of X.
+<P>
+The detailed operation of HSMOOTH is controlled by the following
+command line options
+<UL><DT><TT>-b f</TT>
+<DD>  Set the value of epsilon for convergence 
+      in the binary chop  optimisation procedure to <TT>f</TT>.
+       The binary chop  optimisation procedure for each
+       interpolation weight terminates when the gradient is
+       within epsilon of zero (default 0.001).
+<P>
+  <DT><TT>-c N</TT>
+<DD>  Set maximum number of interpolation iterations
+       for the binary chop  optimisation procedure to be N
+       (default 16).
+<P>
+<DT><TT>-d dir</TT>
+<DD> Normally HSMOOTH expects to find the HMM definitions
+      in the current directory.  This option tells HSMOOTH to look in
+      the directory <TT>dir</TT> to find them.
+<P>
+   <DT><TT>-m N</TT>
+<DD>  Set the minimum number of training examples 
+    required for any model to <TT>N</TT>.  If the actual number
+    falls below this value, the HMM is not updated and the original
+    parameters are used for the new version (default value 1).
+<P>
+  <DT><TT>-o ext</TT>
+<DD>  This causes the file name extensions of the
+      original models (if any) to be replaced by <TT>ext</TT>.
+<P>
+  <DT><TT>-s file</TT>
+<DD> This causes statistics on occupation of each
+      state to be output to the named file.
+<P>
+  <DT><TT>-u flags</TT>
+<DD> By default, HSMOOTH updates all of the HMM parameters,
+      that is, means, variances and transition probabilies. This 
+      option causes just the parameters indicated by the <TT>flags</TT>
+      argument to be updated, this argument is a string containing one
+      or more of the letters <TT>m</TT> (mean), <TT>v</TT> (variance) ,
+      <TT>t</TT> (transition) and <TT>w</TT> (mixture weight).  The 
+      presence of a letter enables
+      the updating of the corresponding parameter set.
+<P>
+  <DT><TT>-v f</TT>
+<DD>  This sets the minimum variance (i.e. diagonal element of
+      the covariance matrix) to the real value <TT>f</TT> (default value
+      0.0).
+<P>
+  <DT><TT>-w f</TT>
+<DD>  Any mixture weight which falls below the global
+            constant <TT>MINMIX</TT> is treated as being zero.
+      When this parameter is  set,  all mixture weights  are floored
+      to <TT>f * MINMIX</TT>.
+<P>
+  <DT><TT>-x ext</TT>
+<DD>  By default, HSMOOTH expects a HMM definition for 
+      the model X to be stored in a file called <TT>X</TT>.  This
+      option causes HSMOOTH to look for the HMM definition in the
+      file <TT>X.ext</TT>.
+<P>
+<DT><TT>-B</TT>
+<DD> Output HMM definition files in binary format.
+<DT><TT>-H mmf</TT>
+<DD> Load HMM macro model file <TT>mmf</TT>.  This option
+may be repeated to load multiple MMFs.
+<DT><TT>-M dir</TT>
+<DD> Store output HMM macro model files in the directory <tt>dir</tt>.  
+If this option is not given, the new HMM definition will overwrite
+the existing one.
+<P>
+</UL>
+HSMOOTH also supports the standard options <tt>-A</tt>,
+<tt>-C</tt>,  <tt>-D</tt>, <tt>-S</tt>, <tt>-T</tt>, and <tt>-V</tt> as described
+in section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>.
+<P>
+<HR><A NAME="tex2html4822" HREF="node246.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4820" HREF="node243.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4814" HREF="node244.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4824" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4825" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4823" HREF="node246.html">13.17.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html4821" HREF="node243.html">13.17 HSmooth</A>
+<B> Previous:</B> <A NAME="tex2html4815" HREF="node244.html">13.17.1 Function</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

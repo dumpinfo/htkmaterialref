@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4.2 Script Files</TITLE>
+<META NAME="description" CONTENT="4.2 Script Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2101" HREF="node42.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2099" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2093" HREF="node40.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2103" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2104" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2102" HREF="node42.html">4.3 Configuration Files</A>
+<B>Up:</B> <A NAME="tex2html2100" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2094" HREF="node40.html">4.1 The Command Line</A>
+<BR> <P>
+<H1><A NAME="SECTION03120000000000000000">4.2 Script Files</A></H1>
+<A NAME="sscript">&#160;</A>
+<P>
+Tools which require a potentially very long list of files (e.g. training
+tools) always allow the files to be specified in a script<A NAME=2994>&#160;</A>
+file<A NAME=2995>&#160;</A> via the <tt>-S</tt> option instead of via the command
+line.
+<A NAME=3264>&#160;</A>This is particularly useful when running
+under an OS with limited file name expansion capability.  Thus, for example,
+HINIT<A NAME=3265>&#160;</A> may be invoked by either
+<PRE>     HInit hmmfile s1 s2 s3 s4 s5 ....</PRE>	
+or
+<PRE>     HInit -S filelist hmmfile</PRE>		
+where <tt>filelist</tt> holds the list of files <tt>s1</tt>, <tt>s2</tt>, etc.
+Each file listed in a script should be separated by white space or a new line.
+Usually, files are listed on separate lines, however, when using
+HCOPY<A NAME=3266>&#160;</A> which read pairs of files as its
+arguments, it is normal to write each pair on a single line.  Script files
+should only be used for storing ellipsed<A NAME=3005>&#160;</A>
+file list arguments. Note that shell meta-characters should not be
+used in script files and will not be interpreted by the HTK tools.
+<P>
+<HR><A NAME="tex2html2101" HREF="node42.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2099" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2093" HREF="node40.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2103" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2104" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2102" HREF="node42.html">4.3 Configuration Files</A>
+<B>Up:</B> <A NAME="tex2html2100" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2094" HREF="node40.html">4.1 The Command Line</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

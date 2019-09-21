@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3.4.1 Step 11 - Recognising the Test Data</TITLE>
+<META NAME="description" CONTENT="3.4.1 Step 11 - Recognising the Test Data">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1914" HREF="node36.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1912" HREF="node34.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1908" HREF="node34.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1916" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1917" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1915" HREF="node36.html">3.5 Running the Recogniser Live</A>
+<B>Up:</B> <A NAME="tex2html1913" HREF="node34.html">3.4 Recogniser Evaluation</A>
+<B> Previous:</B> <A NAME="tex2html1909" HREF="node34.html">3.4 Recogniser Evaluation</A>
+<BR> <P>
+<H2><A NAME="SECTION02341000000000000000">3.4.1 Step 11 - Recognising the Test Data</A></H2>
+<P>
+Assuming that <tt>test.scp</tt> holds a list of the coded test files,
+then each test file will be recognised and its transcription output to
+an MLF called <tt>recout.mlf</tt> by executing the following
+<PRE>    HVite -H hmm15/macros -H hmm15/hmmdefs -S test.scp \
+          -l '*' -i recout.mlf -w wdnet \
+          -p 0.0 -s 5.0 dict tiedlist</PRE>
+The options <tt>-p</tt> and <tt>-s</tt> set the <i>word insertion penalty</i>
+<A NAME=2384>&#160;</A>
+and the <i>grammar scale factor</i>, <A NAME=2386>&#160;</A>
+respectively.  The word insertion penalty
+is a fixed value added to each token when it transits from the end of one word
+to the start of the next.  The grammar scale factor is the amount by which
+the language model probability is scaled before being 
+added to each token  as it transits from the end of one word
+to the start of the next.  These parameters can have a significant effect
+on recognition performance and hence, some tuning on development test data
+is well worthwhile.
+<P>
+The dictionary contains monophone transcriptions whereas the supplied HMM list
+contains word internal triphones.  HVITE<A NAME=2465>&#160;</A> 
+will make the necessary 
+conversions when loading the word network <tt>wdnet</tt>.  However, 
+if the HMM list contained both monophones and context-dependent phones
+then HVITE would become confused.  The required form of 
+word-internal network<A NAME=2391>&#160;</A> 
+expansion can be forced by setting the configuration variable
+<tt>FORCECXTEXP</tt><A NAME=2466>&#160;</A> to true and 
+<tt>ALLOWXWRDEXP</tt><A NAME=2467>&#160;</A> to 
+false (see chapter&nbsp;<A HREF="node128.html#cnetdict">11</A> for details).<A NAME=2397>&#160;</A>
+<P>
+Assuming that the MLF <tt>testref.mlf</tt> contains word level transcriptions
+for each test file, the 
+actual performance can be determined by running HRESULTS
+as follows
+<PRE>    HResults -I testref.mlf tiedlist recout.mlf</PRE>
+the result would be a print-out of the form
+<PRE>    ====================== HTK Results Analysis ==============
+      Date: Sun Oct 22 16:14:45 1995
+      Ref : testrefs.mlf
+      Rec : recout.mlf
+    ------------------------ Overall Results -----------------
+    SENT: %Correct=98.50 [H=197, S=3, N=200]
+    WORD: %Corr=99.77, Acc=99.65 [H=853, D=1, S=1, I=1, N=855]
+    ==========================================================</PRE>
+The line starting with <tt>SENT:</tt> indicates that of the 200 test utterances,
+197  (98.50%) were correctly recognised.  The following line starting with <tt>WORD:</tt> 
+gives the word level statistics and indicates that of the 855 words in total,
+853 (99.77%) were recognised correctly.  There was 1 deletion error (<tt>D</tt>), 
+1 substitution<A NAME=2403>&#160;</A>
+error (<tt>S</tt>) and 1 insertion error (<tt>I</tt>).  The accuracy figure (<tt>Acc</tt>)
+of 99.65% is lower than the percentage correct (<tt>Cor</tt>) because it takes
+account of the insertion errors which the latter ignores.
+<P>
+<A NAME="fstep11">&#160;</A> <IMG WIDTH=446 HEIGHT=165 ALIGN=BOTTOM ALT="tex2html_wrap19820" SRC="img125.gif"  > <HR><A NAME="tex2html1914" HREF="node36.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1912" HREF="node34.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1908" HREF="node34.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1916" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1917" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1915" HREF="node36.html">3.5 Running the Recogniser Live</A>
+<B>Up:</B> <A NAME="tex2html1913" HREF="node34.html">3.4 Recogniser Evaluation</A>
+<B> Previous:</B> <A NAME="tex2html1909" HREF="node34.html">3.4 Recogniser Evaluation</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

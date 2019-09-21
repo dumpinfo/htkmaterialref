@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.11.2 Network Definition</TITLE>
+<META NAME="description" CONTENT="13.11.2 Network Definition">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4491" HREF="node219.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4489" HREF="node216.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4483" HREF="node217.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4493" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4494" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4492" HREF="node219.html">13.11.3 Compatibility Mode</A>
+<B>Up:</B> <A NAME="tex2html4490" HREF="node216.html">13.11 HParse</A>
+<B> Previous:</B> <A NAME="tex2html4484" HREF="node217.html">13.11.1 Function</A>
+<BR> <P>
+<H2><A NAME="SECTION041112000000000000000">13.11.2 Network Definition</A></H2>
+<P>
+The syntax rules for the textual definition of the network are 
+as follows.  Each node in the network has a <tt>nodename</tt>.
+This node name will normally correspond to a word in the final syntax
+network. Additionally, for use in compatibility mode,
+each node can also have an external name.
+<I>
+<PRE><TT> 
+		        name 		 = 		 char{char}
+<P>
+		        nodename 		 = 		 name [ &quot;%&quot; ( &quot;%&quot; | name ) ]
+<P>
+</TT></PRE></I>
+<P>
+Here <tt>char</tt> represents any character except one of the meta chars 
+<tt>{ } [ ] &lt; &gt;| = $ ( ) ;  <IMG WIDTH=4 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline22358" SRC="img548.gif"  >  / *</tt>.   The latter may, 
+however, be escaped using a backslash.  The first name in a <tt>nodename</tt>
+represents the name of the node (``internal name''), and the second optional name is
+the ``external'' name.  This is used only in compatibility mode, and is, by default
+the same as the internal name.
+<P>
+Network definitions may also contain variables
+<I>
+<PRE><TT> 
+		      variable 		 = 		 $name
+<P>
+</TT></PRE></I>
+<P>
+Variables are identified by a leading $ character.  They stand for
+sub-networks and must be defined before they appear in the RHS of a rule
+using the form
+<I>
+<PRE><TT> 
+		      subnet 		 = 		 variable ``='' expr ``;''
+<P>
+</TT></PRE></I>
+<P>
+An <tt>expr</tt> consists of a set of alternative sequences representing
+parallel branches of the network. 
+<I>
+<PRE><TT> 
+		      expr 		  = 		 sequence {``|'' sequence}
+<P>
+		      sequence 		 = 		 factor{factor}
+<P>
+</TT></PRE></I>
+<P>
+Each sequence is composed of a sequence of factors where a factor
+is either a node name, a variable representing some sub-network or
+an expression contained within various sorts of brackets.
+<P>
+<I>
+<PRE><TT> 
+		   factor 		 = 		 ``('' expr ``)'' 		 |
+<P>
+						            ``{'' expr ``}'' 		 |
+<P>
+						            ``&lt;'' expr ``&gt;'' 		 |
+<P>
+						         ``['' expr ``]'' 		  |
+<P>
+						             ``&lt;&lt;'' expr ``&gt;&gt;'' 		 |
+<P>
+						               nodename 		 |
+<P>
+						               variable
+<P>
+</TT></PRE></I>
+<P>
+Ordinary parentheses () denote simple factoring, curly braces { }
+denote zero or more repetitions and angle brackets &lt;&gt; denote one
+or more repetitions.  Square brackets [] are used to enclose optional
+items.  The double angle brackets are a special feature included
+for building context dependent loops and are explained further below.
+Finally, the complete network is defined by a list of sub-network
+definitions followed by a single expression within parentheses.
+<I>
+<PRE><TT> 
+		    network 		 = 		 {subnet} ``('' expr ``)''
+<P>
+</TT></PRE></I>
+<P>
+Note that C style comments may be placed anywhere in the text of
+the network definition.
+<P>
+As an example, the following network defines a syntax for some
+simple edit commands
+<PRE>   $dir   = up | down | left | right;
+   $mvcmd = move $dir | top | bottom;      
+   $item  = char | word | line | page;
+   $dlcmd = delete [$item];   /* default is char */
+   $incmd = insert;
+   $encmd = end [insert];
+   $cmd = $mvcmd|$dlcmd|$incmd|$encmd;
+   ({sil} &lt; $cmd {sil} &gt; quit)</PRE>
+<P>
+Double angle brackets are used to
+construct contextually consistent context-dependent loops such
+as a word-pair grammar.<A NAME="tex2html927" HREF="footnode.html#13835"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>
+This function can also be used to generate consistent triphone loops 
+for phone recognition<A NAME="tex2html928" HREF="footnode.html#13903"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+The entry and exit conditions to a
+context-dependent loop can be controlled by the invisible
+pseudo-words TLOOP_BEGIN and TLOOP_END.  The right context of TLOOP_BEGIN
+defines the legal loop start nodes, and the left context of TLOOP_END
+defines the legal loop finishers. If TLOOP_BEGIN/TLOOP_END are not
+present then all models are connected to the entry/exit of the loop.
+<P>
+A word-pair grammar simply defines the legal
+set of words that can follow each word in the vocabulary.
+To generate a network to represent such a grammar a
+right context-dependent loop could be used.
+The legal sentence set of sentence start and end words are defined as
+above using TLOOP_BEGIN/TLOOP_END.
+<P>
+For example, the following lists the legal followers for each
+word in a 7 word vocabulary
+<P>
+<PRE><TT> 
+		 ENTRY 		 - 		 show, tell, give
+<P>
+		 show 		 - 		 me, all
+<P>
+		 tell 		 - 		 me, all
+<P>
+		 me 		 - 		 all
+<P>
+		 all 		 - 		 names, addresses
+<P>
+		 names 		 - 		 and, names, addresses, show, tell, EXIT
+<P>
+		 addresses 		 - 		 and, names, addresses, show, tell, EXIT
+<P>
+		 and 		 - 		  names, addresses, show, tell
+<P>
+</TT></PRE>
+<P>
+HPARSE can generate a suitable lattice to represent this word-pair
+grammar by using the following specification:
+<PRE>   $TLOOP_BEGIN_FLLWRS = show|tell|give;
+   $TLOOP_END_PREDS    = names|addresses;
+   $show_FLLWRS        = me|all;
+   $tell_FLLWRS        = me|all;
+   $me_FLLWRS          = all;
+   $all_FLLWRS         = names|addresses;
+   $names_FLLWRS       = and|names|addresses|show|tell|TLOOP_END;
+   $addresses_FLLWRS   = and|names|addresses|show|tell|TLOOP_END;
+   $and_FLLWRS         = names|addresses|show|tell;
+     
+   ( sil &lt;&lt; 
+         TLOOP_BEGIN+TLOOP_BEGIN_FLLWRS |
+         TLOOP_END_PREDS-TLOOP_END |
+         show+show_FLLWRS |
+         tell+tell_FLLWRS |
+         me+me_FLLWRS |
+         all+all_FLLWRS |
+         names+names_FLLWRS |
+         addresses+addresses_FLLWRS |
+         and+and_FLLWRS 
+     &gt;&gt; sil )</PRE>
+where it is assumed that each utterance begins and ends with <tt>sil</tt>
+model.
+<P>
+In this example, each set of contexts is defined by creating a variable
+whose alternatives are the individual contexts.  The actual context-dependent
+ loop is indicated by the <tt>&lt;&lt;  &gt;&gt;</tt> brackets.  
+Each element in this loop is a single
+variable name of the form <tt>A-B+C</tt> where <tt>A</tt> represents the left
+context, <tt>C</tt> represents the right context and <tt>B</tt> is the actual word.
+Each of <tt>A</tt>, <tt>B</tt> and <tt>C</tt> can be nodenames or
+variable names but note that this is the only case where variable
+names are expanded automatically and the usual
+<tt>$</tt> symbol is not used<A NAME="tex2html929" HREF="footnode.html#13904"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  Both <tt>A</tt> and <tt>C</tt> are optional, and left and
+right contexts can be mixed in the same triphone loop.
+<P>
+<HR><A NAME="tex2html4491" HREF="node219.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4489" HREF="node216.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4483" HREF="node217.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4493" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4494" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4492" HREF="node219.html">13.11.3 Compatibility Mode</A>
+<B>Up:</B> <A NAME="tex2html4490" HREF="node216.html">13.11 HParse</A>
+<B> Previous:</B> <A NAME="tex2html4484" HREF="node217.html">13.11.1 Function</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

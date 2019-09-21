@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.8.10 WAVE File Format</TITLE>
+<META NAME="description" CONTENT="5.8.10 WAVE File Format">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2486" HREF="node71.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2484" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2478" HREF="node69.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2488" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2489" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2487" HREF="node71.html">5.8.11 ALIEN and NOHEAD File Formats</A>
+<B>Up:</B> <A NAME="tex2html2485" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2479" HREF="node69.html">5.8.9 OGI File Format</A>
+<BR> <P>
+<H2><A NAME="SECTION032810000000000000000">5.8.10 WAVE File Format</A></H2>
+<P>
+<A NAME=3995>&#160;</A> 
+The WAVE file format is a subset of Microsoft's RIFF specification for the
+storage of multimedia files. A RIFF file starts out with a file header followed
+by a sequence of data ``chunks''. A WAVE file is often just a RIFF file with a
+single ``WAVE'' chunk which consists of two sub-chunks - a ``fmt'' chunk
+specifying the data format and a ``data'' chunk containing the actual sample
+data. The WAVE file header contains the following
+<P>
+<PRE><TT> 
+		<tt>'RIFF'</tt>		- RIFF file identification (4 bytes)
+<P>
+		<tt>&lt;length&gt;</tt>		- length field (4 bytes)
+<P>
+		<tt>'WAVE'</tt>		- WAVE chunk identification (4 bytes)
+<P>
+		<tt>'fmt '</tt>		- format sub-chunk identification  (4 bytes)
+<P>
+		<tt>flength</tt>		- length of format sub-chunk (4 byte integer)
+<P>
+		<tt>format</tt>		- format specifier (2 byte integer)
+<P>
+		<tt>chans</tt>		- number of channels (2 byte integer)
+<P>
+		<tt>sampsRate</tt>		- sample rate in Hz (4 byte integer)
+<P>
+		<tt>bpsec</tt>		- bytes per second (4 byte integer)
+<P>
+		<tt>bpsample</tt>		- bytes per sample (2 byte integer)
+<P>
+		<tt>bpchan</tt>		- bits per channel (2 byte integer)
+<P>
+		<tt>'data'</tt>		- data sub-chunk identification  (4 bytes)
+<P>
+		<tt>dlength</tt>		- length of data sub-chunk (4 byte integer)
+<P>
+</TT></PRE>
+Note that at present support is only provided for WAVE files containing
+16 bit PCM data. The default byte ordering assumed for <tt>WAVE</tt> data
+files is <tt>VAX</tt> (little-endian).
+<P>
+<HR><A NAME="tex2html2486" HREF="node71.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2484" HREF="node60.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2478" HREF="node69.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2488" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2489" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2487" HREF="node71.html">5.8.11 ALIEN and NOHEAD File Formats</A>
+<B>Up:</B> <A NAME="tex2html2485" HREF="node60.html">5.8 Waveform File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2479" HREF="node69.html">5.8.9 OGI File Format</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

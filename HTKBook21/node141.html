@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>12.3 Recognition using Test Databases</TITLE>
+<META NAME="description" CONTENT="12.3 Recognition using Test Databases">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3386" HREF="node142.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3384" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3378" HREF="node140.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3388" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3389" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3387" HREF="node142.html">12.4 Evaluating Recognition Results</A>
+<B>Up:</B> <A NAME="tex2html3385" HREF="node138.html">12 Decoding</A>
+<B> Previous:</B> <A NAME="tex2html3379" HREF="node140.html">12.2 Decoder Organisation</A>
+<BR> <P>
+<H1><A NAME="SECTION03930000000000000000">12.3 Recognition using Test Databases</A></H1>
+<A NAME="shvrec">&#160;</A>
+<P>
+When building a speech recognition system or investigating speech
+recognition algorithms, performance must be monitored by testing
+on databases of test utterances for which reference transcriptions
+are available.  To use HVITE for this purpose it is
+invoked with a command line of the form
+<PRE>    HVite -w wdnet dict hmmlist testf1 testf2 ....</PRE>
+where <tt>wdnet</tt> is an SLF file containing the word level network, 
+<tt>dict</tt> is the pronouncing dictionary and hmmlist contains
+a list of the HMMs to use.  The effect of this command is that
+HVITE will use HNET to compile the word level network
+and then use HREC to recognise each test file.   The parameter kind
+of these test files must match exactly with that used to train the HMMs.
+For evaluation purposes, test files are normally stored in parameterised
+form but only the basic static coefficients are saved on disk.  For example,
+delta parameters are normally computed during loading.  As explained in
+Chapter&nbsp;<A HREF="node50.html#cspeechio">5</A>, HTK can perform a range of parameter conversions
+on loading and these are controlled by configuration variables.  Thus,
+when using HVITE, it is normal to include a configuration file
+via the <tt>-C</tt> option in which the required target parameter kind 
+is specified.  Section&nbsp;<A HREF="node144.html#srecaudio">12.6</A> below on processing direct
+audio input explains the use of configuration files in more detail.
+<A NAME=11196>&#160;</A>
+<P>
+In the simple
+default form of invocation given above, HVITE would
+expect to find each HMM definition in a separate file in the current
+directory and each
+output transcription would be written to a separate file in the current directory.
+Also, of course, there will typically be a large number of test files.
+<P>
+In practice, it is much more convenient to store HMMs in master macro files (MMFs),
+store transcriptions in master label files (MLFs) and list data files
+in a script file.  Thus, a more common form of the above invocation would
+be 
+<PRE>    HVite -T 1 -S test.scp -H hmmset -i results -w wdnet dict hmmlist</PRE>
+where the file <tt>test.scp</tt> contains the list of test file names,
+<tt>hmmset</tt> is an MMF containing the HMM definitions<A NAME="tex2html869" HREF="footnode.html#11407"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>,
+and  <tt>results</tt> is the MLF for storing the recognition output.
+<P>
+<A NAME=11202>&#160;</A>
+As shown, it is usually a good idea to enable basic progress reporting
+by setting the trace option as shown.  This will cause the recognised
+word string to be printed after processing each file.  For example,
+in a digit recognition task the trace output might look like
+<PRE>   File: testf1.mfc
+   SIL ONE NINE FOUR SIL 
+   [178 frames] -96.1404 [Ac=-16931.8 LM=-181.2] (Act=75.0)</PRE>
+where the information listed after the recognised string is the total
+number of frames in the utterance, the average 
+log probability<A NAME=11203>&#160;</A> per frame,
+the total acoustic likelihood, the total language model likelihood and
+the average number of active models.<A NAME=11204>&#160;</A>
+<P>
+The corresponding transcription
+written to the output MLF form will contain an entry of the form
+<A NAME=11205>&#160;</A>
+<P>
+<PRE>    &quot;testf1.rec&quot;
+           0  6200000 SIL  -6067.333008
+     6200000  9200000 ONE  -3032.359131
+     9200000 12300000 NINE -3020.820312
+    12300000 17600000 FOUR -4690.033203
+    17600000 17800000 SIL   -302.439148
+    .</PRE>
+This shows the start and end time of each word and the total log probability.
+The fields output by HVITE can be controlled using 
+the <tt>-o</tt>.  For example, the option <tt>-o ST</tt> would suppress
+the scores and the times to give
+<PRE>    &quot;testf1.rec&quot;
+    SIL 
+    ONE
+    NINE
+    FOUR
+    SIL 
+    .</PRE>
+<P>
+In order to use HVITE effectively and efficiently, it is important to 
+set appropriate values for its pruning<A NAME=11210>&#160;</A> thresholds and the language model
+scaling parameters.   The main pruning beam is set by the  <tt>-t</tt> option.
+Some experimentation will be necessary to determine appropriate levels
+but around 250.0 is usually a reasonable starting point.  Word-end pruning
+(<tt>-v</tt>) and the maximum model limit<A NAME=11213>&#160;</A> (<tt>-u</tt>) can also be set
+if required, but these are not mandatory and their effectiveness will
+depend greatly on the task.
+<P>
+The relative levels of insertion 
+and deletion errors<A NAME=11215>&#160;</A>
+<A NAME=11216>&#160;</A> can be controlled
+by scaling the language model<A NAME=11217>&#160;</A> likelihoods using the <tt>-s</tt> option
+and adding a fixed <i>penalty</i>   using the <tt>-p</tt> option.
+For example, setting <tt>-s 10.0 -p -20.0</tt> would mean that every language
+model log probability <I>x</I> would be converted to 10<I>x</I> - 20 before being
+added to the tokens emitted from the corresponding word-end node. As
+an extreme example, setting <tt>-p 100.0</tt>
+caused the digit recogniser above to output
+<PRE>   SIL OH OH ONE OH OH OH NINE FOUR OH OH OH OH SIL</PRE>
+where adding 100 to each word-end transition has resulted in a large number of
+insertion errors.  The word inserted is ``oh'' primarily because it is the
+shortest in the vocabulary. 
+Another problem which may occur during recognition is the inability to arrive
+at the final node in the recognition network after processing the whole
+utterance. <A NAME=11408>&#160;</A> The user is made aware of the
+problem by the message ``No tokens survived to final node of network''. The
+inability to match the data against the recognition network is usually caused
+by poorly trained acoustic models and/or very tight pruning beam-widths. In
+such cases, partial recognition results can still be obtained by setting the
+HREC configuration variable <tt>FORCEOUT</tt> true. 
+<A NAME=11226>&#160;</A> The results will be based on the most likely partial 
+hypothesis found in the network.
+<P>
+<HR><A NAME="tex2html3386" HREF="node142.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3384" HREF="node138.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3378" HREF="node140.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3388" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3389" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3387" HREF="node142.html">12.4 Evaluating Recognition Results</A>
+<B>Up:</B> <A NAME="tex2html3385" HREF="node138.html">12 Decoding</A>
+<B> Previous:</B> <A NAME="tex2html3379" HREF="node140.html">12.2 Decoder Organisation</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

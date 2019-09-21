@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>1.4 Baum-Welch Re-Estimation</TITLE>
+<META NAME="description" CONTENT="1.4 Baum-Welch Re-Estimation">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1554" HREF="node8.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1552" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1546" HREF="node6.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1556" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1557" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1555" HREF="node8.html">1.5 Recognition and Viterbi Decoding</A>
+<B>Up:</B> <A NAME="tex2html1553" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1547" HREF="node6.html">1.3 Output Probability Specification</A>
+<BR> <P>
+<H1><A NAME="SECTION02140000000000000000">1.4 Baum-Welch Re-Estimation</A></H1>
+<A NAME="sbwrest">&#160;</A>
+<P>
+To determine the parameters of a HMM it is first necessary to make
+a rough guess at what they might be.  Once this is done, more
+accurate (in the maximum likelihood sense) parameters
+can be found by applying the so-called 
+Baum-Welch re-estimation<A NAME=595>&#160;</A>
+formulae.
+<P>
+
+<A NAME="fsubsmixrep">&#160;</A> <IMG WIDTH=253 HEIGHT=218 ALIGN=BOTTOM ALT="tex2html_wrap19702" SRC="img47.gif"  > 
+<P>
+Chapter&nbsp;<A HREF="node103.html#cTraining">8</A> gives the formulae used 
+in HTK in full detail.  
+Here the basis
+of the formulae will be presented in a very informal way.
+Firstly, it should be noted that the inclusion of multiple data
+streams does not alter matters significantly since each stream
+is considered to be statistically independent.  Furthermore,
+mixture components can be considered to be a special form of 
+sub-state in which the transition probabilities are the mixture
+weights (see Fig.&nbsp;<A HREF="node7.html#fsubsmixrep">1.5</A>).
+<P>
+
+<P>
+Thus, the essential problem is to estimate the means and 
+variances of a HMM in which each state output distribution is a single
+component Gaussian, that is
+<P><A NAME="e10">&#160;</A> <IMG WIDTH=500 HEIGHT=35 ALIGN=BOTTOM ALT="equation602" SRC="img48.gif"  > <P>
+If there was just one state <I>j</I> in the HMM, this parameter
+estimation would be easy.  The maximum likelihood estimates of 
+ <IMG WIDTH=13 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19572" SRC="img49.gif"  >  and  <IMG WIDTH=14 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline19574" SRC="img241.gif"  >  would be just the simple averages, 
+that is
+<P><A NAME="e11">&#160;</A> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation618" SRC="img51.gif"  > <P>
+and
+<P><A NAME="e12">&#160;</A> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation627" SRC="img52.gif"  > <P>
+In practice, of course, there are multiple states and there is no
+direct assignment of observation vectors to individual states 
+because the underlying state sequence is unknown.  Note, however,
+that if some approximate assignment of vectors to states could be made then
+equations <A HREF="node7.html#e11">1.11</A> and <A HREF="node7.html#e12">1.12</A> could be used to give the
+required initial values for the parameters.  Indeed, this is exactly
+what is done in the HTK tool called HINIT<A NAME=880>&#160;</A>.  
+HINIT first divides the
+training observation vectors equally amongst the model states and then
+uses equations <A HREF="node7.html#e11">1.11</A> and <A HREF="node7.html#e12">1.12</A> to give initial values for
+the mean and variance of each state.  It then finds the maximum
+likelihood state sequence using the Viterbi<A NAME=646>&#160;</A> 
+algorithm described  below,
+reassigns the observation vectors to states and then uses
+equations <A HREF="node7.html#e11">1.11</A> and <A HREF="node7.html#e12">1.12</A> again to get better initial 
+values.  This process is repeated until the estimates
+do not change.
+<P>
+Since the full likelihood of each observation sequence
+is based on the summation of all possible state sequences,
+each observation vector  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19590" SRC="img16.gif"  >  contributes to the computation
+of the maximum likelihood parameter values for each state <I>j</I>.
+In other words, instead of assigning each observation vector
+to a specific state as in the above approximation, each
+observation is assigned to every state in proportion to
+the probability of the model being in that state when the
+vector was observed.  Thus, if  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19594" SRC="img57.gif"  >  denotes the probability
+of being in state <I>j</I> at time <I>t</I> then the 
+equations <A HREF="node7.html#e11">1.11</A> and <A HREF="node7.html#e12">1.12</A> given above become the
+following weighted averages
+<P><A NAME="e13">&#160;</A> <IMG WIDTH=500 HEIGHT=41 ALIGN=BOTTOM ALT="equation652" SRC="img55.gif"  > <P>
+and
+<P><A NAME="e14">&#160;</A> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation661" SRC="img56.gif"  > <P>
+where the summations in the denominators are included to give
+the required normalisation.
+<P>
+Equations <A HREF="node7.html#e13">1.13</A> and <A HREF="node7.html#e14">1.14</A> are the 
+Baum-Welch re-estimation<A NAME=675>&#160;</A>
+formulae for the means and covariances of a HMM.  A similar but
+slightly more complex formula can be derived for the transition
+probabilities (see chapter&nbsp;<A HREF="node103.html#cTraining">8</A>).
+<P>
+Of course, to apply equations <A HREF="node7.html#e13">1.13</A> and <A HREF="node7.html#e14">1.14</A>, the
+probability of state occupation  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19614" SRC="img57.gif"  >  must be calculated.
+This is done efficiently using the so-called <I>Forward-Backward</I>
+<A NAME=680>&#160;</A>
+algorithm.  Let the forward probability<A NAME="tex2html16" HREF="footnode.html#681"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>
+<A NAME=682>&#160;</A>  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19616" SRC="img339.gif"  >  for some model
+<I>M</I> with <I>N</I> states be defined as 
+<P><A NAME="e15">&#160;</A> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation683" SRC="img59.gif"  > <P>
+That is,  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19626" SRC="img339.gif"  >  is the joint probability of observing the
+first <I>t</I> speech vectors and being in state <I>j</I> at time <I>t</I>.  This
+forward probability can be efficiently calculated by the following
+recursion
+<P><A NAME="e16">&#160;</A> <IMG WIDTH=500 HEIGHT=43 ALIGN=BOTTOM ALT="equation688" SRC="img61.gif"  > <P>
+This recursion depends on the fact that the probability
+of being in state <I>j</I> at time <I>t</I> and seeing observation  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19640" SRC="img16.gif"  > 
+can be deduced by summing the forward probabilities for all
+possible predecessor states <I>i</I> weighted by the transition
+probability  <IMG WIDTH=14 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19644" SRC="img18.gif"  > .  The slightly odd limits are caused by
+the fact that states 1 and <I>N</I> are non-emitting<A NAME="tex2html18" HREF="footnode.html#887"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.   The
+initial conditions for the above recursion are
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation698" SRC="img66.gif"  > <P>
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation700" SRC="img67.gif"  > <P>
+for 1&lt;<I>j</I>&lt;<I>N</I> and the final condition is given by
+<P> <IMG WIDTH=500 HEIGHT=42 ALIGN=BOTTOM ALT="equation704" SRC="img68.gif"  > <P>
+Notice here that from the definition of  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19660" SRC="img339.gif"  > , 
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation709" SRC="img70.gif"  > <P>
+Hence, the calculation of the forward probability also
+yields the total likelihood<A NAME=712>&#160;</A>  <IMG WIDTH=53 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19664" SRC="img83.gif"  > .
+<P>
+The backward probability<A NAME=714>&#160;</A>  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19666" SRC="img338.gif"  >  is defined as 
+<P><A NAME="e21">&#160;</A> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation715" SRC="img73.gif"  > <P>
+As in the forward case, this backward probability can be 
+computed efficiently using the following recursion
+<P> <IMG WIDTH=500 HEIGHT=44 ALIGN=BOTTOM ALT="equation721" SRC="img74.gif"  > <P>
+with initial condition given by
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation728" SRC="img75.gif"  > <P>
+for 1&lt;<I>i</I>&lt;<I>N</I> and final condition given by
+<P> <IMG WIDTH=500 HEIGHT=44 ALIGN=BOTTOM ALT="equation731" SRC="img76.gif"  > <P>
+<P>
+Notice that in the definitions above, the forward
+probability is a joint probability whereas the backward
+probability is a conditional probability.  This somewhat
+asymmetric definition is deliberate since it allows the
+probability of state occupation to be determined by taking the
+product of the two probabilities.  From the definitions,
+<P><A NAME="e25">&#160;</A> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation737" SRC="img77.gif"  > <P>
+Hence, 
+<P> <IMG WIDTH=500 HEIGHT=90 ALIGN=BOTTOM ALT="eqnarray741" SRC="img78.gif"  > <P>
+where  <IMG WIDTH=84 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19686" SRC="img82.gif"  > .
+<P>
+All of the information needed to perform HMM
+parameter re-estimation using the Baum-Welch algorithm<A NAME=749>&#160;</A>
+is now in place.
+The steps in this algorithm may be summarised as follows
+<OL><LI> For every parameter vector/matrix requiring 
+      re-estimation, allocate storage for the numerator
+      and denominator summations of the form illustrated
+      by equations&nbsp;<A HREF="node7.html#e13">1.13</A> and <A HREF="node7.html#e14">1.14</A>.  These
+      storage locations are referred to as<A NAME=753>&#160;</A>
+      <I>accumulators</I><A NAME="tex2html23" HREF="footnode.html#755"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.<LI> Calculate the forward and backward probabilities
+      for all states <I>j</I> and times <I>t</I>.<LI> For each state <I>j</I> and time <I>t</I>, use the probability
+       <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19696" SRC="img57.gif"  >  and the current observation vector  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19698" SRC="img16.gif"  > 
+      to update the accumulators for that state.<LI> Use the final accumulator values to calculate new
+      parameter values.<LI> If the value of  <IMG WIDTH=84 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19700" SRC="img82.gif"  >  for this iteration is not
+      higher than the value at the previous
+      iteration then stop, otherwise repeat the above steps
+      using the new re-estimated parameter values.
+</OL>
+<P>
+All of the above assumes that the parameters for a HMM are
+re-estimated from a single observation sequence, that is a
+single example of the spoken word.  In practice, many
+examples are needed to get good parameter estimates.  However,
+the use of multiple observation sequences adds no additional complexity
+to the algorithm. Steps 2 and 3 above are simply repeated for
+each distinct training sequence.
+<P>
+One final point that should be mentioned is that the computation
+of the forward and backward probabilities involves taking the
+product of a large number of probabilities.  In practice, this
+means that the actual numbers involved become very small.  Hence,
+to avoid numerical problems, the forward-backward computation
+is computed in HTK using log arithmetic<A NAME=759>&#160;</A>.
+<P>
+The HTK program which implements the above 
+algorithm is called HREST<A NAME=890>&#160;</A>.  
+In combination with the tool HINIT<A NAME=891>&#160;</A> for
+estimating initial values mentioned earlier, HREST allows isolated
+word HMMs to be constructed from a set of training examples
+using Baum-Welch re-estimation.
+<P>
+<HR><A NAME="tex2html1554" HREF="node8.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1552" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1546" HREF="node6.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1556" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1557" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1555" HREF="node8.html">1.5 Recognition and Viterbi Decoding</A>
+<B>Up:</B> <A NAME="tex2html1553" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1547" HREF="node6.html">1.3 Output Probability Specification</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

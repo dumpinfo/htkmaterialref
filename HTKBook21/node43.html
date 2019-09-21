@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4.4 Standard Options</TITLE>
+<META NAME="description" CONTENT="4.4 Standard Options">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2125" HREF="node44.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2123" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2117" HREF="node42.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2127" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2128" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2126" HREF="node44.html">4.5 Error Reporting</A>
+<B>Up:</B> <A NAME="tex2html2124" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2118" HREF="node42.html">4.3 Configuration Files</A>
+<BR> <P>
+<H1><A NAME="SECTION03140000000000000000">4.4 Standard Options</A></H1>
+<A NAME="sstdopts">&#160;</A>
+<P>
+<A NAME=3052>&#160;</A>
+As noted in section&nbsp;<A HREF="node40.html#scmdline">4.1</A>, options consisting of a capital
+letter are common across all tools.  Many are specific to particular file
+types and they will be introduced as they arise.  However, five of
+the standard options are actually built-in to HSHELL.  Two of these
+have been mentioned already.  The option <tt>-C</tt><A NAME=3274>&#160;</A> is used to specify
+a configuration file name and the option <tt>-S</tt><A NAME=3275>&#160;</A> is used to specify
+a script file name.
+<P>
+The three remaining standard options provided directly by 
+HSHELL are <tt>-A</tt><A NAME=3276>&#160;</A>, 
+<tt>-D</tt> and <tt>-V</tt>. 
+The option <tt>-A</tt> causes the current command line arguments to 
+be printed. When running experiments via
+scripts, it is a good idea to use this option to record in a log file the
+precise settings used for each tool.
+The <tt>-D</tt><A NAME=3277>&#160;</A> option causes the 
+current configuration
+parameters set by the user to be displayed both before and after the
+tool has executed.  The initial display allows the configuration values
+to be checked before potentially wasting a large amount of cpu time through
+incorrectly set parameters.    The final display shows which configuration
+variables were actually used during the execution of the tool.  Its form is
+shown by the following example
+<PRE>    HTK Configuration Parameters[3]
+      Module/Tool     Parameter                  Value
+    # HMODEL          SAVEBINARY                  TRUE
+      HPARM           TARGETRATE         256000.000000
+                      TARGETKIND                MFCC_0</PRE>
+Here three configuration parameters have been set but the hash (<code>#</code>)
+indicates that <tt>SAVEBINARY</tt> has not been used.
+<A NAME=3068>&#160;</A>
+Finally, the option <tt>-V</tt><A NAME=3278>&#160;</A>
+causes version information for the tool and each module used by that
+tool to be listed.  These should always be quoted when making bug reports.
+<P>
+Finally, all tools implement the trace 
+option <tt>-T</tt><A NAME=3279>&#160;</A>.
+Trace values are typically bit strings and the meaning of each bit
+is described in the reference section for each tool.  Setting a trace<A NAME=3073>&#160;</A>
+option via the command line overrides any setting for that same trace
+option in a configuration file.  This is a general rule, command line
+options always override defaults set in configuration files.
+<P>
+All of the
+standard options are listed in the final summary section of this
+chapter.
+<P>
+<HR><A NAME="tex2html2125" HREF="node44.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2123" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2117" HREF="node42.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2127" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2128" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2126" HREF="node44.html">4.5 Error Reporting</A>
+<B>Up:</B> <A NAME="tex2html2124" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2118" HREF="node42.html">4.3 Configuration Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

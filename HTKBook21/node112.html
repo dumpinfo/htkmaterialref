@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.7.2 Forward/Backward Probabilities</TITLE>
+<META NAME="description" CONTENT="8.7.2 Forward/Backward Probabilities">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3021" HREF="node113.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3019" HREF="node110.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3013" HREF="node111.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3023" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3024" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3022" HREF="node113.html">8.7.3 Single Model Reestimation(HREST)</A>
+<B>Up:</B> <A NAME="tex2html3020" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<B> Previous:</B> <A NAME="tex2html3014" HREF="node111.html">8.7.1 Viterbi Training (HINIT)</A>
+<BR> <P>
+<H2><A NAME="SECTION03572000000000000000">8.7.2 Forward/Backward Probabilities</A></H2>
+<P>
+<A NAME=8604>&#160;</A>
+Baum-Welch training is similar to the Viterbi training described
+in the previous section except that the <i>hard</i> boundary implied
+by the  <IMG WIDTH=8 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline21792" SRC="img375.gif"  >  function is replaced by a <i>soft</i> boundary
+function <I>L</I> which represents the probability of an observation being
+associated any given Gaussian mixture component.  
+This <i>occupation</i> probability is computed from the <i>forward</i>
+and <i>backward</i> probabilities.
+<P>
+For the isolated-unit style of training, the forward 
+probability  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline21796" SRC="img339.gif"  >  for 1&lt;<I>j</I>&lt;<I>N</I> and
+ <IMG WIDTH=60 HEIGHT=24 ALIGN=MIDDLE ALT="tex2html_wrap_inline21800" SRC="img377.gif"  >  is calculated by the forward recursion
+<P> <IMG WIDTH=353 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21752" SRC="img378.gif"  > <P>
+with initial conditions given by 
+<P> <IMG WIDTH=279 HEIGHT=15 ALIGN=BOTTOM ALT="displaymath21753" SRC="img379.gif"  > <P>
+<P> <IMG WIDTH=304 HEIGHT=15 ALIGN=BOTTOM ALT="displaymath21754" SRC="img380.gif"  > <P>
+for 1&lt;<I>j</I>&lt;<I>N</I> and final condition given by
+<P> <IMG WIDTH=323 HEIGHT=42 ALIGN=BOTTOM ALT="displaymath21755" SRC="img381.gif"  > <P>
+<P>
+The backward probability  <IMG WIDTH=28 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21808" SRC="img382.gif"  >  for 1&lt;<I>i</I>&lt;<I>N</I> and  <IMG WIDTH=60 HEIGHT=24 ALIGN=MIDDLE ALT="tex2html_wrap_inline21812" SRC="img383.gif"  >  is 
+calculated by the backward recursion
+<P> <IMG WIDTH=350 HEIGHT=44 ALIGN=BOTTOM ALT="displaymath21756" SRC="img384.gif"  > <P>
+with initial conditions given by
+<P> <IMG WIDTH=288 HEIGHT=15 ALIGN=BOTTOM ALT="displaymath21757" SRC="img385.gif"  > <P>
+for 1&lt;<I>i</I>&lt;<I>N</I> and final condition given by
+<P> <IMG WIDTH=335 HEIGHT=44 ALIGN=BOTTOM ALT="displaymath21758" SRC="img386.gif"  > <P>
+<P>
+In the case of embedded training where the HMM spanning the observations
+is a composite constructed by concatenating <I>Q</I> subword models, it is
+assumed that at time <I>t</I>, the  <IMG WIDTH=6 HEIGHT=6 ALIGN=BOTTOM ALT="tex2html_wrap_inline21824" SRC="img387.gif"  >  and  <IMG WIDTH=8 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline21826" SRC="img388.gif"  > 
+values corresponding to the entry state and exit states of a HMM
+represent the forward and backward probabilities at time  <IMG WIDTH=38 HEIGHT=18 ALIGN=MIDDLE ALT="tex2html_wrap_inline21828" SRC="img389.gif"  > 
+and  <IMG WIDTH=38 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline21830" SRC="img390.gif"  > , respectively, where  <IMG WIDTH=14 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline21832" SRC="img391.gif"  >  is small.  The equations
+for calculating  <IMG WIDTH=6 HEIGHT=6 ALIGN=BOTTOM ALT="tex2html_wrap_inline21834" SRC="img387.gif"  >  and  <IMG WIDTH=8 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline21836" SRC="img388.gif"  >  are then as follows.
+<P>
+For the forward probability, the initial conditions are established at
+time <I>t</I>=1 as follows
+<P> <IMG WIDTH=377 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21759" SRC="img394.gif"  > <P>
+<P> <IMG WIDTH=315 HEIGHT=21 ALIGN=BOTTOM ALT="displaymath21760" SRC="img395.gif"  > <P>
+<P> <IMG WIDTH=331 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21761" SRC="img396.gif"  > <P>
+where the superscript in parentheses refers to the index of the model in 
+the sequence of concatenated models.  All unspecified values of  <IMG WIDTH=6 HEIGHT=6 ALIGN=BOTTOM ALT="tex2html_wrap_inline21844" SRC="img387.gif"  > 
+are zero.  For time <I>t</I> &gt; 1, 
+<P> <IMG WIDTH=424 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21762" SRC="img398.gif"  > <P>
+<P> <IMG WIDTH=415 HEIGHT=50 ALIGN=BOTTOM ALT="displaymath21763" SRC="img399.gif"  > <P>
+<P> <IMG WIDTH=329 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21764" SRC="img400.gif"  > <P>
+For the backward probability, the initial conditions are set at time
+<I>t</I>=<I>T</I> as follows
+<P> <IMG WIDTH=379 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21765" SRC="img401.gif"  > <P>
+<P> <IMG WIDTH=319 HEIGHT=21 ALIGN=BOTTOM ALT="displaymath21766" SRC="img402.gif"  > <P>
+<P> <IMG WIDTH=358 HEIGHT=45 ALIGN=BOTTOM ALT="displaymath21767" SRC="img403.gif"  > <P>
+where once again, all unspecified  <IMG WIDTH=8 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline21858" SRC="img388.gif"  >  values are zero.  For
+time <I>t</I>&lt;<I>T</I>,
+<P> <IMG WIDTH=423 HEIGHT=43 ALIGN=BOTTOM ALT="displaymath21768" SRC="img405.gif"  > <P>
+<P> <IMG WIDTH=414 HEIGHT=45 ALIGN=BOTTOM ALT="displaymath21769" SRC="img406.gif"  > <P>
+<P> <IMG WIDTH=351 HEIGHT=45 ALIGN=BOTTOM ALT="displaymath21770" SRC="img407.gif"  > <P>
+<P>
+The total probability  <IMG WIDTH=93 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21868" SRC="img408.gif"  >  can be computed
+from either the forward or backward probabilities
+<P> <IMG WIDTH=311 HEIGHT=15 ALIGN=BOTTOM ALT="displaymath21771" SRC="img409.gif"  > <P><HR><A NAME="tex2html3021" HREF="node113.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3019" HREF="node110.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3013" HREF="node111.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3023" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3024" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3022" HREF="node113.html">8.7.3 Single Model Reestimation(HREST)</A>
+<B>Up:</B> <A NAME="tex2html3020" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<B> Previous:</B> <A NAME="tex2html3014" HREF="node111.html">8.7.1 Viterbi Training (HINIT)</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.2 Speech Signal Processing</TITLE>
+<META NAME="description" CONTENT="5.2 Speech Signal Processing">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2259" HREF="node53.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2257" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2251" HREF="node51.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2261" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2262" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2260" HREF="node53.html">5.3 Linear Prediction Analysis</A>
+<B>Up:</B> <A NAME="tex2html2258" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2252" HREF="node51.html">5.1 General Mechanism</A>
+<BR> <P>
+<H1><A NAME="SECTION03220000000000000000">5.2 Speech Signal Processing</A></H1>
+<A NAME="ssigproc">&#160;</A>
+<P>
+In this section, the basic mechanisms involved in transforming a
+speech waveform into a sequence of parameter vectors will be
+described.  Throughout this section, it is assumed that the
+<tt>SOURCEKIND</tt> is <tt>WAVEFORM</tt> and that data is being read from
+a HTK format file via HWAVE.  Reading from different format
+files is described below in section&nbsp;<A HREF="node60.html#swaveform">5.8</A>. Much of the
+material in this section also applies to data read direct from an audio 
+device, the
+additional features needed to deal with this latter case are
+described later in section&nbsp;<A HREF="node72.html#saudioio">5.9</A>.
+<A NAME=3542>&#160;</A>
+<P>
+
+<A NAME="fBlocking">&#160;</A> <IMG WIDTH=261 HEIGHT=380 ALIGN=BOTTOM ALT="tex2html_wrap19858" SRC="img138.gif"  > 
+<P>
+The overall process is illustrated in Fig.&nbsp;<A HREF="node52.html#fBlocking">5.2</A>
+which shows the sampled waveform being converted into a 
+sequence of parameter blocks.  In general, HTK regards
+both waveform files and parameter files as being just
+sample sequences, the only difference being that in the former
+case the samples are 2-byte integers and in the latter they
+are multi-component vectors.  The sample rate of the input
+waveform will normally be determined from the input file
+itself.  However, it can be set explicitly using the
+configuration parameter <tt>SOURCERATE</tt>.  The period
+between each parameter vector determines the output sample
+rate and it is set using the configuration parameter 
+<tt>TARGETRATE</tt>.  The segment of waveform used to determine
+each parameter vector is usually referred to as a window
+and its size is set by the
+configuration parameter <tt>WINDOWSIZE</tt>.  Notice that the
+window size and frame rate are independent.  Normally,
+the window size will be larger than the frame rate so that
+successive windows overlap as illustrated in 
+Fig.&nbsp;<A HREF="node52.html#fBlocking">5.2</A>.
+<P>
+
+<A NAME=4503>&#160;</A>
+<A NAME=4504>&#160;</A>
+<A NAME=4505>&#160;</A>
+<P>
+For example, a waveform sampled
+at 16kHz 
+would be converted into 100 parameter vectors per
+second using a 25 msec window by setting the following
+configuration parameters.
+<PRE>    SOURCERATE = 625
+    TARGETRATE = 100000
+    WINDOWSIZE = 250000</PRE>
+Remember that all durations are specified in 100 nsec units<A NAME="tex2html328" HREF="footnode.html#4506"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+<P>
+Independent of what parameter kind is required, there are some simple
+pre-processing operations that can be applied prior to performing the actual
+signal analysis.<A NAME=3559>&#160;</A> 
+Firstly, the DC mean can be removed from the source waveform by setting the
+Boolean configuration parameter
+<tt>ZMEANSOURCE</tt><A NAME=4507>&#160;</A> to true 
+(i.e. <tt>T</tt>). This is useful when<A NAME=3563>&#160;</A>
+the original analogue-digital conversion has added a DC offset to the
+signal. It is applied to each window individually so that it can be
+used both when reading from a file and when using direct audio
+input<A NAME="tex2html332" HREF="footnode.html#4508"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+<P>
+Secondly,  it is common practice to pre-emphasise
+the signal by applying the first order difference equation
+<P><A NAME="epreemp">&#160;</A> <IMG WIDTH=500 HEIGHT=16 ALIGN=BOTTOM ALT="equation4737" SRC="img139.gif"  > <P>
+to the samples<A NAME=3568>&#160;</A>
+ <IMG WIDTH=88 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19840" SRC="img168.gif"  >  in each window.  Here <I>k</I> is the
+pre-emphasis<A NAME=3569>&#160;</A> coefficient which should be in the range
+ <IMG WIDTH=59 HEIGHT=24 ALIGN=MIDDLE ALT="tex2html_wrap_inline19844" SRC="img141.gif"  > .  It is specified using the configuration
+parameter <tt>PREEMCOEF</tt><A NAME=4510>&#160;</A>.
+Finally,
+it is usually beneficial to taper the
+samples in each window so that discontinuities at the window
+edges are attenuated.  This is done by setting the
+Boolean configuration 
+parameter <tt>USEHAMMING</tt><A NAME=4511>&#160;</A>
+to true.
+This applies the following transformation to the samples
+ <IMG WIDTH=88 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19846" SRC="img168.gif"  >  in the window
+<P><A NAME="eham">&#160;</A> <IMG WIDTH=500 HEIGHT=34 ALIGN=BOTTOM ALT="equation4743" SRC="img143.gif"  > <P>
+When both pre-emphasis and Hamming windowing are enabled,
+pre-emphasis is performed 
+first.<A NAME=3578>&#160;</A> <A NAME=3579>&#160;</A>
+<P>
+In practice, all three of the above are usually applied.
+Hence, a configuration file will typically contain the 
+following
+<PRE>    ZMEANSOURCE = T
+    USEHAMMING = T
+    PREEMCOEF = 0.97</PRE>
+Certain types of artificially generated waveform data can cause numerical
+overflows with some coding schemes. In such cases adding a small amount of
+random noise to the waveform data solves the problem. The noise is added
+to the samples using
+<P><A NAME="edither">&#160;</A> <IMG WIDTH=500 HEIGHT=16 ALIGN=BOTTOM ALT="equation4750" SRC="img144.gif"  > <P>
+where <I>RND</I>() is a uniformly distributed random value over the interval
+[-1.0, +1.0) and <I>q</I> is the scaling factor. The amount of noise added 
+to the data (<I>q</I>) is set with the configuration parameter
+<A NAME=4514>&#160;</A><tt>ADDDITHER</tt> (default value 0.0). 
+A positive value causes the noise signal added to be the same every time
+(ensuring that the same file always gives exactly the same results). With a
+negative value the noise is random and the same file may produce slightly
+different results in different trials.
+<P>
+One problem that can arise when processing speech waveform files obtained from
+external sources, such as databases on CD-ROM, is that the
+byte-order<A NAME=3584>&#160;</A> may be different to that used by the machine on
+which HTK is running. To deal with this problem, HWAVE can perform
+automatic byte-swapping in order to preserve proper byte order. HTK assumes
+by default that speech waveform data is encoded as a sequence of 2-byte
+integers as is the case for most current speech databases<A NAME="tex2html341" HREF="footnode.html#3586"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>. 
+If the source format is known, then HWAVE will also make an assumption
+about the byte order used to create speech files in that format. It then checks
+the byte order of the machine that it is running on and automatically performs
+byte-swapping if the order is different. For unknown formats, proper byte order
+can be ensured by setting the configuration parameter
+<tt>BYTEORDER</tt><A NAME=4515>&#160;</A> to <tt>VAX</tt> if the
+speech data was created on a little-endian machine such as a VAX or an IBM PC,
+and to anything else (e.g. <tt>NONVAX</tt>) if the speech data was created on a
+big-endian machine such as a SUN, HP or Macintosh machine. <A NAME=3592>&#160;</A>
+<P>
+The reading/writing of HTK format waveform files can be further controlled
+via the configuration parameters <tt>NATURALREADORDER</tt> and 
+<tt>NATURALWRITEORDER</tt>. The effect and default settings of these parameters
+are described in section&nbsp;<A HREF="node48.html#sbyteswap">4.9</A>.
+<A NAME=3596>&#160;</A>
+Note that <tt>BYTEORDER</tt> should not be used when <tt>NATURALREADORDER</tt>
+is set to true.  Finally, note that HTK can also byte-swap parameterised
+files in a similar way provided that only the byte-order of each 4 byte float
+requires inversion.
+<P>
+<HR><A NAME="tex2html2259" HREF="node53.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2257" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2251" HREF="node51.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2261" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2262" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2260" HREF="node53.html">5.3 Linear Prediction Analysis</A>
+<B>Up:</B> <A NAME="tex2html2258" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2252" HREF="node51.html">5.1 General Mechanism</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

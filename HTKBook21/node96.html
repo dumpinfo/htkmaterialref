@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>7.3 Macro Definitions</TITLE>
+<META NAME="description" CONTENT="7.3 Macro Definitions">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2818" HREF="node97.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2816" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2810" HREF="node95.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2820" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2821" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2819" HREF="node97.html">7.4 HMM Sets</A>
+<B>Up:</B> <A NAME="tex2html2817" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2811" HREF="node95.html">7.2 Basic HMM Definitions</A>
+<BR> <P>
+<H1><A NAME="SECTION03430000000000000000">7.3 Macro Definitions</A></H1>
+<A NAME="sHMMmac">&#160;</A>
+<P>
+So far, basic model definitions have been described in which
+all of the information required to define a HMM has been
+given directly between the  &lt;<i>BeginHMM</i>&gt; and &lt;<i>EndHMM</i>&gt;
+keywords.  As an alternative, HTK allows the internal
+parts of a definition to be written as separate units, possibly
+in several different files, and then referenced by name wherever they
+are needed.  Such definitions are called <i>macros</i>.
+<P>
+HMM ( <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20606" SRC="img433.gif"  > <i>h</i>) and global option macros
+<A NAME=6026>&#160;</A><A NAME=6027>&#160;</A> ( <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20608" SRC="img433.gif"  > <i>o</i>)
+have already been described.  In fact, these are both rather
+special cases since neither is ever referenced explicitly by
+another definition.  Indeed, the option macro is unusual in that
+since it is global and must be unique, it has no name.
+As an illustration of the use of macros, it may be observed
+that the variance vectors in the HMM definition <i>hmm2</i> given
+in Fig&nbsp;<A HREF="node95.html#fhmm2def">7.3</A> are all identical.  If this was
+intentional, then the variance vector could be defined as a macro
+as illustrated in Fig&nbsp;<A HREF="node96.html#fmac5def">7.6</A>.
+<P>
+A macro definition<A NAME=6032>&#160;</A> consists of a macro type indicator
+followed by a user-defined macro name.  In this case, the indicator is  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20610" SRC="img433.gif"  > <i>v</i>
+and the name is <i>var</i>. Notice that a global options macro is included
+before the definition for <i>var</i>. HTK must know these before it can
+process any other definitions thus the first macro file specified on the
+command line of any HTK tool must have the global options macro.  Global
+options macro need not be repeated at the head of every definition file, but it
+does no harm to do so.
+<P>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=414 HEIGHT=116 ALIGN=BOTTOM ALT="tex2html_wrap20748" SRC="img256.gif"  > 
+<P>
+<A NAME="fmac5def">&#160;</A>
+<b> </b>
+Fig.  <IMG WIDTH=5 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap20757" SRC="img283.gif"  > . <IMG WIDTH=4 HEIGHT=9 ALIGN=BOTTOM ALT="tex2html_wrap20756" SRC="img213.gif"  > </P></DIV>
+<P>
+
+<P>
+ <IMG WIDTH=331 HEIGHT=481 ALIGN=BOTTOM ALT="tex2html_wrap20750" SRC="img258.gif"  > 
+<P>
+<A NAME="fhmm5def">&#160;</A>
+<DIV ALIGN=CENTER><P ALIGN=CENTER> <IMG WIDTH=267 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap20752" SRC="img259.gif"  > </P></DIV>
+<P>
+Once defined,  a macro is used simply by writing the type
+indicator and name exactly as written in the definition.
+Thus, for example, Fig&nbsp;<A HREF="node96.html#fhmm5def">7.7</A> defines a HMM called
+<i>hmm5</i> which uses the variance macro  <i>var</i> but
+is otherwise identical to the earlier HMM definition <i>hmm2</i>.
+<P>
+<A NAME=7310>&#160;</A>
+The definition for <i>hmm5</i> can be understood by substituting
+the textual body of the <i>var</i> macro everywhere that it is
+referenced.  Textually this would make the definition for <i>hmm5</i>
+identical to that for <i>hmm2</i>, and indeed, if input to a recogniser,
+their effects would be similar.  
+However, as will become clear in later chapters,
+the HMM definitions <i>hmm2</i> and  <i>hmm5</i> differ
+in two ways.  Firstly,  if
+any attempt was made to re-estimate the parameters of <i>hmm2</i>,
+the values of the variance vectors would almost certainly
+diverge.  However,
+the variance vectors of <i>hmm5</i> are tied together and are
+guaranteed to remain identical, even after re-estimation.  Thus,
+in general, the use of a macro enforces a <i>tying</i> which
+results in the corresponding parameters being shared amongst
+all the HMM structures which reference that macro.
+Secondly, when used in a recognition tool, the computation required
+to decode using HMMs with tied parameters will often be reduced.
+This is particularly true when higher level parts of a HMM definition
+are tied such as whole states.
+<P>
+
+<P>
+There are many different macro types<A NAME=6088>&#160;</A><A NAME=6089>&#160;</A>.  Some have special
+meanings but the following correspond to
+the various distinct points in the hierarchy of HMM parameters which
+can be tied.  
+<PRE><TT> 
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20702" SRC="img433.gif"  > <i>s</i> 		  shared state distribution
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20704" SRC="img433.gif"  > <i>m</i> 		  shared Gaussian mixture component
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20706" SRC="img433.gif"  > <i>u</i> 		  shared mean vector
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20708" SRC="img433.gif"  > <i>v</i> 		  shared diagonal variance vector
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20710" SRC="img433.gif"  > <i>i</i> 		  shared inverse full covariance matrix
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20712" SRC="img433.gif"  > <i>c</i> 		  shared choleski <I>L</I>' matrix
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20716" SRC="img433.gif"  > <i>x</i> 		  shared arbitrary transform matrix<A NAME="tex2html590" HREF="footnode.html#6098"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20718" SRC="img433.gif"  > <i>t</i> 		  shared transition matrix
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20720" SRC="img433.gif"  > <i>d</i> 		  shared duration parameters
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20722" SRC="img433.gif"  > <i>w</i> 		  shared stream weight vector
+<P>
+</TT></PRE>
+Fig&nbsp;<A HREF="node96.html#fhierarch">7.8</A> illustrates these potential
+tie points<A NAME=6104>&#160;</A> graphically for the case of continuous density HMMs.
+In this figure, each solid black circle represents a potential
+tie point, and the associated macro type is indicated alongside it.
+<P>
+<A NAME="fhierarch">&#160;</A> <IMG WIDTH=492 HEIGHT=304 ALIGN=BOTTOM ALT="tex2html_wrap20754" SRC="img270.gif"  > 
+<P>
+The tie points for discrete HMMs are identical except that the
+macro types  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20724" SRC="img433.gif"  > <i>m</i>,  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20726" SRC="img433.gif"  > <i>v</i>,  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20728" SRC="img433.gif"  > <i>c</i>,  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20730" SRC="img433.gif"  > <i>i</i> and  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20732" SRC="img433.gif"  > <i>u</i> are not
+relevant and are therefore excluded.
+<P>
+The macros with special meanings<A NAME=6113>&#160;</A> are as follows
+<PRE><TT> 
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20734" SRC="img433.gif"  > <i>l</i> 		  logical HMM 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20736" SRC="img433.gif"  > <i>h</i> 		  physical HMM
+<P>
+		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20738" SRC="img433.gif"  > <i>o</i> 		  global option values 		  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20740" SRC="img433.gif"  > <i>p</i> 		  tied mixture
+<P>
+</TT></PRE>
+The distinction between logical and physical HMMs will be explained
+in the next section and option macros have already been described.
+The  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20742" SRC="img433.gif"  > <i>p</i> macro is used by the HMM editor HHED
+for building tied mixture systems (see section&nbsp;<A HREF="node98.html#stmix">7.5</A>).
+The  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20744" SRC="img433.gif"  > <i>l</i> or  <IMG WIDTH=8 HEIGHT=3 ALIGN=BOTTOM ALT="tex2html_wrap_inline20746" SRC="img433.gif"  > <i>p</i> macros are special in the sense
+that they are created implicitly in order to represent specific kinds 
+of parameter sharing and they never occur explicitly in HMM definitions.
+<P>
+<HR><A NAME="tex2html2818" HREF="node97.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2816" HREF="node93.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2810" HREF="node95.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2820" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2821" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2819" HREF="node97.html">7.4 HMM Sets</A>
+<B>Up:</B> <A NAME="tex2html2817" HREF="node93.html">7 HMM Definition Files</A>
+<B> Previous:</B> <A NAME="tex2html2811" HREF="node95.html">7.2 Basic HMM Definitions</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

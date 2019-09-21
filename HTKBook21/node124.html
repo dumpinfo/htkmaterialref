@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10.1 Modelling Discrete Sequences</TITLE>
+<META NAME="description" CONTENT="10.1 Modelling Discrete Sequences">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3172" HREF="node125.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3170" HREF="node123.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3164" HREF="node123.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3174" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3175" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3173" HREF="node125.html">10.2 Using Discrete Models with Speech</A>
+<B>Up:</B> <A NAME="tex2html3171" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<B> Previous:</B> <A NAME="tex2html3165" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<BR> <P>
+<H1><A NAME="SECTION03710000000000000000">10.1 Modelling Discrete Sequences</A></H1>
+<A NAME="sdiscseq">&#160;</A>
+<P>
+Building HMMs for discrete symbol sequences is essentially the same
+as described previously for continuous density systems. 
+Firstly, a prototype HMM definition must be specified in order
+to fix the model topology.  For example, the following
+is a 3 state ergodic HMM in which the emitting states
+are fully connected.
+<PRE>    ~o &lt;DISCRETE&gt; &lt;StreamInfo&gt; 1 1 
+    ~h &quot;dproto&quot;
+    &lt;BeginHMM&gt;
+       &lt;NumStates&gt; 5 
+       &lt;State&gt; 2 &lt;NumMixes&gt; 10
+          &lt;DProb&gt; 5461*10
+       &lt;State&gt; 3 &lt;NumMixes&gt; 10
+          &lt;DProb&gt; 5461*10
+       &lt;State&gt; 4 &lt;NumMixes&gt; 10
+          &lt;DProb&gt; 5461*10
+       &lt;TransP&gt; 5
+           0.0 1.0 0.0 0.0 0.0
+           0.0 0.3 0.3 0.3 0.1
+           0.0 0.3 0.3 0.3 0.1
+           0.0 0.3 0.3 0.3 0.1
+           0.0 0.0 0.0 0.0 0.0
+    &lt;EndHMM&gt;</PRE>
+As described in chapter&nbsp;<A HREF="node93.html#cHMMDefs">7</A>, the notation for discrete
+HMMs borrows heavily on that used for continuous density models
+by equating mixture components with symbol indices.  Thus,
+this definition assumes that each training data sequence contains
+a single stream of symbols indexed from 1 to 10.  In this example,
+all symbols in each state have been set to be equally likely<A NAME="tex2html765" HREF="footnode.html#10128"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  If prior information is available then this can of course be used
+to set these initial values.
+<P>
+The training data needed to build a discrete HMM can take one of two forms. It
+can either be discrete (<tt>SOURCEKIND=DISCRETE</tt>) in which case it consists
+of a sequence of 2-byte integer symbol indices.  Alternatively, it can consist
+of continuous parameter vectors with an associated VQ codebook.  This latter
+case is dealt with in the next section.  Here it will be assumed that the data
+is symbolic and that it is therefore stored in discrete form.<A NAME=10130>&#160;</A> Given a set of training files listed in the script file
+<tt>train.scp</tt>, an initial HMM could be estimated using
+<PRE>    HInit -T 1 -w 1.0 -o dhmm -S train.scp -M hmm0 dproto</PRE>
+This use of HINIT is identical to that which would be
+used for building whole word HMMs where no associated label file is
+assumed and the whole of each training sequence is used to estimate
+the HMM parameters.  Its effect is to read in the prototype
+stored in the file <tt>dproto</tt> and then use the training examples
+to estimate initial values for the output distributions
+and transition probabilities.  This is done by firstly uniformly 
+segmenting the data and for each segment counting the number of occurrences
+of each symbol.  These counts are then normalised to provide output distributions
+for each state.  HINIT then uses the Viterbi algorithm to resegment
+the data and recompute the parameters.  This is repeated until convergence
+is achieved or an upper limit on the iteration count is reached.
+The transition probabilities at each step are estimated simply by
+counting the number of times that each transition is made in the Viterbi alignments
+and normalising.  The final model is renamed <tt>dhmm</tt> and stored in
+the directory <tt>hmm0</tt>.
+<P>
+When building discrete HMMs, it is important to floor the discrete
+probabilites so that no symbol has a zero probability.  This is 
+achieved using the <tt>-w</tt> option which specifies a floor value
+as a multiple of a global constant called <tt>MINMIX</tt> whose
+value is  <IMG WIDTH=27 HEIGHT=12 ALIGN=BOTTOM ALT="tex2html_wrap_inline21988" SRC="img441.gif"  > .
+<P>
+The initialised HMM created by HINIT 
+can then be further refined if desired by using HREST
+to perform Baum-Welch re-estimation.  It would be invoked in a similar
+way to the above except that there is now no need to rename the model.
+For example,
+<PRE>    HRest -T 1 -w 1.0 -S train.scp -M hmm1 hmm0/dhmm</PRE>
+would read in the model stored in <tt>hmm0/dhmm</tt> and write out a new
+model of the same name to the directory <tt>hmm1</tt>.
+<P>
+<HR><A NAME="tex2html3172" HREF="node125.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3170" HREF="node123.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3164" HREF="node123.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3174" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3175" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3173" HREF="node125.html">10.2 Using Discrete Models with Speech</A>
+<B>Up:</B> <A NAME="tex2html3171" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<B> Previous:</B> <A NAME="tex2html3165" HREF="node123.html">10 Discrete and Tied-Mixture Models</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

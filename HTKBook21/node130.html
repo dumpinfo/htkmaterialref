@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>11.2 Word Networks and Standard Lattice Format</TITLE>
+<META NAME="description" CONTENT="11.2 Word Networks and Standard Lattice Format">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3251" HREF="node131.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3249" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3243" HREF="node129.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3253" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3254" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3252" HREF="node131.html">11.3 Building a Word Network with HPARSE</A>
+<B>Up:</B> <A NAME="tex2html3250" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3244" HREF="node129.html">11.1 How Networks are Used</A>
+<BR> <P>
+<H1><A NAME="SECTION03820000000000000000">11.2 Word Networks and Standard Lattice Format</A></H1>
+<A NAME="sslfintro">&#160;</A>
+<P>
+<A NAME=10434>&#160;</A>
+This section provides a basic introduction to the HTK Standard Lattice
+Format (SLF). SLF files are used for a variety of functions some of
+which lie beyond the scope of the standard HTK package.   The
+description here is limited to those features of SLF which are required
+to describe word networks suitable for input to HNET.  The
+following Chapter describes the further features of SLF used for
+representing the output of a recogniser. For reference, a full
+description of SLF is given in Chapter&nbsp;<A HREF="node257.html#chtkslf">16</A>.
+<P>
+<A NAME=10437>&#160;</A>
+A word network in SLF<A NAME=10438>&#160;</A> consists of a list of nodes and a list of arcs.  
+The nodes represent words and the arcs represent the transition between
+words<A NAME="tex2html795" HREF="footnode.html#10439"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  
+Each node and arc definition is written on a single line and
+consists of a number of fields. Each field specification consists of a
+``name=value'' pair. Field names can be any length but all commonly used
+field names consist of a single letter.  By convention, field names
+starting  with a capital letter are mandatory  whereas field names
+starting with a lower-case letter are optional.  Any line beginning with
+a <tt>#</tt> is a comment and is ignored.
+<P>
+<A NAME="fwdnet">&#160;</A> <IMG WIDTH=330 HEIGHT=166 ALIGN=BOTTOM ALT="tex2html_wrap22026" SRC="img453.gif"  > 
+<P>
+The following example should illustrate the basic format <A NAME=10444>&#160;</A>
+of an SLF word network file.  It corresponds to the network
+illustrated in Fig&nbsp;<A HREF="node130.html#fwdnet">11.2</A> which represents all sequences
+consisting of the words ``bit'' and ``but'' starting with the
+word ``start'' and ending with the word ``end''.  As will be
+seen later, the start and end words will be mapped to a silence
+model so this grammar allows speakers to 
+say ``bit but but bit bit ....etc''.
+<PRE>    # Define size of network: N=num nodes and L=num arcs
+    N=4 L=8
+    # List nodes: I=node-number, W=word
+    I=0 W=start
+    I=1 W=end
+    I=2 W=bit
+    I=3 W=but
+    # List arcs: J=arc-number, S=start-node, E=end-node
+    J=0 S=0 E=2
+    J=1 S=0 E=3
+    J=2 S=3 E=1
+    J=3 S=2 E=1
+    J=4 S=2 E=3
+    J=5 S=3 E=3
+    J=6 S=3 E=2
+    J=7 S=2 E=2</PRE>
+Notice that the first line which defines the size of the network must be
+given before any node or arc definitions.
+A node is a <i>network start node</i> if it has no predecessors,
+and a node is <i>network end node</i> if it has no successors.
+There must be one and only one network start node and one network
+end node.
+In the above, node 0 is a network start node and node 1 is a
+network end node.
+The choice of the names ``start'' and ``end'' for these nodes
+has no significance.
+<P>
+<A NAME="fwdnet1">&#160;</A> <IMG WIDTH=341 HEIGHT=128 ALIGN=BOTTOM ALT="tex2html_wrap22028" SRC="img454.gif"  > 
+<P>
+A word network can have null nodes indicated by the special
+predefined word name <tt>!NULL</tt>.  Null nodes are useful for reducing
+the number of arcs required.  For example, the <i>Bit-But</i>
+network could be defined as follows<A NAME=10453>&#160;</A>
+<PRE>    # Network using null nodes
+    N=6 L=7
+    I=0 W=start
+    I=1 W=end
+    I=2 W=bit
+    I=3 W=but
+    I=4 W=!NULL
+    I=5 W=!NULL
+    J=0 S=0 E=4
+    J=1 S=4 E=2
+    J=2 S=4 E=3
+    J=3 S=2 E=5
+    J=4 S=3 E=5
+    J=5 S=5 E=4
+    J=6 S=5 E=1</PRE>
+In this case, there is no significant saving, however, if there
+were many words in parallel, the total number of arcs would be
+much reduced by using null nodes to form common start and end points for
+the loop-back connections.
+<P>
+By default, all arcs are equally likely.  However, the optional
+field <tt>l=x</tt> can be used to attach the log transition probability
+<tt>x</tt> to an arc.  For example, if the word ``but'' was twice
+as likely as ``bit'', the arcs numbered 1 and 2 in the last example
+could be changed to
+<PRE>    J=1 S=4 E=2 l=-1.1
+    J=2 S=4 E=3 l=-0.4</PRE>
+Here the probabilities have been normalised to sum to 1, however,
+this is not necessary.  The recogniser simply adds the scaled log probability
+to the path score and hence it can be regarded as an additive
+word transition penalty.<A NAME=10456>&#160;</A>
+<P>
+<HR><A NAME="tex2html3251" HREF="node131.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3249" HREF="node128.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3243" HREF="node129.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3253" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3254" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3252" HREF="node131.html">11.3 Building a Word Network with HPARSE</A>
+<B>Up:</B> <A NAME="tex2html3250" HREF="node128.html">11 NetworksDictionaries and Language Models</A>
+<B> Previous:</B> <A NAME="tex2html3244" HREF="node129.html">11.1 How Networks are Used</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

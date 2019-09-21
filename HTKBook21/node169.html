@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.6.1 Function</TITLE>
+<META NAME="description" CONTENT="13.6.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3896" HREF="node170.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3894" HREF="node168.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3888" HREF="node168.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3898" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3899" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3897" HREF="node170.html">*AT i j prob itemList(t)</A>
+<B>Up:</B> <A NAME="tex2html3895" HREF="node168.html">13.6 HHEd</A>
+<B> Previous:</B> <A NAME="tex2html3889" HREF="node168.html">13.6 HHEd</A>
+<BR> <P>
+<H2><A NAME="SECTION04161000000000000000">13.6.1 Function</A></H2>
+<P>
+<A NAME=12948>&#160;</A>
+HHED is a script driven editor for manipulating sets of HMM definitions.
+Its basic operation is to load in a set of HMMs, apply a sequence
+of edit operations and then output the transformed set.
+HHED is mainly used for applying tyings across selected HMM parameters.
+It also has facilities for cloning HMMs, clustering states and editing
+HMM structures.
+<P>
+Many HHED commands operate on sets of similar items selected from
+the set of currently loaded HMMs.  For example, it is possible to
+define a set of all final states of all vowel models, or all mean
+vectors of all mixture components within the model X, etc.
+Sets such as these are defined by item lists using the syntax rules
+given below.  In all commands, all of the items in the set defined
+by an item list must be of the same type where the possible types
+are
+<PRE><TT> 
+		  s 		 - state             		 t 		 - transition matrix
+<P>
+		  p 		 - pdf               		 w 		 - stream weights
+<P>
+		  m 		 - mixture component 		 d 		 - duration parameters
+<P>
+		  u 		 - mean vector       		 x 		 - transform matrix
+<P>
+		  v 		 - variance vector   		 i 		 - inverse covariance matrix
+<P>
+		  h 		 - HMM definition
+<P>
+</TT></PRE>
+<P>
+Most of the above correspond directly to the tie points shown in
+Fig&nbsp;<A HREF="node96.html#fhierarch">7.8</A>.  There is just one exception.  The type ``p''
+corresponds to a pdf (ie a sum of Gaussian mixtures).  Pdf's cannot
+be tied, however, they can be named in a Tie (<tt>TI</tt>) command
+(see below) in which case, the effect is to join all of the contained
+mixture components into one pool of mixtures and then all of the
+mixtures in the pool are shared across all pdf's.  This allows
+conventional <I>tied-mixture</I> or <I>semi-continuous</I> HMM systems
+to be constructed.
+<P>
+The syntax rules for item lists are as follows.  An item list
+consists of a comma separated list of item sets.
+<I>
+<PRE><TT> 
+		     itemList		  = 		 ``{'' itemSet { ``,'' itemSet } ``}''
+<P>
+</TT></PRE></I>
+<P>
+Each <I>itemSet</I> consists of the name of one
+or more HMMs (or a pattern
+representing a set of HMMs) followed by a specification
+which represents a set of paths down the parameter hierarchy 
+each terminating at one of the required parameter items.
+<I>
+<PRE><TT> 
+		      itemSet 		  = 		 hmmName . [``transP'' | ``state'' state ]
+<P>
+		      hmmName 		  = 		 ident | identList
+<P>
+		     identList		  = 		 ``('' ident { ``,'' ident } ``)''
+<P>
+		     ident    		  = 		 &lt; char | metachar &gt;
+<P>
+		     metachar 		  = 		 ``?'' | `` <IMG WIDTH=4 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline22238" SRC="img526.gif"  > ''
+<P>
+</TT></PRE></I>
+<P>
+A <I>hmmName</I> consists of a single <I>ident</I> or
+a comma separated list of <I>ident</I>'s.  The following examples
+are all valid <I>hmmName</I>'s:
+<PRE>         aa  three  model001  (aa,iy,ah,uh)  (one,two,three)</PRE>
+In addition, an <I>ident</I> can contain the metacharacter
+``?'' which matches any single character and the metacharacter
+`` <IMG WIDTH=4 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline22240" SRC="img526.gif"  > '' which matches a string of zero or more characters.
+For example, the item list
+<PRE>         {*-aa+*.transP}</PRE>
+would represent the set of transition matrices of all loaded
+triphone variations of <tt>aa</tt>.
+<P>
+Items within states require the state indices to be specified
+<I>
+<PRE><TT> 
+		      state 		  = 		 index [``.'' stateComp ]
+<P>
+		      index 		  = 		 ``['' intRange { ``,'' intRange } ``]''
+<P>
+		    intRange 		 = 		 integer [ ``-'' integer ]
+<P>
+</TT></PRE></I>
+For example, the item list
+<PRE>         {*.state[1,3-5,9]}}</PRE>
+represents the set of all states 1, 3 to 5 inclusive and 9 of all
+currently loaded HMMs.  Items within states include durational
+parameters, stream weights, pdf's and all items within mixtures
+<I>
+<PRE><TT> 
+		   stateComp 		  = 		 ``dur'' | ``weights'' | [ `` stream'' index ]
+        ``.'' ``mix'' [ mix ]
+<P>
+</TT></PRE></I>
+For example, 
+<PRE>         {(aa,ah,ax).state[2].dur}</PRE>
+denotes the set of durational parameter vectors from state 2 of the
+HMMs <tt>aa</tt>, <tt>ah</tt> and <tt>ax</tt>.  Similarly, 
+<PRE>         {*.state[2-4].weights}</PRE>
+denotes the set of stream weights for states 2 to 4 of all currently
+loaded HMMs.  The specification of pdf's may optionally include a
+list of the relevant streams, if omitted, stream 1 is assumed.
+For example,
+<PRE>         {three.state[3].mix}</PRE>
+and
+<PRE>         {three.state[3].stream[1].mix}</PRE>
+both denote a list of the single pdf belonging to stream 1 of state 3 
+of the HMM <tt>three</tt>.
+<P>
+Within a pdf, the possible item types are mixture components,
+mean vectors, and the various possible forms of covariance
+parameters
+<I>
+<PRE><TT> 
+		   mix 		  = 		  index [ ``.'' ( ``mean'' | ``cov'' ) ]
+<P>
+</TT></PRE></I>
+For example,
+<PRE>         {*.state[2].mix[1-3]}</PRE>
+denotes the set of mixture components 1 to 3 from state 2 of all
+currently loaded HMMs and
+<PRE>         {(one,two).state[4].stream[3].mix[1].mean}</PRE>
+denotes the set of mean vectors from mixture component 1, stream 3,
+state 4 of the HMMs <tt>one</tt> and <tt>two</tt>.  When <I>cov</I>
+is specified, the type of the covariance item referred to is 
+determined from the <tt>CovKind</tt> of the loaded models.  Thus,
+for diagonal covariance models, the item list
+<PRE>         {*.state[2-4].mix[1].cov}</PRE>
+would denote the set of variance vectors for mixture 1, states 2 to 4
+of all loaded HMMs.
+<P>
+Note finally, that it is not an error to specify non-existent models,
+states, mixtures, etc.  All item list specifications are regarded
+as patterns which are matched against the currently loaded set of
+models.  All and only those items which match are included in
+the set.  However, both a null result and a set of items of mixed
+type do result in errors.
+<P>
+All HHED commands consist of a 2 character command name followed
+by zero or more arguments.  In the following descriptions, item
+lists are shown as <tt>itemList(c)</tt> where the character c denotes the
+type of item expected by that command.  If this type indicator is
+missing then the command works for all item types.
+<P>
+The HHED commands are as follows
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html3900" HREF="node170.html#SECTION04161100000000000000">*<tt>AT i j prob itemList(t)</tt></A>
+</UL>
+<HR><A NAME="tex2html3896" HREF="node170.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3894" HREF="node168.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3888" HREF="node168.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3898" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3899" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3897" HREF="node170.html">*AT i j prob itemList(t)</A>
+<B>Up:</B> <A NAME="tex2html3895" HREF="node168.html">13.6 HHEd</A>
+<B> Previous:</B> <A NAME="tex2html3889" HREF="node168.html">13.6 HHEd</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

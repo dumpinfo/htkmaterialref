@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>1.5 Recognition and Viterbi Decoding</TITLE>
+<META NAME="description" CONTENT="1.5 Recognition and Viterbi Decoding">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1566" HREF="node9.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1564" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1558" HREF="node7.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1568" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1569" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1567" HREF="node9.html">1.6 Continuous Speech Recognition</A>
+<B>Up:</B> <A NAME="tex2html1565" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1559" HREF="node7.html">1.4 Baum-Welch Re-Estimation</A>
+<BR> <P>
+<H1><A NAME="SECTION02150000000000000000">1.5 Recognition and Viterbi Decoding</A></H1>
+<A NAME="srecandvit">&#160;</A>
+<P>
+The previous section has described the basic ideas underlying
+HMM parameter re-estimation using the Baum-Welch algorithm.
+In passing, it was noted that the efficient recursive
+algorithm for computing the forward probability also yielded
+as a by-product the total likelihood<A NAME=767>&#160;</A> 
+ <IMG WIDTH=53 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19704" SRC="img83.gif"  > .  Thus, this
+algorithm could also be used to find the model which yields
+the maximum value of  <IMG WIDTH=56 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19706" SRC="img84.gif"  > , and hence, it could be used
+for recognition.
+<P>
+In practice, however, it is preferable to base recognition
+on the maximum likelihood state sequence since this generalises
+easily to the continuous speech case whereas the use
+of the total probability does not.  This likelihood is 
+computed using essentially the same algorithm as the forward
+probability calculation except that the summation is replaced
+by a maximum operation.  For a given model <I>M</I>, 
+let  <IMG WIDTH=29 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19710" SRC="img85.gif"  >  represent the 
+maximum likelihood of observing speech vectors  <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19712" SRC="img19.gif"  >  to
+ <IMG WIDTH=13 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline19714" SRC="img16.gif"  >  and being in state <I>j</I> at time <I>t</I>.
+This partial likelihood can be computed efficiently using
+the following recursion (cf. equation&nbsp;<A HREF="node7.html#e16">1.16</A>)
+<P><A NAME="e27">&#160;</A> <IMG WIDTH=500 HEIGHT=20 ALIGN=BOTTOM ALT="equation773" SRC="img88.gif"  > <P>
+where
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation778" SRC="img89.gif"  > <P>
+<P> <IMG WIDTH=500 HEIGHT=15 ALIGN=BOTTOM ALT="equation780" SRC="img90.gif"  > <P>
+for 1&lt;<I>j</I>&lt;<I>N</I>.  The maximum likelihood  <IMG WIDTH=52 HEIGHT=27 ALIGN=MIDDLE ALT="tex2html_wrap_inline19726" SRC="img91.gif"  >  is then given by
+<P> <IMG WIDTH=500 HEIGHT=20 ALIGN=BOTTOM ALT="equation785" SRC="img92.gif"  > <P>
+<P>
+As for the re-estimation case, the direct computation of likelihoods
+leads to underflow, hence, log likelihoods are used instead.  The
+recursion of equation&nbsp;<A HREF="node8.html#e27">1.27</A> then becomes
+<P><A NAME="e30">&#160;</A> <IMG WIDTH=500 HEIGHT=20 ALIGN=BOTTOM ALT="equation789" SRC="img93.gif"  > <P>
+This recursion forms the basis of the so-called Viterbi algorithm.
+As shown in Fig.&nbsp;<A HREF="node8.html#fvtrellis">1.6</A>, this algorithm can be visualised
+as finding the best path through a matrix where the vertical
+dimension represents the states of the HMM and
+the horizantal dimension represents the frames of speech (i.e. time).
+Each large dot in the picture represents the log probability
+of observing that frame at that time and each arc between dots
+corresponds to a log transition probability.  The log probability
+of any path is computed simply by summing the log transition probabilities
+and the log output probabilities along that path.  The paths are
+grown from left-to-right column-by-column.  At time <I>t</I>, each
+partial path<A NAME=795>&#160;</A>  <IMG WIDTH=53 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline19732" SRC="img94.gif"  >  is known for all states <I>i</I>, hence
+equation&nbsp;<A HREF="node8.html#e30">1.31</A> can be used to compute  <IMG WIDTH=30 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline19736" SRC="img95.gif"  > 
+thereby extending the partial paths by one time frame.
+<P>
+<A NAME="fvtrellis">&#160;</A> <IMG WIDTH=464 HEIGHT=304 ALIGN=BOTTOM ALT="tex2html_wrap19738" SRC="img96.gif"  > 
+<P>
+This concept of
+a path<A NAME=800>&#160;</A> is extremely important and it is generalised below to deal
+with the continuous speech case.
+<P>
+This completes the discussion of isolated word recognition using
+HMMs.  There is no HTK tool which implements the above Viterbi
+algorithm directly.  Instead, a tool 
+called HVITE<A NAME=892>&#160;</A> is provided which
+along with its supporting libraries, HNET and HREC, 
+is designed to handle continuous speech.  Since this recogniser is syntax
+directed, it can also perform isolated word recognition as a special case.
+This is discussed in more detail below.
+<P>
+<HR><A NAME="tex2html1566" HREF="node9.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1564" HREF="node3.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1558" HREF="node7.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1568" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1569" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1567" HREF="node9.html">1.6 Continuous Speech Recognition</A>
+<B>Up:</B> <A NAME="tex2html1565" HREF="node3.html">1 The Fundamentals of HTK</A>
+<B> Previous:</B> <A NAME="tex2html1559" HREF="node7.html">1.4 Baum-Welch Re-Estimation</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

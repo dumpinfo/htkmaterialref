@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3.2 Creating Monophone HMMs</TITLE>
+<META NAME="description" CONTENT="3.2 Creating Monophone HMMs">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1818" HREF="node28.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1816" HREF="node20.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1810" HREF="node26.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1820" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1821" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1819" HREF="node28.html">3.2.1 Step 6 - Creating Flat Start Monophones</A>
+<B>Up:</B> <A NAME="tex2html1817" HREF="node20.html">3 A Tutorial Example of Using HTK</A>
+<B> Previous:</B> <A NAME="tex2html1811" HREF="node26.html">3.1.5 Step 5 - Coding the Data</A>
+<BR> <P>
+<H1><A NAME="SECTION02320000000000000000">3.2 Creating Monophone HMMs</A></H1>
+<A NAME="segcreatmono">&#160;</A>
+<P>
+In this section, the creation of a well-trained set of single-Gaussian
+monophone HMMs will be described.  The starting point will be
+a set of identical monophone HMMs in which every mean and variance is
+identical.  These are then retrained, short-pause models are
+added and the silence model is extended slightly.  The monophones
+are then retrained.
+<P>
+Some of the dictionary entries have multiple pronunciations.  However,
+when HLED was used to expand the word level MLF to create the
+phone level MLFs, it arbitrarily selected the first pronunciation it found.
+Once reasonable monophone HMMs have been created, the recogniser tool
+HVITE can be used to perform a <i>forced recognition</i> of<A NAME=2106>&#160;</A>
+the training data.  By this means, a new phone level MLF is created in which
+the choice of pronunciations depends on the acoustic evidence.  This new
+MLF can be used to perform a final reestimation of the monophone HMMs.
+<A NAME=2107>&#160;</A>
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html1822" HREF="node28.html#SECTION02321000000000000000">3.2.1 Step 6 - Creating Flat Start Monophones</A>
+<LI> <A NAME="tex2html1823" HREF="node29.html#SECTION02322000000000000000">3.2.2 Step 7 - Fixing the Silence Models</A>
+<LI> <A NAME="tex2html1824" HREF="node30.html#SECTION02323000000000000000">3.2.3 Step 8 - Realigning the Training Data</A>
+</UL>
+<HR><A NAME="tex2html1818" HREF="node28.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1816" HREF="node20.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1810" HREF="node26.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1820" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1821" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1819" HREF="node28.html">3.2.1 Step 6 - Creating Flat Start Monophones</A>
+<B>Up:</B> <A NAME="tex2html1817" HREF="node20.html">3 A Tutorial Example of Using HTK</A>
+<B> Previous:</B> <A NAME="tex2html1811" HREF="node26.html">3.1.5 Step 5 - Coding the Data</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

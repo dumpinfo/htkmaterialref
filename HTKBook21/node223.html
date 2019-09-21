@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.12.1 Function</TITLE>
+<META NAME="description" CONTENT="13.12.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4553" HREF="node224.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4551" HREF="node222.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4545" HREF="node222.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4555" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4556" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4554" HREF="node224.html">13.12.2 VQ Codebook Format</A>
+<B>Up:</B> <A NAME="tex2html4552" HREF="node222.html">13.12 HQuant</A>
+<B> Previous:</B> <A NAME="tex2html4546" HREF="node222.html">13.12 HQuant</A>
+<BR> <P>
+<H2><A NAME="SECTION041121000000000000000">13.12.1 Function</A></H2>
+<P>
+<A NAME=14059>&#160;</A>
+This program will construct a HTK format VQ table consisting of one or
+more codebooks, each corresponding to an independent data stream.  
+A codebook is a collection of indexed reference vectors that are intended to
+represent the structure of the training data. Ideally, every compact
+cluster of points in the training data is represented by one reference
+vector.  VQ
+tables are used directly when building systems based on Discrete
+Probability HMMs.  In this case, the continuous-valued speech vectors
+in each stream are replaced by the index of the closest reference
+vector in each corresponding codebook.
+Codebooks can also be used to attach VQ indices to
+continuous observations.  A typical use of this is to preselect
+Gaussians in probability computations.  More information on the
+use of VQ tables is given in section&nbsp;<A HREF="node74.html#svquant">5.11</A>.
+<P>
+Codebook construction consists of finding clusters in the training data,
+assigning a unique reference vector (the cluster centroid) to each,
+and storing the resultant reference vectors and associated codebook data
+in a VQ table. HQUANT uses a top-down clustering process whereby
+clusters are iteratively split until the desired number of clusters are
+found. The optimal codebook size (number of reference vectors) depends
+on the structure and amount of the training data, but a value of 256 is
+commonly used.
+<P>
+HQUANT can construct both linear (i.e. flat) and tree-structured
+(i.e. binary) codebooks.  Linear codebooks can have lower quantisation
+errors but tree-structured codebooks have  <IMG WIDTH=40 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline22388" SRC="img551.gif"  >  access times
+compared to <I>N</I> for the linear case.  The distance metric can either be
+Euclidean, diagonal covariance Mahalanobis or full covariance
+Mahalanobis.
+<P>
+<HR><A NAME="tex2html4553" HREF="node224.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4551" HREF="node222.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4545" HREF="node222.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4555" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4556" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4554" HREF="node224.html">13.12.2 VQ Codebook Format</A>
+<B>Up:</B> <A NAME="tex2html4552" HREF="node222.html">13.12 HQuant</A>
+<B> Previous:</B> <A NAME="tex2html4546" HREF="node222.html">13.12 HQuant</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

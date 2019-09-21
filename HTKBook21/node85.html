@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>6.2.4 SCRIBE Label Files</TITLE>
+<META NAME="description" CONTENT="6.2.4 SCRIBE Label Files">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2677" HREF="node86.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2675" HREF="node81.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2671" HREF="node84.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2679" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2680" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2678" HREF="node86.html">6.3 Master Label Files</A>
+<B>Up:</B> <A NAME="tex2html2676" HREF="node81.html">6.2 Label File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2672" HREF="node84.html">6.2.3 TIMIT Label Files</A>
+<BR> <P>
+<H2><A NAME="SECTION03324000000000000000">6.2.4 SCRIBE Label Files</A></H2>
+<P>
+<A NAME=5315>&#160;</A>
+The SCRIBE label file format is a subset of the European SAM label file format.
+SAM label files are text files and each line begins with a label identifying
+the type of information stored on that line.  The HTK SCRIBE format recognises
+just three label types
+<PRE><TT> 
+		 LBA 		- acoustic label
+<P>
+		 LBB 		- broad class label
+<P>
+		 UTS 		- utterance
+<P>
+</TT></PRE>
+For each of these, the rest of the line is divided into comma separated
+fields.  The LBA and LBB types have 4 fields: start sample, centre sample, end sample
+and label.  HTK expects the centre sample to be blank.  The UTS type has 3 fields:
+start sample, end sample and label.  UTS labels may be multi-word since they can
+refer to a complete utterance.  In order to make such labels usable within HTK tools,
+between word blanks are converted to underscore characters.  The 
+<tt>EX</tt><A NAME=5558>&#160;</A> command
+in the HTK label editor HLED can then be used to split such
+a compound label into individual word labels if required.
+<P>
+<HR><A NAME="tex2html2677" HREF="node86.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2675" HREF="node81.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2671" HREF="node84.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2679" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2680" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2678" HREF="node86.html">6.3 Master Label Files</A>
+<B>Up:</B> <A NAME="tex2html2676" HREF="node81.html">6.2 Label File Formats</A>
+<B> Previous:</B> <A NAME="tex2html2672" HREF="node84.html">6.2.3 TIMIT Label Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

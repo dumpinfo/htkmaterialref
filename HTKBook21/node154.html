@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.2.2 Use</TITLE>
+<META NAME="description" CONTENT="13.2.2 Use">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3711" HREF="node155.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3709" HREF="node152.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3703" HREF="node153.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3713" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3714" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3712" HREF="node155.html">13.2.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html3710" HREF="node152.html">13.2 HCompV</A>
+<B> Previous:</B> <A NAME="tex2html3704" HREF="node153.html">13.2.1 Function</A>
+<BR> <P>
+<H2><A NAME="SECTION04122000000000000000">13.2.2 Use</A></H2>
+<P>
+HCOMPV is invoked via the command line
+<PRE>   HCompV [options] hmm trainFiles ...</PRE>
+where <tt>hmm</tt> is the name of the physical HMM whose
+parameters are to be initialised.  The effect of this command
+is to compute the covariance of the speech
+training data and then copy it into every Gaussian component of the given
+HMM definition.  If there are multiple data streams, then a separate
+covariance is estimated for each stream.  The HMM can have a mix of
+diagonal and full covariances and an option exists to update the means
+also.  The HMM definition can be contained within one or more macro
+files loaded via the standard <tt>-H</tt> option.  Otherwise, the 
+definition will be read from a file called <tt>hmm</tt>.  Any tyings
+in the input definition will be preserved in the output. By default,
+the new updated definition overwrites the existing one.  However,
+a new definition file including any macro files can be created by
+specifying an appropriate target directory 
+using the standard <tt>-M</tt> option.
+<P>
+In addition to the above, an option <tt>-f</tt> is provided to compute
+variance floor macros equal to a specified fraction
+of the global variance.  In this case, the newly created macros are
+written to a file called <tt>vFloors</tt>.  
+For each stream <tt>N</tt> defined for <tt>hmm</tt>,  a variance macro 
+called <tt>varFloorN</tt> is created.
+If a target directory is specified
+using the standard <tt>-M</tt> option then the new file will be written
+there, otherwise it is written in the current directory.
+<P>
+The list of train files can be stored in a script file if required.
+Furthermore, the data used for estimating the global
+covariance can be limited to that corresponding to a specified label.
+<P>
+The detailed operation of HCOMPV is controlled by the following
+command line options
+<UL><DT><TT>-f f</TT>
+<DD> Create variance floor macros with values equal to 
+     <tt>f</tt> times the global variance.  One macro is created for
+     each input stream and the output is stored in a file 
+     called <tt>vFloors</tt>.
+<P>
+  <DT><TT>-l s</TT>
+<DD> The string <TT>s</TT> must be the name of a
+      segment label.  When this option is used, HCOMPV searches
+      through all of the training files and uses only the speech
+      frames from segments with the given label.  When this option is not 
+      used, HCOMPV uses
+      all of the data in each training file.
+<P>
+  <DT><TT>-m</TT>
+<DD> The covariances of the output HMM are always updated
+    however updating the means must be specifically requested. When 
+    this option is set, HCOMPV updates all the HMM component 
+    means with the sample mean computed from the training files.
+<P>
+  <DT><TT>-o s</TT>
+<DD>  The string <TT>s</TT> is used as the name of the output
+      HMM in place of the source name.
+<P>
+  <DT><TT>-v f</TT>
+<DD>  This sets the minimum variance (i.e. diagonal elements of
+      the covariance matrix) to the real value <TT>f</TT> (default value
+      0.0).
+<P>
+<DT><TT>-B</TT>
+<DD> Output HMM definition files in binary format.
+<DT><TT>-F fmt</TT>
+<DD> Set the source data format to <TT>fmt</TT>.
+<DT><TT>-G fmt</TT>
+<DD> Set the label file format to <TT>fmt</TT>.
+<DT><TT>-H mmf</TT>
+<DD> Load HMM macro model file <TT>mmf</TT>.  This option
+may be repeated to load multiple MMFs.
+<DT><TT>-I mlf</TT>
+<DD> This loads the master label file <TT>mlf</TT>.  This option
+may be repeated to load several MLFs.
+<DT><TT>-L dir</TT>
+<DD> Search directory <tt>dir</tt> for label files (default
+is to search current directory).
+<DT><TT>-M dir</TT>
+<DD> Store output HMM macro model files in the directory <tt>dir</tt>.  
+If this option is not given, the new HMM definition will overwrite
+the existing one.
+<DT><TT>-X ext</TT>
+<DD> Set label file extension to <TT>ext</TT> 
+(default is <tt>lab</tt>).
+<P>
+</UL>
+HCOMPV also supports the standard options <tt>-A</tt>,
+<tt>-C</tt>,  <tt>-D</tt>, <tt>-S</tt>, <tt>-T</tt>, and <tt>-V</tt> as described
+in section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>.
+<P>
+<HR><A NAME="tex2html3711" HREF="node155.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3709" HREF="node152.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3703" HREF="node153.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3713" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3714" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3712" HREF="node155.html">13.2.3 Tracing</A>
+<B>Up:</B> <A NAME="tex2html3710" HREF="node152.html">13.2 HCompV</A>
+<B> Previous:</B> <A NAME="tex2html3704" HREF="node153.html">13.2.1 Function</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

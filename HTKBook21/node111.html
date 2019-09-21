@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>8.7.1 Viterbi Training (HINIT)</TITLE>
+<META NAME="description" CONTENT="8.7.1 Viterbi Training (HINIT)">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3009" HREF="node112.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3007" HREF="node110.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3001" HREF="node110.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3011" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3012" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3010" HREF="node112.html">8.7.2 Forward/Backward Probabilities</A>
+<B>Up:</B> <A NAME="tex2html3008" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<B> Previous:</B> <A NAME="tex2html3002" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<BR> <P>
+<H2><A NAME="SECTION03571000000000000000">8.7.1 Viterbi Training (HINIT)</A></H2>
+<P>
+<A NAME=8541>&#160;</A>
+In this style of model training, a set of training observations
+ <IMG WIDTH=96 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21696" SRC="img357.gif"  >  is used to estimate the 
+parameters of a single HMM by iteratively computing Viterbi alignments.
+When used to initialise a new HMM, the Viterbi segmentation is
+replaced by a uniform segmentation (i.e. each training
+observation is divided into <I>N</I> equal segments) 
+for the first iteration.
+<P>
+Apart from the first iteration on a new model, 
+each training sequence  <IMG WIDTH=9 HEIGHT=10 ALIGN=BOTTOM ALT="tex2html_wrap_inline21700" SRC="img12.gif"  >  is segmented using a state alignment procedure
+which results from maximising
+<P> <IMG WIDTH=323 HEIGHT=20 ALIGN=BOTTOM ALT="displaymath21680" SRC="img359.gif"  > <P>
+for 1&lt;<I>i</I>&lt;<I>N</I> where
+<P> <IMG WIDTH=351 HEIGHT=26 ALIGN=BOTTOM ALT="displaymath21681" SRC="img360.gif"  > <P>
+with initial conditions given by 
+<P> <IMG WIDTH=278 HEIGHT=15 ALIGN=BOTTOM ALT="displaymath21682" SRC="img361.gif"  > <P>
+<P> <IMG WIDTH=304 HEIGHT=15 ALIGN=BOTTOM ALT="displaymath21683" SRC="img362.gif"  > <P>
+for 1&lt;<I>j</I>&lt;<I>N</I>. 
+In this and all subsequent cases, the output  probability  <IMG WIDTH=27 HEIGHT=22 ALIGN=MIDDLE ALT="tex2html_wrap_inline21710" SRC="img363.gif"  >  is as defined in
+equations&nbsp;<A HREF="node94.html#ecdpdf">7.1</A> and <A HREF="node94.html#egnorm">7.2</A> in section&nbsp;<A HREF="node94.html#sHMMparm">7.1</A>.
+<P>
+If  <IMG WIDTH=17 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline21712" SRC="img364.gif"  >  represents the total number of transitions from state <I>i</I> to state <I>j</I>
+in performing the above maximisations, then the transition probabilities can
+be estimated from the relative frequencies
+<P> <IMG WIDTH=300 HEIGHT=37 ALIGN=BOTTOM ALT="displaymath21684" SRC="img365.gif"  > <P>
+<P>
+The sequence of states which maximises  <IMG WIDTH=39 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21718" SRC="img366.gif"  >  implies an alignment of
+training data observations with states.  Within each state, a further alignment
+of observations to mixture components is made.  The tool HINIT provides
+two mechanisms for this:  for each state and each stream
+<OL><LI> use clustering to allocate each observation  <IMG WIDTH=18 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline21720" SRC="img232.gif"  >  to one of  <IMG WIDTH=17 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline21722" SRC="img416.gif"  >  clusters, or<LI> associate each observation  <IMG WIDTH=18 HEIGHT=12 ALIGN=MIDDLE ALT="tex2html_wrap_inline21724" SRC="img232.gif"  >  with the mixture component with the
+       highest probability
+</OL>
+In either case, the net result is that every observation is associated with a single
+unique mixture component.  This association can be
+represented by the indicator function  <IMG WIDTH=46 HEIGHT=23 ALIGN=MIDDLE ALT="tex2html_wrap_inline21726" SRC="img370.gif"  >  which is 1
+if  <IMG WIDTH=18 HEIGHT=19 ALIGN=MIDDLE ALT="tex2html_wrap_inline21728" SRC="img371.gif"  >  is associated with mixture component <I>m</I> of stream <I>s</I> of 
+state <I>j</I> and is zero otherwise.
+<P>
+The means and variances are then estimated via simple averages
+<P>
+<P> <IMG WIDTH=348 HEIGHT=45 ALIGN=BOTTOM ALT="displaymath21685" SRC="img372.gif"  > <P>
+<P>
+<P> <IMG WIDTH=422 HEIGHT=45 ALIGN=BOTTOM ALT="displaymath21686" SRC="img373.gif"  > <P>
+<P>
+Finally, the mixture  weights are based on the number of
+observations allocated to each component
+<P> <IMG WIDTH=353 HEIGHT=45 ALIGN=BOTTOM ALT="displaymath21687" SRC="img374.gif"  > <P><HR><A NAME="tex2html3009" HREF="node112.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3007" HREF="node110.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3001" HREF="node110.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3011" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3012" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3010" HREF="node112.html">8.7.2 Forward/Backward Probabilities</A>
+<B>Up:</B> <A NAME="tex2html3008" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<B> Previous:</B> <A NAME="tex2html3002" HREF="node110.html">8.7 Parameter Re-Estimation Formulae</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

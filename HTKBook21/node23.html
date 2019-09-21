@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3.1.2 Step 2 - the Dictionary</TITLE>
+<META NAME="description" CONTENT="3.1.2 Step 2 - the Dictionary">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1772" HREF="node24.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1770" HREF="node21.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1764" HREF="node22.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1774" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1775" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1773" HREF="node24.html">3.1.3 Step 3 - Recording the Data</A>
+<B>Up:</B> <A NAME="tex2html1771" HREF="node21.html">3.1 Data Preparation</A>
+<B> Previous:</B> <A NAME="tex2html1765" HREF="node22.html">3.1.1 Step 1 - the Task Grammar</A>
+<BR> <P>
+<H2><A NAME="SECTION02312000000000000000">3.1.2 Step 2 - the Dictionary</A></H2>
+<P>
+The first step in building a dictionary is to create a sorted list of the
+required words. 
+In the telephone dialling task pursued here, it is quite easy to create a list
+of required words by hand. However, if the task were more complex, it would be
+necessary to build a word list from the sample sentences present in the training
+data. Furthermore, to build robust acoustic models, it is necessary to train
+them on a large set of sentences containing many words and preferably
+phonetically balanced. For these reasons, the training data will consist of
+English sentences unrelated to the phone recognition task. Below, a short
+example of creating a word list from sentence prompts will be given. As noted
+above the training sentences given here are extracted from some prompts used
+with the TIMIT database<A NAME=1976>&#160;</A> and for convenience reasons they 
+have been renumbered. For example, the first few items might be as follows
+<PRE>    S0001 ONE VALIDATED ACTS OF SCHOOL DISTRICTS
+    S0002 TWO OTHER CASES ALSO WERE UNDER ADVISEMENT
+    S0003 BOTH FIGURES WOULD GO HIGHER IN LATER YEARS
+    S0004 THIS IS NOT A PROGRAM OF SOCIALIZED MEDICINE
+    etc</PRE>
+The desired training word list<A NAME=1978>&#160;</A> (<tt>wlist</tt>) could then be
+extracted automatically from these.  Before using HTK, one would need to edit
+the text into a suitable format.  For example, it would be necessary to change
+all white space to newlines and then to use the UNIX utilities <tt>sort</tt>
+and <tt>uniq</tt> to sort the words into a unique alphabetically ordered set,
+with one word per line.  The script <tt>prompts2wlist</tt> from the
+<tt>HTKTutorial</tt> directory can be used for this purpose.
+<P>
+The dictionary<A NAME=1984>&#160;</A><A NAME=1985>&#160;</A>  
+itself can be built from a standard source 
+using HDMAN<A NAME=2432>&#160;</A>.
+For this example, the British English BEEP pronouncing dictionary will be
+used<A NAME="tex2html139" HREF="footnode.html#2433"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.  
+Its phone set will be adopted without modification except that 
+the stress marks will be removed and a short-pause (<tt>sp</tt>) will
+be added to the end of every pronunciation.  These changes
+can be applied using HDMAN and an 
+edit script (stored in <tt>global.ded</tt>)
+containing the two commands
+<PRE>   AS sp
+   RS cmu</PRE>
+where <tt>cmu</tt> refers to a style of stress marking<A NAME=1993>&#160;</A> in which 
+the lexical stress level is
+marked by a single digit appended to the phone name (e.g. <tt>eh2</tt> means
+the phone <tt>eh</tt> with level 2 stress).
+<P>
+<A NAME="fstep2">&#160;</A> <IMG WIDTH=404 HEIGHT=272 ALIGN=BOTTOM ALT="tex2html_wrap19792" SRC="img112.gif"  > 
+<P>
+The command
+<PRE>    HDMan -m -w wlist -n monophones1 -l dlog dict beep names</PRE>
+will create a new dictionary called <tt>dict</tt> by searching the source
+dictionaries <tt>beep</tt> and <tt>names</tt> to find pronunciations for each
+word in <tt>wlist</tt> (see Fig&nbsp;<A HREF="node23.html#fstep2">3.3</A>). Here, the <tt>wlist</tt> in
+question needs only to be a sorted list of the words appearing in the task
+grammar given above.
+<P>
+Note that <tt>names</tt> is a manually constructed file containing
+pronunciations for the proper names used in the task grammar. The option
+<tt>-l</tt> instructs HDMAN to output a log file <tt>dlog</tt> which 
+contains various statistics about the constructed dictionary. In particular,
+it indicates if there are words missing. HDMAN can also output a list
+of the phones used, here called <tt>monophones1</tt>. Once training and test
+data has been recorded, an HMM will be estimated for each of these phones.
+<P>
+The general format of each dictionary entry<A NAME=2011>&#160;</A> is
+<PRE>    WORD [outsym] p1 p2 p3 ....</PRE>
+which means that the word <tt>WORD</tt> is pronounced as the sequence of phones
+<tt>p1 p2 p3 ...</tt>.  The string in square brackets specifies the string to
+output when that word is recognised.  If it is omitted then the word itself is
+output.  If it is included but empty, then nothing is output.
+<P>
+To see what the dictionary is like, here are a few entries.
+<PRE>    A               ah sp
+    A               ax sp
+    A               ey sp
+    CALL            k ao l sp
+    DIAL            d ay ax l sp
+    EIGHT           ey t sp
+    PHONE           f ow n sp
+    SENT-END    []  sil
+    SENT-START  []  sil
+    SEVEN           s eh v n sp
+    TO              t ax sp
+    TO              t uw sp
+    ZERO            z ia r ow sp</PRE>
+Notice that function words such as <tt>A</tt> and <tt>TO</tt>
+have multiple pronunciations.
+The entries for <tt>SENT-START</tt> and <tt>SENT-END</tt> have a silence
+model <tt>sil</tt> as their pronunciations and null output symbols.
+<P>
+<HR><A NAME="tex2html1772" HREF="node24.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1770" HREF="node21.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1764" HREF="node22.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1774" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1775" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1773" HREF="node24.html">3.1.3 Step 3 - Recording the Data</A>
+<B>Up:</B> <A NAME="tex2html1771" HREF="node21.html">3.1 Data Preparation</A>
+<B> Previous:</B> <A NAME="tex2html1765" HREF="node22.html">3.1.1 Step 1 - the Task Grammar</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

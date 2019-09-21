@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>16.2 Format</TITLE>
+<META NAME="description" CONTENT="16.2 Format">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4990" HREF="node260.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4988" HREF="node257.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4982" HREF="node258.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4992" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4993" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4991" HREF="node260.html">16.3 Syntax</A>
+<B>Up:</B> <A NAME="tex2html4989" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<B> Previous:</B> <A NAME="tex2html4983" HREF="node258.html">16.1 SLF Files</A>
+<BR> <P>
+<H1><A NAME="SECTION04420000000000000000">16.2 Format</A></H1>
+<A NAME="sslfformat">&#160;</A>
+<P>
+The format<A NAME=16733>&#160;</A> is designed to allow optional information that at its most
+detailed gives full identity, alignment and score (log likelihood) 
+information at the word and phone level to allow calculation of the
+alignment and likelihood of an individual hypothesis.
+However, without scores or times the lattice is just a word graph.
+The format is designed to be extendible.  Further field names can be 
+defined to allow  arbitrary information to be added to the lattice without
+making the resulting file unreadable by others.
+<P>
+The lattices are stored in a text file as a series of fields that 
+form two blocks:
+<P>
+<UL><LI>   A header, specifying general information about the lattice.<LI>   The node and link definitions.
+</UL>
+<P>
+Either block may contain comment lines<A NAME=16736>&#160;</A>, for which the first character 
+is a `#' and the rest of the line is ignored.
+<P>
+All non-comment lines consist of fields, separated by white space.
+Fields consist of an alphanumeric field name, followed by a delimiter 
+(the character `=' or `&nbsp;') and a (possibly ``quoted'') field value.  
+All letters in the name are significant.  Single character field names
+are reserved for fields defined in the specification and single
+character abbreviations may be used for many of the fields defined below.
+<P>
+The convention used to define the current field 
+names<A NAME=16737>&#160;</A> is that lower case
+is used for optional fields and upper case is used for required fields.
+The meaning of field names can be dependent on the context in which they 
+appear.
+<P>
+The header must include a field specifying which utterance was used 
+to generate the lattice and a field specifying the version of the 
+lattice specification used.  The header is terminated by a line 
+which defines the number of nodes and links in the lattice.
+<P>
+The node definitions are optional but if included each node definition 
+consists of a single line which specifies the node number followed by
+optional fields that may (for instance) define the time of the node or
+the word hypothesis ending at that node.
+<P>
+The link definitions are required and each link definition consists of
+a single line which specifies the link number as well as the start and 
+end node numbers that it connects to and optionally other information
+about the link such as the word identity and language model score.
+If word identity information is not present in node definitions then it 
+must appear in link definitions.
+<P>
+<HR><A NAME="tex2html4990" HREF="node260.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4988" HREF="node257.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4982" HREF="node258.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4992" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4993" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4991" HREF="node260.html">16.3 Syntax</A>
+<B>Up:</B> <A NAME="tex2html4989" HREF="node257.html">16 HTK Standard Lattice Format (SLF)</A>
+<B> Previous:</B> <A NAME="tex2html4983" HREF="node258.html">16.1 SLF Files</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.13.1 Function</TITLE>
+<META NAME="description" CONTENT="13.13.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4614" HREF="node229.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4612" HREF="node227.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4606" HREF="node227.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4616" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4617" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4615" HREF="node229.html">13.13.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4613" HREF="node227.html">13.13 HRest</A>
+<B> Previous:</B> <A NAME="tex2html4607" HREF="node227.html">13.13 HRest</A>
+<BR> <P>
+<H2><A NAME="SECTION041131000000000000000">13.13.1 Function</A></H2>
+<P>
+<A NAME=14221>&#160;</A>
+HREST performs basic Baum-Welch re-estimation of the parameters of
+a single HMM using a set of observation sequences.  HREST can be used
+for normal isolated word training in which the observation sequences
+are realisations of the corresponding vocabulary word.
+<P>
+Alternatively,
+HREST can be used to generate <i>seed</i> HMMs for phoneme-based
+recognition.  In this latter case, the observation sequences will consist
+of segments of continuously spoken training material.  HREST will
+<i>cut</i> these out of the training data automatically by simply
+giving it a segment label.
+<P>
+In both of the above applications, HREST is intended to operate on
+HMMs with initial parameter values estimated by HINIT.
+<P>
+HREST supports multiple mixture components, multiple streams,
+parameter tying within a single model, full or diagonal
+covariance matrices, tied-mixture models and discrete models.  
+The outputs of HREST are often further 
+processed by HEREST.
+<P>
+Like all re-estimation tools, HREST allows a floor to  be set on
+each individual variance by defining a variance floor macro for each
+data stream (see chapter&nbsp;<A HREF="node103.html#cTraining">8</A>).  If any diagonal covariance
+component falls below 0.00001, then the corresponding mixture weight is
+set to zero.  A warning is issued if the number of mixtures is greater
+than one, otherwise an error occurs.  Applying a variance floor via the
+<TT>-v</TT> option or a variance floor macro can be used to prevent this.
+<P>
+<HR><A NAME="tex2html4614" HREF="node229.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4612" HREF="node227.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4606" HREF="node227.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4616" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4617" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4615" HREF="node229.html">13.13.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4613" HREF="node227.html">13.13 HRest</A>
+<B> Previous:</B> <A NAME="tex2html4607" HREF="node227.html">13.13 HRest</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

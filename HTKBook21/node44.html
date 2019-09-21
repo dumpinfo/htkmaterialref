@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4.5 Error Reporting</TITLE>
+<META NAME="description" CONTENT="4.5 Error Reporting">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2137" HREF="node45.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2135" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2129" HREF="node43.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2139" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2140" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2138" HREF="node45.html">4.6 Strings and Names</A>
+<B>Up:</B> <A NAME="tex2html2136" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2130" HREF="node43.html">4.4 Standard Options</A>
+<BR> <P>
+<H1><A NAME="SECTION03150000000000000000">4.5 Error Reporting</A></H1>
+<A NAME="serep">&#160;</A>
+<P>
+The HSHELL module provides a standard mechanism for reporting
+errors<A NAME=3077>&#160;</A> and warnings<A NAME=3078>&#160;</A>.  
+A typical error message is as follows
+<PRE>    HList: ERROR [+1110]
+      IsWave: cannot open file speech.dat</PRE>
+This indicates that the tool HLIST is reporting an error
+number +1110.  All errors have positive error 
+numbers<A NAME=3080>&#160;</A> and always
+result in the tool terminating.  Warnings have negative error numbers
+and the tool does not terminate.  The first two digits of an error
+number indicate the module or tool in which the error is located
+(HLIST in this case)
+and the last two digits define the class of error.
+The second line of the error message names the actual routine
+in which the error occurred (here <tt>IsWave</tt>) and the 
+actual error message.    All errors and warnings are listed
+in the reference section at the end of this book indexed by
+error/warning number.  This listing contains more details on each
+error or warning along with suggested causes.
+<P>
+Error messages are sent to the  standard error stream but warnings
+are sent to the standard output stream.  The reason for the latter
+is that most 
+HTK tools are run with progress tracing enabled.  Sending warnings
+to the standard output stream ensures that they are properly
+interleaved with the trace of progress so that it is easy to determine
+the point at which the warning was issued.  Sending warnings to
+standard error would lose this information.
+<P>
+The default behaviour of a HTK tool on terminating due to an
+error is to exit normally returning the error number as exit status.
+If, however, the configuration variable 
+<tt>ABORTONERR</tt><A NAME=3280>&#160;</A> is set
+true, then the tool will core dump.  This is a debugging facility which
+should not  concern most users.<A NAME=3085>&#160;</A>
+<P>
+<HR><A NAME="tex2html2137" HREF="node45.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2135" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2129" HREF="node43.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2139" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2140" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2138" HREF="node45.html">4.6 Strings and Names</A>
+<B>Up:</B> <A NAME="tex2html2136" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2130" HREF="node43.html">4.4 Standard Options</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

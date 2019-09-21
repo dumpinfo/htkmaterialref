@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>13.8.1 Function</TITLE>
+<META NAME="description" CONTENT="13.8.1 Function">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html4317" HREF="node205.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4315" HREF="node203.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4309" HREF="node203.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4319" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4320" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4318" HREF="node205.html">13.8.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4316" HREF="node203.html">13.8 HLEd</A>
+<B> Previous:</B> <A NAME="tex2html4310" HREF="node203.html">13.8 HLEd</A>
+<BR> <P>
+<H2><A NAME="SECTION04181000000000000000">13.8.1 Function</A></H2>
+<P>
+<A NAME=13378>&#160;</A>
+This program is a simple editor for manipulating label files.
+Typical examples of its use might be to merge a sequence of
+labels into a single composite label or to expand a set of
+labels into a context sensitive set.  HLED works by
+reading in a list of <EM>editing</EM> commands from an edit
+script file and then makes an edited copy of one or more 
+label files.  For multiple level files, edit commands are applied
+to the <i>current level</i> which is initially the first (i.e. 1).
+Other levels may be edited by moving to the required level using the
+<tt>ML</tt> Move Level command.
+<P>
+Each edit command in the script file must be
+on a separate line.  The first two-letter mnemonic on each line is the command name and
+the remaining letters denote labels<A NAME="tex2html925" HREF="footnode.html#13379"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>.
+The commands supported may be divided into
+two sets.  Those in the first set are used to edit individual
+labels and they are as follows
+<P>
+<UL><DT><TT>CH X A Y B</TT>
+<DD>      Change <tt>Y</tt> in the context of <tt>A_B</tt> 
+      to <tt>DC</tt>.  <tt>A</tt> and/or <tt>B</tt> may be a <tt>*</tt> to match 
+      any context, otherwise they must be defined by an <tt>X</tt> command
+      (see below).  A
+      block of consecutive <tt>CH</tt> commands are effectively executed in
+      parallel so that the contexts are those that exist before any of
+      the commands in the block are applied.
+   <DT><TT>DC A B C ..</TT>
+<DD>     define the context <tt>A</tt> as the set of labels
+        <tt>B</tt>, <tt>C</tt>, etc.   
+   <DT><TT>DE A B ..</TT>
+<DD>     Delete any occurrences of labels <tt>A</tt>
+        or <tt>B</tt> etc. 
+   <DT><TT>FI A Y B</TT>
+<DD>  Find <tt>Y</tt> in the context of <tt>A_B</tt> 
+      and count the number of occurrences.
+   <DT><TT>ME X A B ..</TT>
+<DD>     Merge any sequence of labels <tt>A</tt>
+       <tt>B</tt> <tt>C</tt> etc.  and call the new segment <tt>X</tt>.
+   <DT><TT>ML N</TT>
+<DD> Move to label level <tt>N</tt>.
+   <DT><TT>RE X A B ..</TT>
+<DD>   Replace all occurrences of labels <tt>A</tt>
+      or <tt>B</tt> etc. by the label <tt>X</tt>.
+</UL>
+<P>
+The commands in the second set perform global operations on whole
+transcriptions.  They are as follows.
+<P>
+<UL><DT><TT>DL [N]</TT>
+<DD> Delete all labels in the current level.  If the
+     optional integer arg is given, then level <tt>N</tt> is deleted.
+   <DT><TT>EX</TT>
+<DD> Expand all labels either from words to phones using the 
+	first pronunciation from a dictionary when it is specified on the 
+	command line otherwise expand labels of the form 
+	<tt>A_B_C_D_...</tt> into a sequence of separate labels 
+	<tt>A B C D ....</tt>.  This is useful for label formats which 
+	include a complete orthography as a single label or for creating 
+	a set of sub-word labels from a word orthography for a sub-word 
+	based recogniser.  When a label is expanded in this way, the 
+	label duration is divided into equal length segments.  This can
+	only be performed on the root level of a multiple level file.
+   <DT><TT>FG X</TT>
+<DD> Mark all unlabelled segments of the input
+       file of duration greater than  <IMG WIDTH=13 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline22284" SRC="img536.gif"  >  msecs with the label <tt>X</tt>.
+       The default value for  <IMG WIDTH=13 HEIGHT=20 ALIGN=MIDDLE ALT="tex2html_wrap_inline22286" SRC="img536.gif"  >  is 50000.0 (=5msecs) but this
+       can be changed using the <tt>-g</tt> command line option.  This
+       command
+       is mainly used for explicitly labelling inter-word silences in
+       data files for which only the actual speech has been transcribed.
+   <DT><TT>IS A B</TT>
+<DD>  Insert label <tt>A</tt> at the start of every
+       transcription and <tt>B</tt> at the end.  This command is usually
+       used to insert silence labels.
+   <DT><TT>IT</TT>
+<DD> Ignore triphone contexts in <tt>CH</tt> and <tt>FI</tt>
+       commands.
+   <DT><TT>LC [X]</TT>
+<DD> Convert all phoneme labels to left context
+       dependent.  If <tt>X</tt> is given then the first phoneme label
+       <tt>a</tt> becomes <tt>X-a</tt> otherwise it is left unchanged.
+   <DT><TT>NB X</TT>
+<DD> The label  <tt>X</tt> (typically a short pause)
+       should be ignored at word boundaries when using the context
+       commands <tt>LC</tt>, <tt>RC</tt> and <tt>TC</tt>.
+   <DT><TT>RC [X]</TT>
+<DD> Convert all phoneme labels to right context
+       dependent.  If <tt>X</tt> is given then the last phoneme label
+       <tt>z</tt> becomes <tt>z+X</tt> otherwise it is left unchanged.
+   <DT><TT>SB X</TT>
+<DD>  Define the label <tt>X</tt> to be a sentence boundary
+       marker.  This label can then be used in context-sensitive change
+       commands.
+   <DT><TT>SO</TT>
+<DD>     Sort all labels into time order.
+   <DT><TT>SP</TT>
+<DD>     Split multiple levels into multiple alternative label lists.
+   <DT><TT>TC [X[Y]]</TT>
+<DD> Convert all phoneme labels to Triphones, that is
+       left and right context
+       dependent.  If <tt>X</tt> is given then the first phoneme label
+       <tt>a</tt> becomes <tt>X-a+b</tt> otherwise it is left unchanged.
+       If <tt>Y</tt> is given then the last phoneme label
+       <tt>z</tt> becomes <tt>y-z+Y</tt> otherwise  if <tt>X</tt> is given then it
+        becomes <tt>y-z+X</tt> otherwise it is left unchanged.
+   <DT><TT>WB X</TT>
+<DD>  Define <tt>X</tt> to be an inter-word label. 
+       This command affects the operation of the <tt>LC</tt>, <tt>RC</tt>
+       and <tt>TC</tt> commands.  The expansion of context labels is 
+       blocked wherever an inter-word label occurs.
+</UL>
+<P>
+The source and target label file formats can be 
+defined using the <tt>-G</tt> and <tt>-P</tt> command line arguments.  They can
+also be set using the configuration variables <tt>SOURCELABEL</tt> 
+and <tt>TARGETLABEL</tt>.  The default for both cases is the HTK format.
+<P>
+<HR><A NAME="tex2html4317" HREF="node205.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html4315" HREF="node203.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html4309" HREF="node203.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html4319" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html4320" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html4318" HREF="node205.html">13.8.2 Use</A>
+<B>Up:</B> <A NAME="tex2html4316" HREF="node203.html">13.8 HLEd</A>
+<B> Previous:</B> <A NAME="tex2html4310" HREF="node203.html">13.8 HLEd</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

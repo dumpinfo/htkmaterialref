@@ -1,0 +1,1714 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Footnotes</TITLE>
+<META NAME="description" CONTENT="Footnotes">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+<DL> <DT><A NAME="591">...weight</A><DD>often 
+referred to as a codebook exponent.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="681">...probability</A><DD>
+Since the output distributions are densities, these are not
+really probabilities but it is a convenient fiction.
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="887">...non-emitting</A><DD>
+To understand equations involving a non-emitting state at time <I>t</I>, the time
+should be thought of as being 64#64 if it is an entry state, and 65#65
+if it is an exit state.  This becomes important when HMMs are connected together
+in sequence so that transitions across non-emitting states take place
+<i>between frames</i>.
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="755">...<I>accumulators</I></A><DD>
+      Note that normally the summations in
+      the denominators of the re-estimation formulae are identical
+      across the parameter sets of a given state and therefore
+      only a single common storage location for the denominators
+      is required and it need only be calculated once. However,
+      HTK supports a generalised parameter tying mechanism
+      which can result in the denominator summations being
+      different.  Hence, in HTK the denominator summations
+      are always stored and calculated individually 
+      for each distinct parameter vector or matrix.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="893">...operation</A><DD>
+They can even be avoided altogether by using a <i>flat start</i>
+as described in section&nbsp;<A HREF="node106.html#sflatstart">8.3</A>.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="895">...minor</A><DD>
+In practice, a good deal of extra work is needed to achieve
+efficient operation on large training databases.  For example,
+the HEREST tool includes facilities for
+pruning on both the forward and backward passes and 
+parallel operation on a network of machines.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="896">...Model</I></A><DD>
+See ``Token Passing: a Conceptual Model for Connected Speech
+Recognition Systems'', SJ Young, NH Russell and JHS Thornton,
+CUED Technical Report F_INFENG/TR38, Cambridge University, 1989.
+Available by anonymous ftp from <tt>svr-ftp.eng.cam.ac.uk</tt>.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="2433">...used</A><DD>Available by anonymous ftp from 
+<tt>svr-ftp.eng.cam.ac.uk/comp.speech/dictionaries/beep.tar.gz</tt>.
+Note that items beginning with unmatched quotes, found at the start
+of the dictionary, should be removed.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="2441">...files</A><DD>
+Not to be confused with files containing <i>edit</i> scripts
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="2093">...arguments</A><DD>
+Most UNIX shells, especially the C shell, only allow a limited and
+quite small number of arguments.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="2461">...together</A><DD>
+Note that if the transition matrices had not been tied, the <tt>CO</tt>
+command would be ineffective since all models would be different by
+virtue of their unique transition matrices.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="2972">...is</A><DD>All of the examples in this book assume the
+UNIX Operating System and the C Shell but the principles apply to
+any OS which supports hierarchical files and command line arguments
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="3129">...element)</A><DD> Block sizes typically grow as
+more blocks are allocated
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="3145">...retries</A><DD> This does not work if input filters are used.  
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="4506">...units</A><DD>
+The somewhat bizarre choice of 100nsec units originated in Version 1 of
+HTK when times were represented by integers and this unit was the best
+compromise between precision and range.  Times are now represented by
+doubles and hence the constraints no longer apply.  However, the need for backwards
+compatibility means that 100nsec units have been retained.  The names
+<tt>SOURCERATE</tt> and <tt>TARGETRATE</tt> are also non-ideal, 
+<tt>SOURCEPERIOD</tt> and <tt>TARGETPERIOD</tt> would be better.
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="4508">...input</A><DD> This method of applying a zero mean is different to
+HTK Version 1.5 where the mean was calculated and subtracted from the
+whole speech file in one operation. The configuration variable
+<tt>V1COMPAT</tt> can be set to revert to this older behaviour.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="3586">...databases</A><DD>Many of the
+more recent speech databases use compression. In these cases, the data may be
+regarded as being logically encoded as a sequence of 2-byte integers even if
+the actual storage uses a variable length encoding scheme.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="4516">...function</A><DD>
+Note that some textbooks define the denominator of equation&nbsp;<A HREF="node53.html#eallpole">5.4</A>
+as 145#145 so that the filter coefficients are the
+negatives of those computed by HTK.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="4548">...parameterisation</A><DD> In any
+event, setting the compatibility variable <tt>V1COMPAT</tt> to true in
+HPARM will ensure that the calculation of energy is compatible with
+that computed by the Version 1 tool HCODE.  
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="4550">...173#173</A><DD> Unless <tt>V1COMPAT</tt> is
+set to true.  
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="3836">...discarded</A><DD>
+Some applications may require the 0'th order cepstral coefficient
+in order to recover the filterbank coefficients from the cepstral
+coefficients.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="5569">...letters</A><DD>
+Some command names have single 
+letter<A NAME=5417>&#160;</A> alternatives for compatibility with
+earlier versions of HTK.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="5829">...234#234</A><DD>
+No current HTK tool can estimate or use these.
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="5933">...element</A><DD>
+Covariance matrices are actually stored internally in lower triangular
+form
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="5945">...&lt;<i>InvCovar</i>&gt;</A><DD>
+The Choleski storage format is not used by default in HTK Version 2
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="6098">...matrix</A><DD>
+Transform matrices are not used by any of the supported HTK tools.
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="6420">...definition</A><DD>The fact that
+this is possible does not mean that it is recommended practice!
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="6427">...brackets</A><DD>
+This definition covers the textual version only.  The syntax for
+the binary format
+is identical apart from the way that the lexical items are encoded.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="6568">...states</A><DD>
+Integer numbers are specified as either <i>char</i> or <i>short</i>.
+This has no effect on text-based definitions but for binary format it indicates
+the underlying C type used to represent the number.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="9811">...mapping</A><DD>The physical
+HMM which corresponding to several logical HMMs will be arbitrarily named after
+one of them.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="10128">...likely</A><DD>
+Remember that discrete probabilities are scaled such that
+32767 is equivalent to a probability of 0.000001 and 0 is 
+equivalent to a probability of 1.0
+<P>
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="10266">...HMMs</A><DD>Also called <I>semi-continuous</I> HMMs in the the literature.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="10439">...words</A><DD>More precisely, nodes represent the ends of
+words and arcs represent the transitions between word ends.
+This distinction becomes important when describing
+recognition output since acoustic scores are attached
+to arcs not nodes. 
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="11407">...definitions</A><DD>
+Large HMM sets will often be distributed across a number of MMF files,
+in this case, the <tt>-H</tt> option will be repeated for each file.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="11410">...10</A><DD>The default behaviour of HRESULTS is
+slightly different to the widely used US NIST scoring software which uses
+weights of 3,3 and 4 and a slightly different alignment algorithm. Identical
+behaviour to NIST can be obtained by setting the -n option.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="11411">...words</A><DD>
+All the examples here will assume that each label corresponds to a word
+but in general the labels could stand for any recognition unit such as
+phones, syllables, etc.  HRESULTS does not care what the labels
+mean but for human consumption, the labels  <tt>SENT</tt> 
+and <tt>WORD</tt>  can be changed using the <tt>-a</tt> and  <tt>-b</tt> 
+options.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="11416">...NAME=11415>&#160;</A>word</A><DD>
+The HLED <tt>EX</tt> command can be used to compute phone
+level transcriptions when there is only one possible 
+phone transcription
+per word
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="11421">...control</A><DD> The underlying signal number must be
+given, HTK cannot interpret the standard Unix signal names such as
+<tt>SIGINT</tt> 
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="12036">...options</A><DD>HCOPY thus takes on the functionality of
+the former HTK tool HCODE, which no longer exists in V2.0.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13061">...algorithm</A><DD>This algorithm is significantly different from 
+earlier versions of HTK where K-means clustering was used at every
+iteration and the Viterbi alignment was limited to states
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13129">...ignored</A><DD>Prototypes should either
+have GConst set (the value does
+not matter) to avoid <TT>HTK</TT> trying to compute it or
+variances should be set to a positive value such as 1.0 to
+ensure that GConst is computable
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13379">...labels</A><DD>In earlier versions of 
+HTK, HLED command names consisted of a single letter.  These
+are still supported for backwards compatibility and they are included
+in the command summary produced using the <tt>-Q</tt> option.  
+However, new commands
+introduced in version 2.0  have two letter names.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13569">...<tt>TARGETKIND</tt></A><DD>The <tt>TARGETKIND</tt> is equivalent to
+the <tt>HCOERCE</tt> environment variable used in earlier versions
+of HTK
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13835">...grammar.</A><DD>The expression between 
+double angle brackets must be a simple list of alternative node names or
+a variable which has such a list as its value
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13903">...recognition</A><DD>In HTK V2 it is preferable for
+these context-loop expansions to be done automatically via HNET,
+to avoid requiring a dictionary entry for every context-dependent
+model
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13904">...used</A><DD>If the base-names or left/right context of the context-dependent names in a context-dependent loop are variables,  
+no <tt>$</tt> symbols are used when writing the context-dependent
+nodename.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="13869">...revised</A><DD>With the added benefit
+of rectifying some residual bugs in the HTK V1.5 implementation
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="14185">...mechanism</A><DD>Using this option
+      only makes sense if the HMM has skip transitions
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="14418">...transcriptions</A><DD>
+The choice of ``Sentence'' and ``Word'' here is the usual
+case but is otherwise arbitrary.
+HRESULTS just compares label sequences.  The sequences
+could be paragraphs, sentences, phrases or words, and the labels
+could be phrases, words, syllables or phones, etc.  Options exist
+to change the output designations `SENT' and `WORD' to whatever
+is appropriate.
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE><DT><A NAME="14941">...mode</I></A><DD>It is not,of course,
+necessary to have multiple processors to use this program since each 
+`parallel' activation can be executed sequentially on a single
+processor
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE> </DL>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

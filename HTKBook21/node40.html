@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4.1 The Command Line</TITLE>
+<META NAME="description" CONTENT="4.1 The Command Line">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2089" HREF="node41.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2087" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2081" HREF="node39.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2091" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2092" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2090" HREF="node41.html">4.2 Script Files</A>
+<B>Up:</B> <A NAME="tex2html2088" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2082" HREF="node39.html">4 The Operating Environment</A>
+<BR> <P>
+<H1><A NAME="SECTION03110000000000000000">4.1 The Command Line</A></H1>
+<A NAME="scmdline">&#160;</A>
+<P>
+The general form of command line for invoking a tool 
+is<A NAME="tex2html250" HREF="footnode.html#2972"><IMG  ALIGN=BOTTOM ALT="gif" SRC="foot_motif.gif"></A>
+<A NAME=2973>&#160;</A><A NAME=2974>&#160;</A>
+<PRE>	   tool [options] files ...</PRE>
+Options always consist of a dash followed by a single letter.  Some options
+are followed by an argument as follows
+<PRE><TT> 
+			     <tt>-i</tt> 		  - a switch option
+<P>
+			     <tt>-t 3</tt> 		 - an integer valued option
+<P>
+			     <tt>-a 0.01</tt> 		 - a float valued option
+<P>
+			     <tt>-s hello</tt> 		 - a string valued option
+<P>
+</TT></PRE>	
+Option names consisting of a capital letter are common across all tools
+(see section&nbsp;<A HREF="node43.html#sstdopts">4.4</A>).
+Integer arguments<A NAME=2982>&#160;</A> may be given 
+in any of the standard C formats, for example,
+<tt>13</tt>, <tt>0xD</tt> and <tt>015</tt> all represent the same number.
+Typing the name of a tool on its own always causes a short summary of
+the command line options to be printed in place of its normal
+operation.  For example, typing
+<PRE>    HERest</PRE>
+would result in the following output
+<PRE>    USAGE: HERest [options] hmmList dataFiles...
+
+     Option                                   Default
+
+     -c f    Mixture pruning threshold          10.0
+     -d s    dir to find hmm definitions       current
+     -m N    set min examples needed per model   3
+     -o s    extension for new hmm files        as src
+     -p N    set parallel mode to N             off
+     ...</PRE>
+The first line shows the names of the required files and the rest
+consists of a listing of each option, its meaning, and its default
+value.
+<P>
+The precise naming convention for specifying files depends on the operating
+system being used, but HTK always assumes the existence of a hierarchical
+file system and it maintains a distinction between directory paths
+and file names.
+<P>
+In general, a file will be located either in
+the current directory, some subdirectory of the current directory or some
+subdirectory of the root directory.  For example, in the command
+<PRE>      HList s1 dir/s2 /users/sjy/speech/s3</PRE>
+file <tt>s1</tt> must be in the current directory, <tt>s2</tt> must be in the
+directory <tt>dir</tt> within the current directory and <tt>s3</tt> must be in the
+directory <tt>/users/sjy/speech</tt>.
+<P>
+Some tools allow directories to be specified via configuration parameters and
+command line options.  In all cases, the final path character (eg / in UNIX, 
+: in Mac OS) need not (but may be) included.  For example, both of the following
+are acceptable and have equivalent effect
+<PRE>      HInit -l i: -L mymodels/new/  hmmfile data*
+      HInit -l i: -L mymodels/new  hmmfile data*</PRE>	
+where the <tt>-L</tt> option specifies the directory in which to find the 
+label files associated with the data files.
+<P>
+<HR><A NAME="tex2html2089" HREF="node41.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2087" HREF="node39.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2081" HREF="node39.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2091" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2092" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2090" HREF="node41.html">4.2 Script Files</A>
+<B>Up:</B> <A NAME="tex2html2088" HREF="node39.html">4 The Operating Environment</A>
+<B> Previous:</B> <A NAME="tex2html2082" HREF="node39.html">4 The Operating Environment</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

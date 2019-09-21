@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>10 Discrete and Tied-Mixture Models</TITLE>
+<META NAME="description" CONTENT="10 Discrete and Tied-Mixture Models">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html3156" HREF="node124.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3154" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3148" HREF="node122.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3158" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3159" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3157" HREF="node124.html">10.1 Modelling Discrete Sequences</A>
+<B>Up:</B> <A NAME="tex2html3155" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html3149" HREF="node122.html">9.7 Miscellaneous Operations</A>
+<BR> <P>
+<H1><A NAME="SECTION03700000000000000000">10 Discrete and Tied-Mixture Models</A></H1>
+<A NAME="cdiscmods">&#160;</A>
+<P>
+Most of the discussion so far has focussed on using HTK\
+to model sequences of continuous-valued vectors.  In contrast, this chapter
+is mainly concerned with using HTK to model sequences of discrete
+symbols.  
+Discrete symbols arise naturally in modelling many types of
+data, for example, letters and words, bitmap images, and DNA sequences.
+Continuous signals can also be converted to discrete symbol sequences
+by using a quantiser and in particular, speech vectors can be
+<i>vector quantised</i> as described in section&nbsp;<A HREF="node74.html#svquant">5.11</A>.
+In all cases, HTK expects a set of <I>N</I> discrete symbols to be represented by
+the contiguous sequence of integer numbers from 1 to <I>N</I>.
+<P>
+  <IMG WIDTH=333 HEIGHT=252 ALIGN=BOTTOM ALT="tex2html_wrap21986" SRC="img440.gif"  > <A NAME=10122>&#160;</A>
+<P>
+In HTK discrete probabilities are regarded as being closely analogous
+to the mixture weights of a continuous density system.  As a consequence,
+the representation and processing of discrete HMMs shares a great deal
+with continuous density models.  It follows from this that most of the
+principles and practice developed already are equally applicable to
+discrete systems.  As a consequence, this chapter can be quite brief.
+<P>
+The first topic covered concerns building HMMs for discrete
+symbol sequences.  The use of discrete HMMs with speech is then
+presented.  The tool HQUANT is described and the method
+of converting continuous speech vectors to discrete symbols is
+reviewed.  This is 
+followed by a brief discussion of tied-mixture systems which can be 
+regarded as a compromise between continuous and discrete density systems.
+Finally, the use of the HTK tool HSMOOTH for
+parameter smoothing by deleted interpolation is presented.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html3160" HREF="node124.html#SECTION03710000000000000000">10.1 Modelling Discrete Sequences</A>
+<LI> <A NAME="tex2html3161" HREF="node125.html#SECTION03720000000000000000">10.2 Using Discrete Models with Speech</A>
+<LI> <A NAME="tex2html3162" HREF="node126.html#SECTION03730000000000000000">10.3 Tied Mixture Systems</A>
+<LI> <A NAME="tex2html3163" HREF="node127.html#SECTION03740000000000000000">10.4 Parameter Smoothing</A>
+</UL>
+<HR><A NAME="tex2html3156" HREF="node124.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html3154" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html3148" HREF="node122.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html3158" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html3159" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html3157" HREF="node124.html">10.1 Modelling Discrete Sequences</A>
+<B>Up:</B> <A NAME="tex2html3155" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html3149" HREF="node122.html">9.7 Miscellaneous Operations</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

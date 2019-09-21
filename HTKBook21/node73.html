@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>5.10 Multiple Input Streams</TITLE>
+<META NAME="description" CONTENT="5.10 Multiple Input Streams">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2520" HREF="node74.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2518" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2512" HREF="node72.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2522" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2523" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2521" HREF="node74.html">5.11 Vector Quantisation</A>
+<B>Up:</B> <A NAME="tex2html2519" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2513" HREF="node72.html">5.9 Direct Audio Input/Output</A>
+<BR> <P>
+<H1><A NAME="SECTION032100000000000000000">5.10 Multiple Input Streams</A></H1>
+<A NAME="sstreams">&#160;</A>
+<P>
+<A NAME=4098>&#160;</A>
+As noted in section&nbsp;<A HREF="node51.html#sgenio">5.1</A>, HTK tools regard the input observation
+sequence as being divided into a number of independent <i>data streams</i>.
+For building continuous density HMM systems, this facility is of limited
+use and by far the most common case is that of a single data stream.
+However, when building tied-mixture systems or when
+using vector quantisation, a more uniform coverage of the
+acoustic space is obtained by separating energy, deltas, etc., into
+separate streams.
+<P>
+This separation of parameter vectors into streams takes place at 
+the point where the vectors
+are extracted from the converted input file or audio device and
+transformed into an observation.  The tools for HMM construction
+and for recognition thus view the input data as a sequence of observations
+but note that this entirely internal to HTK.   Externally data is
+always stored as a single sequence of parameter vectors.
+<P>
+When multiple streams<A NAME=4101>&#160;</A> are required,
+the division of the parameter vectors is performed automatically
+based on the parameter kind.  This works according 
+to the following rules.
+<P>
+<DL ><DT><STRONG>1 stream</STRONG>
+<DD> single parameter vector.  This is the default case.
+<DT><STRONG>2 streams</STRONG>
+<DD> if the parameter vector contains energy terms, then
+     they are extracted and placed in stream 2.  Stream 1 contains the
+     remaining static coefficients and their deltas and accelerations,
+     if any.  Otherwise, 
+     the parameter vector must have appended delta
+     coefficients and no appended acceleration coefficients.  
+     The vector is then split so that the static
+     coefficients form stream 1 and
+     the corresponding delta coefficients form stream 2.
+<DT><STRONG>3 streams</STRONG>
+<DD> 
+     if the parameter vector has acceleration coefficients, then vector
+     is split with static coefficients plus any energy in stream 1,
+     delta coefficients plus any delta energy in stream 2 and
+     acceleration coefficients plus any acceleration energy in stream 3.
+     Otherwise, the parameter vector must include log energy and
+     must have appended delta coefficients.  The vector is then split
+     into three parts so that the static coefficients form stream
+     1, the delta coefficients form stream 2, and the log energy
+     and delta log energy are combined to form stream 3.  
+<DT><STRONG>4 streams</STRONG>
+<DD>
+    the parameter vector must include log energy and
+    must have appended delta and acceleration coefficients.
+    The vector is split into 4 parts so that the static coefficients form stream
+    1, the delta coefficients form stream 2, the acceleration
+    coefficients form stream 3 and the log energy, delta energy
+    and acceleration energy are combined to form stream 4.
+<P>
+ </DL>
+In all cases, 
+the static log energy can be 
+suppressed (via the <tt>_N</tt><A NAME=4582>&#160;</A> qualifier).
+If none of the above rules apply for some required number of
+streams, then the parameter vector is simply incompatible with that
+form of observation.  For example, the parameter kind <tt>LPC_D_A</tt>
+cannot be split into 2 streams, instead 3 streams should be used.
+<A NAME=4107>&#160;</A>
+<P>
+
+<P>
+<A NAME="fstreams">&#160;</A> <IMG WIDTH=537 HEIGHT=367 ALIGN=BOTTOM ALT="tex2html_wrap19978" SRC="img194.gif"  > 
+
+<P>
+Fig.&nbsp;<A HREF="node73.html#fstreams">5.6</A> illustrates the way that streams are constructed
+for a number of common cases.  As earlier, the choice of <tt>LPC</tt>
+as the static coefficients is purely for illustration and the same
+mechanism applies to all base parameter kinds.
+<P>
+As discussed further in the next section,
+multiple data streams are often used with vector quantised data.  In this
+case, each VQ symbol per input sample is placed in a separate data stream.
+<P>
+<HR><A NAME="tex2html2520" HREF="node74.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2518" HREF="node50.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2512" HREF="node72.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2522" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2523" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2521" HREF="node74.html">5.11 Vector Quantisation</A>
+<B>Up:</B> <A NAME="tex2html2519" HREF="node50.html">5 Speech Input/Output</A>
+<B> Previous:</B> <A NAME="tex2html2513" HREF="node72.html">5.9 Direct Audio Input/Output</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

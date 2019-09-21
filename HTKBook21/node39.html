@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>4 The Operating Environment</TITLE>
+<META NAME="description" CONTENT="4 The Operating Environment">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html2067" HREF="node40.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2065" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2059" HREF="node38.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2069" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2070" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2068" HREF="node40.html">4.1 The Command Line</A>
+<B>Up:</B> <A NAME="tex2html2066" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2060" HREF="node38.html">Part II: HTK in Depth</A>
+<BR> <P>
+<H1><A NAME="SECTION03100000000000000000">4 The Operating Environment</A></H1>
+<A NAME="copenviron">&#160;</A>
+<P>
+This chapter discusses the various ways of  controlling the operation of
+HTK tools along with related aspects of file system organisation, error
+reporting and memory management.   All of the operating 
+system<A NAME=3292>&#160;</A> and user
+interface functions are provided by the HTK 
+module HSHELL. 
+Memory management is a low level function which is largely invisible to
+the user, but it is useful to have a basic understanding of it in order to
+appreciate memory requirements and interpret diagnostic output from
+tools.  Low level memory management in HTK is provided by
+HMEM and the management of 
+higher level structures such as vectors
+and matrices is provided by HMATH.
+<P>
+  <IMG WIDTH=325 HEIGHT=195 ALIGN=BOTTOM ALT="tex2html_wrap19824" SRC="img127.gif"  > 
+<A NAME=3261>&#160;</A>
+<A NAME=3262>&#160;</A>
+<A NAME=3263>&#160;</A>
+<P>
+The behaviour of a HTK tool depends on three sources of information.
+Firstly,
+all HTK tools are executed by issuing commands to the operating
+system shell.  
+Each command typically contains the names of the various files that the
+tool needs to function and a number of optional arguments which 
+control the detailed behaviour of the tool.  
+Secondly, 
+as noted in chapter&nbsp;<A HREF="node10.html#chtkoview">2</A> and shown in the adjacent figure, every HTK tool uses a set
+of standard library modules to interface to the various file types and
+to connect with the outside world.  Many of these modules can be
+customised by setting parameters in a <I>configuration file</I>.
+Thirdly, a small number of parameters are specified using
+environment variables.
+<P>
+Terminal output mostly depends on the specific tool 
+being used, however, there
+are some generic output functions which are provided by the library
+modules and which are therefore common across tools.  These include
+version reporting, memory usage and error reporting.
+<P>
+Finally, HTK can read and write most data sources through pipes<A NAME=2968>&#160;</A> as an alternative
+to direct input and output from data files.  This allows 
+filters to be used, and in particular, it allows many of the external
+files used by HTK to be stored directly in compressed form and then decompressed
+<i>on-the-fly</i> when the data is read back in.
+<P>
+All of the above is discussed in more detail in the following sections.
+<P>
+<BR> <HR>
+<UL> 
+<LI> <A NAME="tex2html2071" HREF="node40.html#SECTION03110000000000000000">4.1 The Command Line</A>
+<LI> <A NAME="tex2html2072" HREF="node41.html#SECTION03120000000000000000">4.2 Script Files</A>
+<LI> <A NAME="tex2html2073" HREF="node42.html#SECTION03130000000000000000">4.3 Configuration Files</A>
+<LI> <A NAME="tex2html2074" HREF="node43.html#SECTION03140000000000000000">4.4 Standard Options</A>
+<LI> <A NAME="tex2html2075" HREF="node44.html#SECTION03150000000000000000">4.5 Error Reporting</A>
+<LI> <A NAME="tex2html2076" HREF="node45.html#SECTION03160000000000000000">4.6 Strings and Names</A>
+<LI> <A NAME="tex2html2077" HREF="node46.html#SECTION03170000000000000000">4.7 Memory Management</A>
+<LI> <A NAME="tex2html2078" HREF="node47.html#SECTION03180000000000000000">4.8 Input/Output via Pipes and Networks</A>
+<LI> <A NAME="tex2html2079" HREF="node48.html#SECTION03190000000000000000">4.9 Byte-swapping of HTK data files</A>
+<LI> <A NAME="tex2html2080" HREF="node49.html#SECTION031100000000000000000">4.10 Summary</A>
+</UL>
+<HR><A NAME="tex2html2067" HREF="node40.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html2065" HREF="node38.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html2059" HREF="node38.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html2069" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html2070" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html2068" HREF="node40.html">4.1 The Command Line</A>
+<B>Up:</B> <A NAME="tex2html2066" HREF="node38.html">Part II: HTK in Depth</A>
+<B> Previous:</B> <A NAME="tex2html2060" HREF="node38.html">Part II: HTK in Depth</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>

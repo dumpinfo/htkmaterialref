@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>3.5 Running the Recogniser Live</TITLE>
+<META NAME="description" CONTENT="3.5 Running the Recogniser Live">
+<META NAME="keywords" CONTENT="HTKBook">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="HTKBook.css">
+</HEAD>
+<BODY LANG="EN">
+ <A NAME="tex2html1926" HREF="node37.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1924" HREF="node20.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1918" HREF="node35.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1928" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1929" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1927" HREF="node37.html">3.6 Summary</A>
+<B>Up:</B> <A NAME="tex2html1925" HREF="node20.html">3 A Tutorial Example of Using HTK</A>
+<B> Previous:</B> <A NAME="tex2html1919" HREF="node35.html">3.4.1 Step 11 - Recognising the Test Data</A>
+<BR> <P>
+<H1><A NAME="SECTION02350000000000000000">3.5 Running the Recogniser Live</A></H1>
+<A NAME="segreclive">&#160;</A>
+<P>
+Finally, the recogniser can be run with live input<A NAME=2413>&#160;</A>.  
+<A NAME=2414>&#160;</A>
+To do this it is only
+necessary to set the configuration variables needed to convert the input
+audio to the correct form of  parameterisation.  Specifically, the following
+need to be set
+<PRE>    # Waveform capture
+    SOURCERATE=625.0
+    SOURCEKIND=WAVEFORM
+    SOURCEFORMAT=HAUDIO
+    ENORMALISE=F
+    USESILDET=T
+    MEASURESIL=T
+    OUTSILWARN=T</PRE>
+These indicate that the source is direct audio with sample period 62.5
+ <IMG WIDTH=6 HEIGHT=13 ALIGN=MIDDLE ALT="tex2html_wrap_inline19822" SRC="img126.gif"  > secs.  The silence detector is enabled and a measurement of the background
+speech/silence levels should be made at start-up.  The final line makes sure
+that a warning is printed when this silence measurement is being made.
+<P>
+Once the configuration file has been set-up for direct audio input,
+HVITE can be run as in the previous step except that no files need be
+given as arguments. On start-up, HVITE will prompt the user to speak an
+arbitrary sentence (approx. 4 secs) in order to measure the speech and
+background silence levels. It will then repeatedly recognise and, if trace
+level bit 1 is set, it will output each utterance to the terminal. A typical
+session is as follows<A NAME=2417>&#160;</A>
+<P>
+<PRE>   Read 1648 physical / 4131 logical HMMs
+   Read lattice with 26 nodes / 52 arcs
+   Created network with 123 nodes / 151 links
+
+   READY[1]&gt;
+   Please speak sentence - measuring levels
+   Level measurement completed
+   DIAL FOUR SIX FOUR TWO FOUR OH  
+        == [303 frames] -95.5773 [Ac=-28630.2 LM=-329.8] (Act=21.8)
+   
+   READY[2]&gt;
+    DIAL ZERO EIGHT SIX TWO 
+        == [228 frames] -99.3758 [Ac=-22402.2 LM=-255.5] (Act=21.8)
+   
+   READY[3]&gt;
+    etc</PRE>
+During loading, information will be printed out regarding the different
+recogniser components. The physical models are the distinct HMMs used by 
+the system, while the logical models include all model names. The number 
+of logical models is higher than the number of physical models because many 
+logically distinct models have been determined to be physically identical 
+and have been merged during the previous model building steps. The lattice
+information refers to the number of links and nodes in the recognition syntax.
+The network information refers to actual recognition network built by
+expanding the lattice using the current HMM set, dictionary and any context
+expansion rules specified.
+After each utterance, the numerical information gives the total number
+of frames, the average log likelihood per frame, the total acoustic score,
+the total language model score and the average number of models active.
+<P>
+Finally, note that if it was required to recognise a new name, then the
+following two changes would be needed
+<OL><LI> the grammar would be altered to include the new name<LI> a pronunciation for the new name would be added to the dictionary
+</OL>
+If the new name required triphones which did not exist, then they could be
+created by loading the existing triphone set into
+HHED<A NAME=2468>&#160;</A>, loading the decision trees using the
+<tt>LT</tt> command<A NAME=2469>&#160;</A> and then using the
+<tt>AU</tt> command<A NAME=2470>&#160;</A> to generate a new complete
+triphone set.<A NAME=2426>&#160;</A>
+<P>
+<HR><A NAME="tex2html1926" HREF="node37.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="next_motif.gif"></A> <A NAME="tex2html1924" HREF="node20.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="up_motif.gif"></A> <A NAME="tex2html1918" HREF="node35.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="previous_motif.gif"></A> <A NAME="tex2html1928" HREF="node1.html"><IMG WIDTH=65 HEIGHT=24 ALIGN=BOTTOM ALT="contents" SRC="contents_motif.gif"></A> <A NAME="tex2html1929" HREF="node263.html"><IMG WIDTH=43 HEIGHT=24 ALIGN=BOTTOM ALT="index" SRC="index_motif.gif"></A> <BR>
+<B> Next:</B> <A NAME="tex2html1927" HREF="node37.html">3.6 Summary</A>
+<B>Up:</B> <A NAME="tex2html1925" HREF="node20.html">3 A Tutorial Example of Using HTK</A>
+<B> Previous:</B> <A NAME="tex2html1919" HREF="node35.html">3.4.1 Step 11 - Recognising the Test Data</A>
+<P><ADDRESS>
+ECRL HTK_V2.1: email support@entropic.com
+</ADDRESS>
+</BODY>
+</HTML>
